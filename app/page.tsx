@@ -6,17 +6,14 @@ import { DiceRoll } from "@/components/games/DiceRoll";
 import { Mines } from "@/components/games/Mines";
 import { BottomNav } from "@/components/BottomNav";
 import { useWallet } from "@/lib/wallet-context";
+import { useLanguage } from "@/lib/language-context";
 import {
   Coins,
   Dices,
   Bomb,
-  ShieldCheck,
-  Zap,
   Activity,
   Sparkles,
-  Trophy,
   Cpu,
-  ArrowUpRight,
   ChevronRight,
   Fingerprint,
 } from "lucide-react";
@@ -24,31 +21,32 @@ import {
 export default function Home() {
   const [activeTab, setActiveTab] = useState<string>("coin-flip");
   const { setIsTopUpOpen } = useWallet();
+  const { t, locale } = useLanguage();
 
   const games = [
     {
       id: "coin-flip",
-      title: "Coin Flip",
-      desc: "Binary odds with 1.98x return",
+      title: t("coinFlipTitle"),
+      desc: t("coinFlipDesc"),
       icon: Coins,
       multiplier: "1.98x",
-      tag: "Deterministic",
+      tag: t("coinFlipTag"),
     },
     {
       id: "dice",
-      title: "Dice Over / Under",
-      desc: "Slider target with 99.0% RTP",
+      title: t("diceTitle"),
+      desc: t("diceDesc"),
       icon: Dices,
       multiplier: "49.50x",
-      tag: "Configurable",
+      tag: t("diceTag"),
     },
     {
       id: "mines",
-      title: "Mines 5x5 Grid",
-      desc: "Step-by-step cashout matrix",
+      title: t("minesTitle"),
+      desc: t("minesDesc"),
       icon: Bomb,
       multiplier: "100x+",
-      tag: "Dynamic Risk",
+      tag: t("minesTag"),
     },
   ];
 
@@ -63,19 +61,19 @@ export default function Home() {
           {/* Status Capsule */}
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-mono font-bold text-emerald-400 mb-8 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
             <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>HERMES ENGINE ONLINE • 0% REAL-WORLD EXPOSURE</span>
+            <span>{t("engineOnline")}</span>
           </div>
 
           {/* 2-Line Ultra-Wide Headline */}
           <div className="max-w-6xl mx-auto w-full">
-            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black tracking-tight text-white leading-[1.06] text-balance">
-              Deterministic verification meets <span className="text-[#00D2FF]">next-generation simulation.</span>
+            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black tracking-tight text-white leading-[1.08] text-balance">
+              {t("heroH1Line1")} <span className="text-[#00D2FF]">{t("heroH1Line2")}</span>
             </h1>
           </div>
 
           {/* Subtitle */}
           <p className="mt-6 text-sm sm:text-lg text-gray-400 font-medium max-w-2xl mx-auto leading-relaxed text-balance">
-            Inspect cryptographic server seeds, test probabilistic models, and execute instant game state transitions with zero financial risk.
+            {t("heroSubtitle")}
           </p>
 
           {/* High-Contrast Action CTAs */}
@@ -87,7 +85,7 @@ export default function Home() {
               }}
               className="btn-tactile flex items-center gap-2 rounded-2xl border border-[#0000F2] bg-[#0000F2] px-7 py-4 text-sm font-black tracking-wide text-white shadow-cobalt-glow active:scale-[0.985]"
             >
-              <span>Launch Arena</span>
+              <span>{t("launchArena")}</span>
               <ChevronRight className="h-4 w-4" />
             </button>
 
@@ -96,31 +94,31 @@ export default function Home() {
               className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-7 py-4 text-sm font-bold text-gray-200 transition-all hover:bg-white/[0.08] hover:text-white active:scale-[0.985]"
             >
               <Sparkles className="h-4 w-4 text-[#00D2FF]" />
-              <span>Claim Simulation Credits</span>
+              <span>{t("claimCredits")}</span>
             </button>
           </div>
 
           {/* Streaming Audit Bar */}
           <div className="mt-14 pt-8 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
             <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-4">
-              <span className="text-[10px] uppercase font-bold text-gray-500 font-mono">House Edge</span>
+              <span className="text-[10px] uppercase font-bold text-gray-500 font-mono">{t("houseEdge")}</span>
               <p className="font-mono text-xl font-black text-white tabular-nums mt-0.5">1.0%</p>
-              <p className="text-[11px] text-gray-400 font-medium mt-0.5">99.0% Return to Player</p>
+              <p className="text-[11px] text-gray-400 font-medium mt-0.5">{t("houseEdgeDesc")}</p>
             </div>
             <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-4">
-              <span className="text-[10px] uppercase font-bold text-gray-500 font-mono">Execution Latency</span>
+              <span className="text-[10px] uppercase font-bold text-gray-500 font-mono">{t("latency")}</span>
               <p className="font-mono text-xl font-black text-emerald-400 tabular-nums mt-0.5">12ms</p>
-              <p className="text-[11px] text-gray-400 font-medium mt-0.5">Node.js CSPRNG Pipeline</p>
+              <p className="text-[11px] text-gray-400 font-medium mt-0.5">{t("latencyDesc")}</p>
             </div>
             <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-4">
-              <span className="text-[10px] uppercase font-bold text-gray-500 font-mono">Audit Standard</span>
+              <span className="text-[10px] uppercase font-bold text-gray-500 font-mono">{t("auditStandard")}</span>
               <p className="font-mono text-xl font-black text-[#00D2FF] tabular-nums mt-0.5">SHA-256</p>
-              <p className="text-[11px] text-gray-400 font-medium mt-0.5">HMAC Deterministic Seeds</p>
+              <p className="text-[11px] text-gray-400 font-medium mt-0.5">{t("auditStandardDesc")}</p>
             </div>
             <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-4">
-              <span className="text-[10px] uppercase font-bold text-gray-500 font-mono">Ledger Model</span>
+              <span className="text-[10px] uppercase font-bold text-gray-500 font-mono">{t("ledgerModel")}</span>
               <p className="font-mono text-xl font-black text-amber-300 tabular-nums mt-0.5">ACID</p>
-              <p className="text-[11px] text-gray-400 font-medium mt-0.5">Double-Entry Balance</p>
+              <p className="text-[11px] text-gray-400 font-medium mt-0.5">{t("ledgerModelDesc")}</p>
             </div>
           </div>
         </div>
@@ -132,8 +130,8 @@ export default function Home() {
           {/* Segmented Game Navigation */}
           <div className="mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">Active Simulation Arena</h2>
-              <p className="text-xs text-gray-400 font-medium mt-0.5">Select a game module to begin verification</p>
+              <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">{t("activeArena")}</h2>
+              <p className="text-xs text-gray-400 font-medium mt-0.5">{t("arenaSubtitle")}</p>
             </div>
 
             <div className="grid grid-cols-3 gap-2 w-full sm:w-auto p-1.5 rounded-2xl bg-black/60 border border-white/10">
@@ -175,21 +173,21 @@ export default function Home() {
                   <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
                     <div className="flex items-center gap-2">
                       <Activity className="h-4 w-4 text-[#00D2FF]" />
-                      <h3 className="text-sm font-bold text-white">Live Activity Feed</h3>
+                      <h3 className="text-sm font-bold text-white">{t("liveActivity")}</h3>
                     </div>
                     <span className="flex items-center gap-1.5 text-[10px] font-mono font-bold text-emerald-400">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      STREAMING
+                      {t("streaming")}
                     </span>
                   </div>
 
                   <div className="space-y-3">
                     {[
-                      { game: "Coin Flip", user: "khalid_92", bet: 150, win: 297, mult: "1.98x", won: true },
-                      { game: "Mines 5x5", user: "tanvir_bd", bet: 200, win: 580, mult: "2.90x", won: true },
-                      { game: "Dice Over", user: "player_one", bet: 75, win: 0, mult: "0.00x", won: false },
-                      { game: "Mines 5x5", user: "sultana_x", bet: 300, win: 1110, mult: "3.70x", won: true },
-                      { game: "Dice Under", user: "dev_audit", bet: 100, win: 495, mult: "4.95x", won: true },
+                      { game: locale === "bn" ? "কয়েন ফ্লিপ" : "Coin Flip", user: "shakib_75", bet: 150, win: 297, mult: "1.98x", won: true },
+                      { game: locale === "bn" ? "মাইনস ৫x৫" : "Mines 5x5", user: "tanvir_bd", bet: 200, win: 580, mult: "2.90x", won: true },
+                      { game: locale === "bn" ? "ডাইস ওভার" : "Dice Over", user: "player_one", bet: 75, win: 0, mult: "0.00x", won: false },
+                      { game: locale === "bn" ? "মাইনস ৫x৫" : "Mines 5x5", user: "sultana_dhk", bet: 300, win: 1110, mult: "3.70x", won: true },
+                      { game: locale === "bn" ? "ডাইস আন্ডার" : "Dice Under", user: "fahim_ctg", bet: 100, win: 495, mult: "4.95x", won: true },
                     ].map((round, i) => (
                       <div
                         key={i}
@@ -215,7 +213,7 @@ export default function Home() {
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-gray-400">
-                  <span>Cryptographic Protocol</span>
+                  <span>{locale === "bn" ? "ক্রিপ্টোগ্রাফিক অ্যালগরিদম" : "Cryptographic Protocol"}</span>
                   <span className="text-[#00D2FF]">HMAC-SHA256</span>
                 </div>
               </div>
@@ -228,25 +226,31 @@ export default function Home() {
                   <Fingerprint className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white">Mathematical Fairness Proof</h3>
-                  <p className="text-xs text-gray-400">Zero operator intervention guaranteed by code</p>
+                  <h3 className="text-base font-bold text-white">
+                    {locale === "bn" ? "গাণিতিক নিরপেক্ষতা ও যাচাইকরণ" : "Mathematical Fairness Proof"}
+                  </h3>
+                  <p className="text-xs text-gray-400">
+                    {locale === "bn" ? "কোড দ্বারা শতভাগ ম্যানিপুলেশন মুক্ত নিশ্চয়তা" : "Zero operator intervention guaranteed by code"}
+                  </p>
                 </div>
               </div>
               <p className="text-xs sm:text-sm text-gray-400 leading-relaxed font-medium">
-                Prior to every spin or roll, the server generates a cryptographically secure 256-bit random seed and broadcasts its SHA-256 hash. When combined with your client seed, the result is calculated deterministically.
+                {locale === "bn"
+                  ? "প্রতিটি রাউন্ড শুরুর পূর্বেই সার্ভার একটি গোপন ২৫৬-বিট সিড তৈরি করে এবং তার SHA-256 হ্যাশ ব্রডকাস্ট করে। আপনার ক্লায়েন্ট সিড যুক্ত হয়ে ফলাফল তৈরি হয় যা সরাসরি গাণিতিকভাবে প্রমাণযোগ্য।"
+                  : "Prior to every spin or roll, the server generates a cryptographically secure 256-bit random seed and broadcasts its SHA-256 hash. When combined with your client seed, the result is calculated deterministically."}
               </p>
               <div className="mt-6 grid grid-cols-3 gap-3 font-mono text-xs">
                 <div className="rounded-xl border border-white/10 bg-black/40 p-3 text-center">
-                  <span className="text-gray-500 block text-[10px]">Algorithm</span>
+                  <span className="text-gray-500 block text-[10px]">{locale === "bn" ? "অ্যালগরিদম" : "Algorithm"}</span>
                   <span className="text-white font-bold">HMAC-SHA256</span>
                 </div>
                 <div className="rounded-xl border border-white/10 bg-black/40 p-3 text-center">
-                  <span className="text-gray-500 block text-[10px]">Verification</span>
-                  <span className="text-emerald-400 font-bold">Pre-Committed</span>
+                  <span className="text-gray-500 block text-[10px]">{locale === "bn" ? "যাচাইযোগ্যতা" : "Verification"}</span>
+                  <span className="text-emerald-400 font-bold">{locale === "bn" ? "পূর্বে প্রতিশ্রুতিবদ্ধ" : "Pre-Committed"}</span>
                 </div>
                 <div className="rounded-xl border border-white/10 bg-black/40 p-3 text-center">
-                  <span className="text-gray-500 block text-[10px]">Audit Log</span>
-                  <span className="text-[#00D2FF] font-bold">Immutable</span>
+                  <span className="text-gray-500 block text-[10px]">{locale === "bn" ? "অডিট হিস্ট্রি" : "Audit Log"}</span>
+                  <span className="text-[#00D2FF] font-bold">{locale === "bn" ? "অপরিবর্তনীয়" : "Immutable"}</span>
                 </div>
               </div>
             </div>
@@ -258,25 +262,25 @@ export default function Home() {
                   <Cpu className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white">Full-Stack Blueprint</h3>
-                  <p className="text-xs text-gray-400">Engine and database architecture</p>
+                  <h3 className="text-base font-bold text-white">{t("platformBlueprint")}</h3>
+                  <p className="text-xs text-gray-400">{locale === "bn" ? "ইঞ্জিন ও ডাটাবেস আর্কিটেকচার" : "Engine and database architecture"}</p>
                 </div>
               </div>
               <div className="space-y-3 text-xs font-mono text-gray-300">
                 <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span className="text-gray-500">Framework</span>
+                  <span className="text-gray-500">{locale === "bn" ? "ফ্রেমওয়ার্ক" : "Framework"}</span>
                   <span className="text-white font-bold">Next.js 15 App Router</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span className="text-gray-500">ORM & Ledger</span>
+                  <span className="text-gray-500">{locale === "bn" ? "ওআরএম ও লেজার" : "ORM & Ledger"}</span>
                   <span className="text-white font-bold">Prisma with SQLite/Postgres</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span className="text-gray-500">Styling System</span>
+                  <span className="text-gray-500">{locale === "bn" ? "ডিজাইন সিস্টেম" : "Styling System"}</span>
                   <span className="text-white font-bold">Tailwind with Hermes Theme</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Runtime Standard</span>
+                  <span className="text-gray-500">{locale === "bn" ? "রানটাইম নীতি" : "Runtime Standard"}</span>
                   <span className="text-white font-bold">Node.js Engine</span>
                 </div>
               </div>
@@ -289,14 +293,14 @@ export default function Home() {
       <footer className="w-full border-t border-white/10 py-16 bg-[#060814] text-center text-xs text-gray-500">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-center gap-6 text-gray-400 mb-4 font-medium">
-            <span>Hermes Simulation Framework</span>
+            <span>{t("frameworkTitle")}</span>
             <span>•</span>
-            <span>Educational Software Architecture</span>
+            <span>{t("eduPurpose")}</span>
             <span>•</span>
-            <span>Zero Monetary Transaction Rails</span>
+            <span>{t("zeroMonetary")}</span>
           </div>
           <p className="text-[11px] text-gray-600 max-w-xl mx-auto leading-relaxed">
-            This platform is an open-source software demonstration illustrating provably fair cryptographic RNG design and double-entry transaction ledgers. All currency points are virtual simulation tokens with zero real-world value.
+            {t("disclaimer")}
           </p>
         </div>
       </footer>
