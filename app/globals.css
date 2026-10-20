@@ -4,71 +4,105 @@
 
 :root {
   --background: #060814;
-  --foreground: #ffffff;
-  --primary: #0000f2;
-  --primary-glow: rgba(0, 0, 242, 0.4);
-  --cyan: #00d2ff;
-  --cyan-glow: rgba(0, 210, 255, 0.25);
-  --border-color: #1e293b;
+  --foreground: #EDEDF2;
+  --primary: #0000F2;
+  --primary-hover: #1E29FF;
+  --primary-glow: rgba(0, 0, 242, 0.45);
+  --cyan: #00D2FF;
+  --cyan-glow: rgba(0, 210, 255, 0.35);
+  --border-card: rgba(30, 41, 59, 0.7);
+  --border-focus: #0000F2;
+  --card-bg: rgba(10, 16, 38, 0.75);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Cabinet Grotesk", "Satoshi", "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
+  letter-spacing: -0.012em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Scrollbar */
+/* Subtle Ambient Noise Background */
+.bg-noise {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Custom High-Contrast Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: #060814;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #1E293B;
   border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 242, 0.2);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0000f2;
+  background: #0000F2;
 }
 
-/* Glassmorphism & Glow Utilities */
-.glass-panel {
-  background: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(30, 41, 59, 0.8);
+/* Tabular Figures for Financial/Odds Numbers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
 
-.glass-panel-cobalt {
-  background: rgba(10, 16, 38, 0.7);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 0, 242, 0.35);
-  box-shadow: 0 0 25px rgba(0, 0, 242, 0.15);
+/* Optical Text Balance */
+.text-balance {
+  text-wrap: balance;
 }
 
-.glow-btn-cobalt {
-  background: #0000f2;
-  color: #ffffff;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 15px rgba(0, 0, 242, 0.45);
+/* Refraction Glassmorphism Surfaces */
+.glass-surface {
+  background: rgba(10, 16, 38, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 
+    0 12px 36px -8px rgba(0, 0, 0, 0.65),
+    0 4px 12px -2px rgba(0, 0, 242, 0.12),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
 }
-.glow-btn-cobalt:hover {
-  background: #1e29ff;
-  box-shadow: 0 0 25px rgba(0, 0, 242, 0.75), 0 0 40px rgba(0, 210, 255, 0.3);
+
+.glass-surface-cobalt {
+  background: rgba(12, 20, 50, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 242, 0.45);
+  box-shadow: 
+    0 16px 40px -10px rgba(0, 0, 242, 0.35),
+    0 0 20px rgba(0, 210, 255, 0.15),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Premium Tactile Button States */
+.btn-tactile {
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 18px rgba(0, 0, 242, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.btn-tactile:hover {
+  background-color: #1E29FF;
+  box-shadow: 0 0 28px rgba(0, 0, 242, 0.65), 0 0 45px rgba(0, 210, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transform: translateY(-1px);
 }
-.glow-btn-cobalt:active {
-  transform: translateY(0);
+.btn-tactile:active {
+  transform: translateY(1px) scale(0.985);
+  box-shadow: 0 0 10px rgba(0, 0, 242, 0.4);
 }
 
-/* 3D Coin Flip Animations */
+/* 3D Coin Physics with Specular Highlights */
 .coin-container {
-  perspective: 1000px;
+  perspective: 1200px;
 }
 
 .coin-inner {
@@ -76,7 +110,7 @@ body {
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 1.4s cubic-bezier(0.16, 0.9, 0.25, 1.25);
   transform-style: preserve-3d;
 }
 
