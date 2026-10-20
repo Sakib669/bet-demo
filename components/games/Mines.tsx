@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useWallet } from "@/lib/wallet-context";
 import { formatCurrency } from "@/lib/utils";
-import { Bomb, Gem, ShieldCheck, Sparkles, AlertCircle, RefreshCw } from "lucide-react";
+import { Bomb, Gem, ShieldCheck, Sparkles, AlertCircle, RefreshCw, Check } from "lucide-react";
 
 export function Mines() {
   const { balance, updateBalance } = useWallet();
@@ -21,12 +21,13 @@ export function Mines() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [seedHash, setSeedHash] = useState<string | null>(null);
   const [showFairness, setShowFairness] = useState<boolean>(false);
+  const [copiedHash, setCopiedHash] = useState<boolean>(false);
   const [tileLoading, setTileLoading] = useState<number | null>(null);
   const [cashoutLoading, setCashoutLoading] = useState<boolean>(false);
 
   const handleStartGame = async () => {
     if (betAmount <= 0) {
-      setErrorMessage("Enter a valid bet amount.");
+      setErrorMessage("Enter a valid stake amount.");
       return;
     }
     if (betAmount > balance) {
@@ -109,7 +110,6 @@ export function Mines() {
         updateBalance(data.newBalance);
         setRoundId(null);
       } else {
-        // Safe Gem revealed
         setRevealedGems(data.revealedGems);
         setCurrentMultiplier(data.currentMultiplier);
         setNextMultiplier(data.nextMultiplier);
@@ -158,55 +158,79 @@ export function Mines() {
     }
   };
 
+  const copySeed = () => {
+    if (!seedHash) return;
+    navigator.clipboard.writeText(seedHash);
+    setCopiedHash(true);
+    setTimeout(() => setCopiedHash(false), 2000);
+  };
+
   const currentPayoutEstimate = parseFloat((betAmount * currentMultiplier).toFixed(2));
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-[#1E293B] bg-[#0A1026]/90 p-5 sm:p-7 shadow-2xl backdrop-blur-xl">
-      <div className="absolute -right-20 -bottom-20 h-64 w-64 rounded-full bg-[#0000F2]/15 blur-3xl pointer-events-none" />
+    <div className="glass-surface relative overflow-hidden rounded-3xl p-6 sm:p-8 backdrop-blur-2xl">
+      <div className="absolute -right-24 -bottom-24 h-72 w-72 rounded-full bg-[#0000F2]/15 blur-3xl pointer-events-none" />
 
       {/* Header */}
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-2 border-b border-[#1E293B] pb-4">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0000F2]/20 text-[#00D2FF] border border-[#0000F2]/50 shadow-cyan-glow">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-5">
+        <div className="flex items-center gap-3.5">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#0000F2]/20 text-[#00D2FF] border border-[#0000F2]/50 shadow-[0_0_20px_rgba(0,210,255,0.25)]">
             <Bomb className="h-5 w-5" />
           </div>
           <div>
-            <h2 className="text-lg font-black tracking-wide text-white">MINES 5x5</h2>
-            <p className="text-xs text-gray-400">Uncover safe gems • Cash out anytime before hitting a mine</p>
+            <div className="flex items-center gap-2">
+              <h2 className="text-lg font-black tracking-tight text-white">Mines 5x5</h2>
+              <span className="rounded bg-amber-500/15 px-2 py-0.5 text-[10px] font-mono font-bold text-amber-300 border border-amber-500/30">
+                DYNAMIC CASHOUT
+              </span>
+            </div>
+            <p className="text-xs text-gray-400 font-medium">Uncover safe gems • Lock in profits anytime</p>
           </div>
         </div>
 
         <button
           onClick={() => setShowFairness(!showFairness)}
-          className="flex items-center gap-1.5 rounded-lg border border-[#1E293B] bg-[#060814] px-2.5 py-1.5 text-[11px] font-semibold text-gray-400 hover:text-[#00D2FF] transition-colors"
+          className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-gray-300 hover:text-[#00D2FF] hover:border-[#0000F2]/50 transition-all active:scale-95"
         >
           <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
           <span>Provably Fair</span>
         </button>
       </div>
 
+      {/* Fairness Drawer */}
       {showFairness && seedHash && (
-        <div className="mb-6 rounded-xl border border-[#0000F2]/40 bg-[#060814] p-3 text-[11px] font-mono text-gray-300">
-          <span className="text-gray-500 block mb-0.5 font-sans font-bold">SHA-256 Server Seed Hash:</span>
-          <span className="break-all text-[#00D2FF]">{seedHash}</span>
+        <div className="mb-6 rounded-2xl border border-[#0000F2]/40 bg-[#060814]/90 p-4 font-mono text-xs text-gray-300 shadow-inner">
+          <div className="flex items-center justify-between mb-1.5 font-sans font-bold text-gray-400 text-[11px]">
+            <span>Deterministic SHA-256 Seed Hash</span>
+            <button
+              onClick={copySeed}
+              className="flex items-center gap-1 text-[#00D2FF] hover:underline text-[10px]"
+            >
+              {copiedHash ? <Check className="h-3 w-3" /> : null}
+              {copiedHash ? "Copied" : "Copy Hash"}
+            </button>
+          </div>
+          <span className="break-all text-[#00D2FF] text-[11px] select-all leading-relaxed">{seedHash}</span>
         </div>
       )}
 
       {/* Multiplier Status Banner */}
       <div className="mb-6 grid grid-cols-3 gap-2 sm:gap-4">
-        <div className="rounded-xl border border-[#1E293B] bg-[#060814] p-3 text-center">
-          <span className="text-[10px] uppercase font-bold text-gray-400">Mines Count</span>
-          <p className="font-mono text-sm sm:text-base font-black text-white">{mineCount} / 25</p>
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-3 sm:p-4 text-center shadow-inner">
+          <span className="text-[10px] uppercase font-bold text-gray-400">Mine Density</span>
+          <p className="font-mono text-sm sm:text-base font-black text-white tabular-nums mt-0.5">
+            {mineCount} / 25
+          </p>
         </div>
-        <div className="rounded-xl border border-[#0000F2]/40 bg-[#0000F2]/10 p-3 text-center">
-          <span className="text-[10px] uppercase font-bold text-gray-400">Current Payout</span>
-          <p className="font-mono text-sm sm:text-base font-black text-[#00D2FF]">
+        <div className="rounded-2xl border border-[#0000F2]/50 bg-[#0000F2]/15 p-3 sm:p-4 text-center shadow-[0_0_20px_rgba(0,0,242,0.2)]">
+          <span className="text-[10px] uppercase font-bold text-[#00D2FF]">Current Multiplier</span>
+          <p className="font-mono text-base sm:text-lg font-black text-[#00D2FF] tabular-nums mt-0.5">
             {isPlaying ? `${currentMultiplier.toFixed(2)}x` : "1.00x"}
           </p>
         </div>
-        <div className="rounded-xl border border-[#1E293B] bg-[#060814] p-3 text-center">
-          <span className="text-[10px] uppercase font-bold text-gray-400">Next Gem</span>
-          <p className="font-mono text-sm sm:text-base font-black text-emerald-400">
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-3 sm:p-4 text-center shadow-inner">
+          <span className="text-[10px] uppercase font-bold text-gray-400">Next Tile</span>
+          <p className="font-mono text-sm sm:text-base font-black text-emerald-400 tabular-nums mt-0.5">
             {isPlaying ? `${nextMultiplier.toFixed(2)}x` : "--"}
           </p>
         </div>
@@ -214,7 +238,7 @@ export function Mines() {
 
       {/* 5x5 Mines Grid */}
       <div className="mb-6 flex justify-center">
-        <div className="grid grid-cols-5 gap-2 sm:gap-3 w-full max-w-[340px] sm:max-w-[400px]">
+        <div className="grid grid-cols-5 gap-2.5 sm:gap-3.5 w-full max-w-[340px] sm:max-w-[420px]">
           {Array.from({ length: 25 }).map((_, index) => {
             const isRevealedGem = revealedGems.includes(index);
             const isMine = allMines.includes(index);
@@ -226,16 +250,16 @@ export function Mines() {
                 key={index}
                 onClick={() => handleRevealTile(index)}
                 disabled={!isPlaying || isRevealedGem || !roundId}
-                className={`relative flex aspect-square items-center justify-center rounded-xl font-bold transition-all ${
+                className={`relative flex aspect-square items-center justify-center rounded-2xl font-bold transition-all duration-200 ${
                   isExploded
-                    ? "border-2 border-ruby bg-ruby text-white animate-bounce shadow-[0_0_25px_rgba(239,68,68,0.7)]"
+                    ? "border-2 border-ruby bg-ruby text-white animate-bounce shadow-[0_0_30px_rgba(239,68,68,0.7)]"
                     : isRevealedGem
-                    ? "border border-emerald-500/80 bg-emerald-500/20 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.3)]"
+                    ? "border border-emerald-400/80 bg-emerald-500/20 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.35)]"
                     : isMine
                     ? "border border-ruby/50 bg-ruby/20 text-ruby/80"
                     : isPlaying
-                    ? "border border-[#1E293B] bg-[#0A1026] hover:border-[#0000F2] hover:bg-[#0000F2]/20 hover:shadow-cobalt-glow active:scale-95"
-                    : "border border-[#1E293B]/60 bg-[#060814]/70 cursor-not-allowed text-gray-600"
+                    ? "border border-white/10 bg-white/[0.04] hover:border-[#0000F2] hover:bg-[#0000F2]/20 hover:shadow-cobalt-glow active:scale-95 cursor-pointer shadow-inner"
+                    : "border border-white/5 bg-white/[0.02] cursor-not-allowed text-gray-600"
                 }`}
               >
                 {isLoadingTile ? (
@@ -243,9 +267,9 @@ export function Mines() {
                 ) : isExploded || isMine ? (
                   <Bomb className={`h-5 w-5 sm:h-6 sm:w-6 ${isExploded ? "text-white" : "text-ruby"}`} />
                 ) : isRevealedGem ? (
-                  <Gem className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-400 animate-in zoom-in-75 duration-200" />
+                  <Gem className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-400 animate-in zoom-in-50 duration-200" />
                 ) : (
-                  <span className="h-2 w-2 rounded-full bg-[#1E293B]" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
                 )}
               </button>
             );
@@ -253,52 +277,50 @@ export function Mines() {
         </div>
       </div>
 
-      {/* Outcome notification */}
+      {/* Outcome Banner */}
       {lastWin !== null && (
         <div className="mb-6 text-center">
           <div
-            className={`inline-flex items-center gap-2 rounded-full px-5 py-1.5 text-xs font-bold tracking-wide animate-in zoom-in-95 duration-200 ${
+            className={`inline-flex items-center gap-2 rounded-full px-5 py-1.5 text-xs font-black tracking-wide animate-in zoom-in-95 duration-200 ${
               lastWin
-                ? "border border-emerald-500/50 bg-emerald-500/20 text-emerald-300 shadow-lg"
-                : "border border-ruby/50 bg-ruby/20 text-ruby"
+                ? "border border-emerald-400/50 bg-emerald-500/15 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+                : "border border-ruby/50 bg-ruby/15 text-ruby"
             }`}
           >
             <Sparkles className="h-3.5 w-3.5" />
             {lastWin
-              ? `CASHED OUT: +${formatCurrency(lastPayout)} PTS (${currentMultiplier.toFixed(2)}x)`
-              : "MINE DETONATED! ROUND LOST"}
+              ? `Cashed Out +${formatCurrency(lastPayout)} PTS (${currentMultiplier.toFixed(2)}x)`
+              : "Detonation — Round Finished"}
           </div>
         </div>
       )}
 
-      {/* Controls & Bet Settings */}
+      {/* Controls */}
       {!isPlaying ? (
         <div className="space-y-4">
-          {/* Mine Count Selector */}
           <div>
-            <label className="text-xs font-semibold text-gray-400 mb-1.5 block">Number of Mines</label>
-            <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+            <label className="text-xs font-semibold text-gray-400 mb-2 block">Number of Mines</label>
+            <div className="grid grid-cols-6 gap-2">
               {[1, 2, 3, 5, 10, 15].map((cnt) => (
                 <button
                   key={cnt}
                   onClick={() => setMineCount(cnt)}
-                  className={`rounded-lg py-2 font-mono text-xs font-bold transition-all ${
+                  className={`rounded-xl py-2 font-mono text-xs font-bold transition-all ${
                     mineCount === cnt
-                      ? "border border-[#0000F2] bg-[#0000F2]/40 text-[#00D2FF] shadow-cyan-glow"
-                      : "border border-[#1E293B] bg-[#060814] text-gray-400 hover:text-white"
+                      ? "border border-[#0000F2] bg-[#0000F2]/40 text-[#00D2FF] shadow-[0_0_15px_rgba(0,210,255,0.3)]"
+                      : "border border-white/10 bg-white/[0.03] text-gray-400 hover:text-white"
                   }`}
                 >
-                  {cnt} {cnt === 1 ? "Mine" : "Mines"}
+                  {cnt}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Stake Input */}
           <div>
-            <div className="flex justify-between text-xs font-semibold text-gray-400 mb-1.5">
+            <div className="flex justify-between text-xs font-semibold text-gray-400 mb-2">
               <span>Stake Amount</span>
-              <span>Balance: {formatCurrency(balance)} PTS</span>
+              <span className="font-mono tabular-nums text-gray-300">Balance: {formatCurrency(balance)} PTS</span>
             </div>
 
             <div className="relative">
@@ -308,42 +330,40 @@ export function Mines() {
                 max={balance}
                 value={betAmount}
                 onChange={(e) => setBetAmount(Math.max(1, Number(e.target.value)))}
-                className="w-full rounded-xl border border-[#1E293B] bg-[#060814] px-4 py-3 font-mono text-base font-bold text-white focus:border-[#0000F2] focus:outline-none focus:ring-1 focus:ring-[#0000F2]"
+                className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 font-mono text-base font-bold text-white tabular-nums focus:border-[#0000F2] focus:outline-none focus:ring-1 focus:ring-[#0000F2]"
               />
-              <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-500">
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-500 font-mono">
                 PTS
               </span>
             </div>
           </div>
 
           {errorMessage && (
-            <div className="flex items-center gap-2 rounded-xl border border-ruby/30 bg-ruby/10 p-3 text-xs font-medium text-ruby">
+            <div className="flex items-center gap-2 rounded-2xl border border-ruby/40 bg-ruby/10 p-3.5 text-xs font-semibold text-ruby">
               <AlertCircle className="h-4 w-4 shrink-0" />
               <span>{errorMessage}</span>
             </div>
           )}
 
-          {/* Start Button */}
           <button
             onClick={handleStartGame}
-            className="w-full rounded-xl border border-[#0000F2] bg-[#0000F2] py-4 text-sm font-black tracking-wider text-white shadow-cobalt-glow transition-all hover:bg-[#1E29FF] active:scale-98"
+            className="btn-tactile w-full rounded-2xl border border-[#0000F2] bg-[#0000F2] py-4 text-sm font-black tracking-wider text-white shadow-cobalt-glow active:scale-98"
           >
-            START MINES GAME ({betAmount} PTS)
+            Start Mines Game ({betAmount} PTS)
           </button>
         </div>
       ) : (
         <div className="space-y-4">
-          {/* Active Cashout Button */}
           <button
             onClick={handleCashout}
             disabled={revealedGems.length === 0 || cashoutLoading}
-            className="w-full rounded-xl border border-emerald-500 bg-gradient-to-r from-emerald-600 to-teal-500 py-4 text-sm font-black tracking-wider text-white shadow-[0_0_25px_rgba(16,185,129,0.4)] transition-all hover:from-emerald-500 hover:to-teal-400 active:scale-98 disabled:opacity-40"
+            className="w-full rounded-2xl border border-emerald-400 bg-gradient-to-r from-emerald-600 to-teal-500 py-4 text-sm font-black tracking-wider text-white shadow-[0_0_30px_rgba(16,185,129,0.45)] transition-all hover:brightness-110 active:scale-98 disabled:opacity-40"
           >
             {cashoutLoading
-              ? "CASHING OUT..."
+              ? "Cashing Out..."
               : revealedGems.length === 0
-              ? "REVEAL A GEM TO CASH OUT"
-              : `CASH OUT +${formatCurrency(currentPayoutEstimate)} PTS (${currentMultiplier.toFixed(2)}x)`}
+              ? "Uncover Safe Gem to Cash Out"
+              : `Cash Out +${formatCurrency(currentPayoutEstimate)} PTS (${currentMultiplier.toFixed(2)}x)`}
           </button>
         </div>
       )}
