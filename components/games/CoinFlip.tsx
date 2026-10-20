@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { useWallet } from "@/lib/wallet-context";
+import { useLanguage } from "@/lib/language-context";
 import { formatCurrency } from "@/lib/utils";
 import { Coins, ShieldCheck, Sparkles, AlertCircle, Check } from "lucide-react";
 
 export function CoinFlip() {
   const { balance, updateBalance } = useWallet();
+  const { t, locale } = useLanguage();
   const [betAmount, setBetAmount] = useState<number>(50);
   const [choice, setChoice] = useState<"HEADS" | "TAILS">("HEADS");
   const [isFlipping, setIsFlipping] = useState<boolean>(false);
@@ -20,11 +22,11 @@ export function CoinFlip() {
 
   const handleFlip = async () => {
     if (betAmount <= 0) {
-      setErrorMessage("Enter a valid stake amount.");
+      setErrorMessage(locale === "bn" ? "সঠিক বাজির পরিমাণ লিখুন।" : "Enter a valid stake amount.");
       return;
     }
     if (betAmount > balance) {
-      setErrorMessage("Insufficient demo balance.");
+      setErrorMessage(locale === "bn" ? "পর্যাপ্ত ব্যালেন্স নেই।" : "Insufficient demo balance.");
       return;
     }
 
@@ -42,7 +44,7 @@ export function CoinFlip() {
       const data = await res.json();
 
       if (!data.success) {
-        setErrorMessage(data.message || "Failed to resolve coin flip.");
+        setErrorMessage(data.message || (locale === "bn" ? "ফলাফল পেতে সমস্যা হয়েছে।" : "Failed to resolve coin flip."));
         setIsFlipping(false);
         return;
       }
@@ -56,7 +58,7 @@ export function CoinFlip() {
         setIsFlipping(false);
       }, 1400);
     } catch {
-      setErrorMessage("Network error during game resolution.");
+      setErrorMessage(locale === "bn" ? "নেটওয়ার্ক ত্রুটি।" : "Network error during game resolution.");
       setIsFlipping(false);
     }
   };
@@ -77,7 +79,6 @@ export function CoinFlip() {
 
   return (
     <div className="glass-surface relative overflow-hidden rounded-3xl p-6 sm:p-8 backdrop-blur-2xl">
-      {/* Ambient background refraction */}
       <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#0000F2]/15 blur-3xl pointer-events-none" />
 
       {/* Header */}
@@ -88,12 +89,12 @@ export function CoinFlip() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-lg font-black tracking-tight text-white">Coin Flip</h2>
+              <h2 className="text-lg font-black tracking-tight text-white">{t("coinFlipTitle")}</h2>
               <span className="rounded bg-[#0000F2]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-[#00D2FF]">
-                1.98x MULTIPLIER
+                1.98x {t("multiplier").toUpperCase()}
               </span>
             </div>
-            <p className="text-xs text-gray-400 font-medium">Equal binary odds with 2.0% deterministic house edge</p>
+            <p className="text-xs text-gray-400 font-medium">{t("coinFlipDesc")}</p>
           </div>
         </div>
 
@@ -102,7 +103,7 @@ export function CoinFlip() {
           className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-gray-300 hover:text-[#00D2FF] hover:border-[#0000F2]/50 transition-all active:scale-95"
         >
           <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
-          <span>Provably Fair</span>
+          <span>{t("provablyFair")}</span>
         </button>
       </div>
 
@@ -110,13 +111,13 @@ export function CoinFlip() {
       {showFairness && seedHash && (
         <div className="mb-6 rounded-2xl border border-[#0000F2]/40 bg-[#060814]/90 p-4 font-mono text-xs text-gray-300 shadow-inner">
           <div className="flex items-center justify-between mb-1.5 font-sans font-bold text-gray-400 text-[11px]">
-            <span>Deterministic SHA-256 Seed Hash</span>
+            <span>{t("sha256Hash")}</span>
             <button
               onClick={copySeed}
               className="flex items-center gap-1 text-[#00D2FF] hover:underline text-[10px]"
             >
               {copiedHash ? <Check className="h-3 w-3" /> : null}
-              {copiedHash ? "Copied" : "Copy Hash"}
+              {copiedHash ? t("copied") : t("copyHash")}
             </button>
           </div>
           <span className="break-all text-[#00D2FF] text-[11px] select-all leading-relaxed">{seedHash}</span>
@@ -166,7 +167,7 @@ export function CoinFlip() {
               }`}
             >
               <Sparkles className="h-3.5 w-3.5" />
-              {lastWin ? `Won +${formatCurrency(lastPayout)} PTS (1.98x)` : "Loss — Try Next Flip"}
+              {lastWin ? `${t("wonMsg")} +${formatCurrency(lastPayout)} PTS (1.98x)` : t("lossMsg")}
             </div>
           )}
         </div>
@@ -186,7 +187,7 @@ export function CoinFlip() {
           <span className="flex h-6 w-6 items-center justify-center rounded-full bg-amber-400/25 text-[11px] text-amber-300 font-black">
             H
           </span>
-          Heads (1.98x)
+          {t("heads")} (1.98x)
         </button>
 
         <button
@@ -194,14 +195,14 @@ export function CoinFlip() {
           disabled={isFlipping}
           className={`flex items-center justify-center gap-2.5 rounded-2xl py-4 text-sm font-black tracking-wider transition-all duration-200 ${
             choice === "TAILS"
-              ? "border border-[#00D2FF] bg-[#0000F2]/30 text-[#00D2FF] shadow-[0_0_25px_rgba(0,0,242,0.4)] ring-1 ring-[#00D2FF]/50"
+              ? "border border-[#00D2FF] bg-[#0000F2]/30 text-[#00D2FF] shadow-[0_0_25px_rgba(0,210,255,0.4)] ring-1 ring-[#00D2FF]/50"
               : "border border-white/10 bg-white/[0.02] text-gray-400 hover:text-white hover:border-white/20 active:scale-98"
           }`}
         >
           <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#0000F2]/40 text-[11px] text-[#00D2FF] font-black">
             T
           </span>
-          Tails (1.98x)
+          {t("tails")} (1.98x)
         </button>
       </div>
 
@@ -209,8 +210,8 @@ export function CoinFlip() {
       <div className="space-y-4">
         <div>
           <div className="flex justify-between text-xs font-semibold text-gray-400 mb-2">
-            <span>Stake Amount</span>
-            <span className="tabular-nums font-mono text-gray-300">Balance: {formatCurrency(balance)} PTS</span>
+            <span>{t("stakeAmount")}</span>
+            <span className="tabular-nums font-mono text-gray-300">{t("balance")}: {formatCurrency(balance)} PTS</span>
           </div>
 
           <div className="relative">
@@ -263,7 +264,7 @@ export function CoinFlip() {
           disabled={isFlipping}
           className="btn-tactile w-full rounded-2xl border border-[#0000F2] bg-[#0000F2] py-4 text-sm font-black tracking-wider text-white shadow-cobalt-glow active:scale-98 disabled:opacity-50"
         >
-          {isFlipping ? "Resolving Outcome..." : `Flip Coin (${betAmount} PTS)`}
+          {isFlipping ? t("flipping") : `${t("flipCoin")} (${betAmount} PTS)`}
         </button>
       </div>
     </div>
