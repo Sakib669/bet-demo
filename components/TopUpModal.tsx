@@ -170,6 +170,19 @@ export function TopUpModal() {
         {/* Content Tab 2: Admin Simulation Request (bKash/Nagad BD Context) */}
         {activeSubTab === "request" && (
           <form onSubmit={handleSendRequest} className="relative space-y-4">
+            {/* Bangladeshi Payment Method Images */}
+            <div className="grid grid-cols-3 gap-2">
+              <div className="flex h-11 items-center justify-center rounded-xl border border-white/10 bg-[#040F26] p-1.5 shadow-sm">
+                <img src="/images/payments/bkash.svg" alt="bKash" className="h-full object-contain" />
+              </div>
+              <div className="flex h-11 items-center justify-center rounded-xl border border-white/10 bg-[#040F26] p-1.5 shadow-sm">
+                <img src="/images/payments/nagad.svg" alt="Nagad" className="h-full object-contain" />
+              </div>
+              <div className="flex h-11 items-center justify-center rounded-xl border border-white/10 bg-[#040F26] p-1.5 shadow-sm">
+                <img src="/images/payments/rocket.svg" alt="Rocket" className="h-full object-contain" />
+              </div>
+            </div>
+
             <div className="rounded-xl border border-[#08478E]/50 bg-[#040F26]/70 p-3.5 text-xs text-gray-300 leading-relaxed shadow-inner">
               <div className="flex items-center gap-1.5 font-black uppercase tracking-wide text-[#FFC700] mb-1">
                 <Smartphone className="h-3.5 w-3.5" />

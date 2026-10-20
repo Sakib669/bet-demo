@@ -136,6 +136,7 @@ export default function Home() {
             multiplier="100x+"
             provider="SPRIBE"
             badge="HOT #1"
+            imageSrc="/images/games/aviator.svg"
             imageBg="bg-gradient-to-tr from-red-950 via-[#08478E] to-[#FF6B00]"
             isActive={activeTab === "aviator"}
             onSelect={() => {
@@ -154,6 +155,7 @@ export default function Home() {
             multiplier="30.72x"
             provider="EVOPLAY"
             badge="SPORTS"
+            imageSrc="/images/games/penalty.svg"
             imageBg="bg-gradient-to-tr from-emerald-950 via-[#08478E] to-[#FFC700]"
             isActive={activeTab === "penalty"}
             onSelect={() => {
@@ -172,6 +174,7 @@ export default function Home() {
             multiplier="100x+"
             provider="AMARIX"
             badge="TOP WIN"
+            imageSrc="/images/games/mines.svg"
             imageBg="bg-gradient-to-tr from-[#08478E] via-[#FF6B00] to-orange-700"
             isActive={activeTab === "mines"}
             onSelect={() => {
@@ -190,6 +193,7 @@ export default function Home() {
             multiplier="1.98x"
             provider="HERMES RNG"
             badge="99% RTP"
+            imageSrc="/images/games/coin-flip.svg"
             imageBg="bg-gradient-to-tr from-[#08478E] via-[#0B5CB8] to-[#FF6B00]"
             isActive={activeTab === "coin-flip"}
             onSelect={() => {
@@ -208,6 +212,7 @@ export default function Home() {
             multiplier="49.50x"
             provider="EVOLUTION"
             badge="CUSTOM"
+            imageSrc="/images/games/dice.svg"
             imageBg="bg-gradient-to-tr from-[#051738] via-[#08478E] to-[#FFC700]"
             isActive={activeTab === "dice"}
             onSelect={() => {

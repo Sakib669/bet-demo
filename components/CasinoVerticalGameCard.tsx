@@ -1,6 +1,6 @@
 "use client";
 
-import { Play, Sparkles } from "lucide-react";
+import { Play } from "lucide-react";
 
 interface CasinoVerticalGameCardProps {
   title: string;
@@ -9,6 +9,7 @@ interface CasinoVerticalGameCardProps {
   provider: string;
   badge?: string;
   imageBg: string;
+  imageSrc?: string;
   isActive: boolean;
   onSelect: () => void;
   playText?: string;
@@ -22,6 +23,7 @@ export function CasinoVerticalGameCard({
   provider,
   badge = "TOP",
   imageBg,
+  imageSrc,
   isActive,
   onSelect,
   playText = "PLAY NOW",
@@ -36,9 +38,16 @@ export function CasinoVerticalGameCard({
           : "border border-white/10 hover:border-[#FFC700]/70 hover:shadow-[0_12px_28px_rgba(0,0,0,0.6)] hover:-translate-y-1"
       } bg-[#051738]`}
     >
-      {/* Background Graphic / Banner */}
-      <div className={`relative h-48 sm:h-56 w-full overflow-hidden ${imageBg}`}>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#051738] via-transparent to-black/20" />
+      {/* Background Graphic / Banner with Content Image */}
+      <div className={`relative h-52 sm:h-64 w-full overflow-hidden ${imageBg}`}>
+        {imageSrc && (
+          <img
+            src={imageSrc}
+            alt={title}
+            className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#051738] via-transparent to-black/30" />
 
         {/* Top Badges */}
         <div className="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5">
@@ -50,7 +59,7 @@ export function CasinoVerticalGameCard({
           </span>
         </div>
 
-        {/* Center Hover Play Icon Overlay */}
+        {/* Center Hover Play Icon Overlay (Mostbet UX) */}
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-[#051738]/85 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 p-4">
           {/* Circular Play Button */}
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-tr from-[#FF6B00] to-[#FFC700] text-white shadow-[0_0_20px_rgba(255,107,0,0.6)] transition-transform duration-200 group-hover:scale-110">
@@ -68,7 +77,7 @@ export function CasinoVerticalGameCard({
       </div>
 
       {/* Card Info Footer */}
-      <div className="p-3.5 flex items-center justify-between border-t border-white/5 bg-[#051738]">
+      <div className="p-3.5 flex items-center justify-between border-t border-[#08478E]/40 bg-[#051738]">
         <div>
           <h4 className="font-bold text-white text-sm tracking-tight truncate max-w-[130px] sm:max-w-[160px]">
             {title}
