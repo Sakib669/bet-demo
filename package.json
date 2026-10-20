@@ -6,11 +6,18 @@
     "dev": "next dev",
     "dev:poll": "WATCHPACK_POLLING=true next dev",
     "dev:turbo": "next dev --turbo",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "db:push": "prisma db push",
     "db:generate": "prisma generate"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma"
+    ]
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

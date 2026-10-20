@@ -76,7 +76,7 @@ export async function POST(req: Request) {
         );
       }
 
-      await prisma.$transaction(async (tx) => {
+      await prisma.$transaction(async (tx: any) => {
         const newBalance = request.user.wallet!.balance + request.requestedAmount;
         await tx.wallet.update({
           where: { id: request.user.wallet!.id },
@@ -141,7 +141,7 @@ export async function POST(req: Request) {
 
       const newBalance = Math.max(0, user.wallet.balance + parsedAmount);
 
-      await prisma.$transaction(async (tx) => {
+      await prisma.$transaction(async (tx: any) => {
         await tx.wallet.update({
           where: { id: user.wallet!.id },
           data: { balance: newBalance },

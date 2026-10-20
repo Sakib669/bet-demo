@@ -51,7 +51,7 @@ export async function POST(req: Request) {
     const payout = won ? parseFloat((amount * multiplier).toFixed(2)) : 0.0;
 
     // Atomically execute wallet balance updates & game round storage
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
       // 1. Deduct stake
       const balanceAfterDeduct = user.wallet!.balance - amount;
       await tx.wallet.update({

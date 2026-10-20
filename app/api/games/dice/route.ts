@@ -63,7 +63,7 @@ export async function POST(req: Request) {
     const payout = won ? parseFloat((amount * multiplier).toFixed(2)) : 0.0;
 
     // Atomically execute balance deduction and win credit
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
       const balanceAfterDeduct = user.wallet!.balance - amount;
       await tx.wallet.update({
         where: { id: user.wallet!.id },

@@ -51,7 +51,7 @@ export async function POST(req: Request) {
 
       const nextMultiplier = calculateMinesMultiplier(count, 1);
 
-      const result = await prisma.$transaction(async (tx) => {
+      const result = await prisma.$transaction(async (tx: any) => {
         const balanceAfterDeduct = user.wallet!.balance - amount;
         await tx.wallet.update({
           where: { id: user.wallet!.id },
@@ -165,7 +165,7 @@ export async function POST(req: Request) {
 
       // Check if all safe tiles cleared -> Auto-win!
       if (safeTilesLeft === 0) {
-        await prisma.$transaction(async (tx) => {
+        await prisma.$transaction(async (tx: any) => {
           const finalBalance = user.wallet!.balance + currentPayout;
           await tx.wallet.update({
             where: { id: user.wallet!.id },
@@ -260,7 +260,7 @@ export async function POST(req: Request) {
 
       const payout = parseFloat((round.betAmount * currentMultiplier).toFixed(2));
 
-      const updatedWallet = await prisma.$transaction(async (tx) => {
+      const updatedWallet = await prisma.$transaction(async (tx: any) => {
         const finalBalance = user.wallet!.balance + payout;
         const w = await tx.wallet.update({
           where: { id: user.wallet!.id },

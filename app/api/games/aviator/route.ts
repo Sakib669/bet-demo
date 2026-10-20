@@ -52,7 +52,7 @@ export async function POST(req: Request) {
         clientSeed || "client-aviator"
       );
 
-      const result = await prisma.$transaction(async (tx) => {
+      const result = await prisma.$transaction(async (tx: any) => {
         const balanceAfter = user.wallet!.balance - amount;
         await tx.wallet.update({
           where: { id: user.wallet!.id },
@@ -143,7 +143,7 @@ export async function POST(req: Request) {
       // Successful cashout
       const payout = parseFloat((round.betAmount * mult).toFixed(2));
 
-      const result = await prisma.$transaction(async (tx) => {
+      const result = await prisma.$transaction(async (tx: any) => {
         const balanceAfter = user.wallet!.balance + payout;
         await tx.wallet.update({
           where: { id: user.wallet!.id },
