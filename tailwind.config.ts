@@ -9,42 +9,63 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#060814",
-        foreground: "#FFFFFF",
-        card: {
-          DEFAULT: "rgba(15, 23, 42, 0.75)",
-          border: "#1E293B",
+        background: "#040F26",
+        surface: {
+          DEFAULT: "#051738",
+          dark: "#030B1C",
+          card: "rgba(13, 44, 92, 0.75)",
+          hover: "rgba(18, 58, 120, 0.85)",
         },
-        cobalt: {
-          DEFAULT: "#0000F2",
-          light: "#3B82F6",
-          dark: "#000099",
-          glow: "rgba(0, 0, 242, 0.35)",
+        header: "#08478E",
+        brand: {
+          blue: "#08478E",
+          lightBlue: "#0B5CB8",
+          orange: "#FF6B00",
+          orangeHover: "#FF5500",
+          gold: "#FFC700",
+          cyan: "#00D2FF",
         },
-        cyan: {
-          DEFAULT: "#00D2FF",
-          glow: "rgba(0, 210, 255, 0.25)",
-        },
-        gold: {
-          DEFAULT: "#F59E0B",
-          glow: "rgba(245, 158, 11, 0.3)",
-        },
-        emerald: {
-          DEFAULT: "#10B981",
-          glow: "rgba(16, 185, 129, 0.3)",
+        text: {
+          primary: "#FFFFFF",
+          secondary: "#8EA8C7",
+          muted: "#5B7596",
         },
         ruby: {
           DEFAULT: "#EF4444",
           glow: "rgba(239, 68, 68, 0.3)",
         },
+        emerald: {
+          DEFAULT: "#10B981",
+          glow: "rgba(16, 185, 129, 0.3)",
+        },
       },
       boxShadow: {
-        'cobalt-glow': '0 0 25px rgba(0, 0, 242, 0.45)',
-        'cyan-glow': '0 0 20px rgba(0, 210, 255, 0.35)',
-        'inner-glow': 'inset 0 1px 1px rgba(255, 255, 255, 0.1)',
+        'orange-glow': '0 0 25px rgba(255, 107, 0, 0.45)',
+        'blue-glow': '0 0 30px rgba(8, 71, 142, 0.5)',
+        'gold-glow': '0 0 20px rgba(255, 199, 0, 0.35)',
+        'card': '0 12px 32px -8px rgba(0, 0, 0, 0.65), 0 4px 12px -2px rgba(8, 71, 142, 0.15)',
       },
-      animation: {
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      fontFamily: {
+        sans: [
+          '"Roboto"',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Arial',
+          'sans-serif',
+        ],
+        display: [
+          '"Roboto Condensed"',
+          '"Roboto"',
+          'sans-serif',
+        ],
+        mono: [
+          '"Roboto Mono"',
+          'ui-monospace',
+          'SFMono-Regular',
+          'Menlo',
+          'monospace',
+        ],
       },
     },
   },
