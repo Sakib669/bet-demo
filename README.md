@@ -1,8 +1,8 @@
-# HERMES // Provably Fair Gaming Simulation Platform
+# MOSTBET // Provably Fair Gaming Simulation Platform
 
-A full-stack, mobile-first e-gaming simulation platform built with **Next.js 15 (App Router)**, **Prisma ORM**, **Tailwind CSS**, and **PostgreSQL/SQLite**.
+A full-stack, mobile-responsive e-gaming simulation platform built with **Next.js 15 (App Router)**, **Prisma ORM**, **Tailwind CSS**, and **PostgreSQL (Local / pgAdmin 4)**.
 
-Designed following the **Hermes Launch Edition** design system: Deep Midnight (`#060814`) background, Electric Cobalt Blue (`#0000F2`) accents, and Electric Cyan (`#00D2FF`) glow highlights.
+Designed following the reverse-engineered **Mostbet Official Portal** architecture: Deep Navy (`#08478E`), Base Canvas (`#040F26`), Action Orange (`#FF6B00`), and Star Gold (`#FFC700`).
 
 ---
 
@@ -10,52 +10,66 @@ Designed following the **Hermes Launch Edition** design system: Deep Midnight (`
 
 1. **Provably Fair Verification (HMAC-SHA256)**:
    - Every round generates a cryptographic server seed and hashes it via SHA-256 before the bet is placed.
-   - Players can inspect the verifiable hash directly in the game UI.
-2. **Double-Entry Financial Ledger**:
-   - Every credit, stake deduction, win payout, and admin adjustment is recorded atomically inside an immutable transaction ledger.
-3. **Three Fast, Responsive Mini-Games**:
-   - **Coin Flip**: 3D CSS physics coin flip with 1.98x multiplier (50/50 probability).
-   - **Dice Over / Under**: Real-time slider (2.00 to 98.00) with dynamic odds and payouts up to 49.50x (99% RTP).
-   - **Mines 5x5 Grid**: 25-tile grid with customizable mine density (1 to 24 mines) and dynamic step-by-step cashout multiplier.
-4. **Simulation Wallet & Free Refills**:
-   - 1,000 free demo credits on signup.
-   - 250 PTS daily allowance with automatic 24-hour rate-limiting.
-   - User-to-Admin simulated top-up request pipeline.
+   - Verifiable deterministic outcomes for Aviator, Penalty Shoot-Out, Mines, Coin Flip, and Dice.
+2. **5 Instant-Win Arcade Games**:
+   - **Aviator Crash**: Real-time climbing flight curve, auto-cashout, and multiplier history pills.
+   - **Penalty Shoot-Out**: 5-goal progressive ladder (up to 30.72x) with animated goalkeeper saves.
+   - **Mines 5x5 Grid**: Step-by-step gem discovery and dynamic risk cashout.
+   - **Coin Flip**: 3D physics coin toss with 1.98x payout.
+   - **Dice Over / Under**: Real-time slider (2.00 to 98.00) with payouts up to 49.50x (99% RTP).
+3. **Bangladeshi Mobile Banking (MFS) Integration**:
+   - Live bKash (`01798-234567`), Nagad, and Rocket numbers with one-click copy.
+   - Step-by-step cash-in / Send Money instructions and TrxID submission.
+4. **Bilingual Localization**:
+   - Seamless dynamic toggle between Bangla (`বাংলা`) and English (`ENG`).
 5. **Admin Control Desk (`/admin`)**:
    - Passcode-protected administrative dashboard (`hermes_admin_secret_9988`).
    - One-click manual approval/rejection for simulation requests.
    - Direct user balance modifier with audit trail.
    - Live platform ledger inspecting round outcomes and server seeds.
-6. **Mobile-First UX**:
-   - Fixed bottom thumb navigation bar on mobile viewports.
-   - Tactile quick-bet presets (10, 50, 100, 500, 2X).
 
 ---
 
-## 🛠️ Tech Stack
+## 🐘 Local PostgreSQL & pgAdmin 4 Setup
 
-- **Runtime**: Node.js (strictly enforced)
-- **Framework**: Next.js 15 (App Router, Server Actions & API Routes)
-- **ORM & Database**: Prisma ORM with SQLite (zero-config local run) / PostgreSQL ready
-- **Styling**: Tailwind CSS with custom glassmorphism, cobalt focus rings, and custom scrollbars
-- **Icons**: Lucide React
+The project is configured to use your local PostgreSQL database managed via **pgAdmin 4** (no remote/hosted Prisma Postgres required).
+
+### 1. Configure Connection in `.env`
+Ensure your local PostgreSQL connection string is set in `.env`:
+```env
+DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/bet_demo?schema=public"
+ADMIN_SECRET_KEY="hermes_admin_secret_9988"
+```
+
+### 2. Setup Database in pgAdmin 4
+1. Open **pgAdmin 4** on your machine.
+2. Connect to your local PostgreSQL server (`localhost:5432`).
+3. Right-click **Databases** > **Create** > **Database...**, name it `bet_demo` and click **Save**.
+4. Right-click the newly created `bet_demo` database and select **Query Tool**.
+5. Open or paste the contents of [`prisma/schema.sql`](./prisma/schema.sql).
+6. Click **Execute / Run (F5)**.
+   - This creates all 5 tables (`User`, `Wallet`, `Transaction`, `GameRound`, `SimulationRequest`), creates high-performance indexes, and inserts the default demo player `player_one` with 1,000 PTS balance.
+
+### 3. Generate Prisma Client (Local PostgreSQL)
+```bash
+npx prisma generate
+```
+
+Or push changes directly from schema:
+```bash
+npx prisma db push
+```
 
 ---
 
-## 🏃 Getting Started
+## 🏃 Running the Application
 
 ### 1. Install Dependencies
 ```bash
 pnpm install
 ```
 
-### 2. Generate Prisma Client & Database
-```bash
-npx prisma generate
-npx prisma db push
-```
-
-### 3. Run the Development Server
+### 2. Run the Development Server
 ```bash
 pnpm dev
 ```
@@ -65,5 +79,5 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 🔐 Admin Access
 
-- **Path**: [`/admin`](http://localhost:3000/admin)
-- **Default Secret Key**: `hermes_admin_secret_9988` (configurable in `.env`)
+- **URL**: [http://localhost:3000/admin](http://localhost:3000/admin)
+- **Passcode**: `hermes_admin_secret_9988`
