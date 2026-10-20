@@ -1,6 +1,7 @@
 "use client";
 
 import { useWallet } from "@/lib/wallet-context";
+import { useLanguage } from "@/lib/language-context";
 import { CircleDollarSign, Dices, Bomb, Flame, PlusCircle } from "lucide-react";
 
 interface BottomNavProps {
@@ -10,16 +11,17 @@ interface BottomNavProps {
 
 export function BottomNav({ activeTab, setActiveTab }: BottomNavProps) {
   const { setIsTopUpOpen } = useWallet();
+  const { locale } = useLanguage();
 
   const navItems = [
-    { id: "lobby", label: "Lobby", icon: Flame },
-    { id: "coin-flip", label: "Coin Flip", icon: CircleDollarSign },
-    { id: "dice", label: "Dice", icon: Dices },
-    { id: "mines", label: "Mines", icon: Bomb },
+    { id: "lobby", label: locale === "bn" ? "লবি" : "Lobby", icon: Flame },
+    { id: "coin-flip", label: locale === "bn" ? "কয়েন" : "Coin", icon: CircleDollarSign },
+    { id: "dice", label: locale === "bn" ? "ডাইস" : "Dice", icon: Dices },
+    { id: "mines", label: locale === "bn" ? "মাইনস" : "Mines", icon: Bomb },
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 z-40 w-full border-t border-[#1E293B] bg-[#060814]/95 backdrop-blur-lg sm:hidden">
+    <nav className="fixed bottom-0 left-0 z-40 w-full border-t border-white/10 bg-[#060814]/95 backdrop-blur-xl sm:hidden">
       <div className="grid h-16 grid-cols-5 items-center px-2">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -35,7 +37,7 @@ export function BottomNav({ activeTab, setActiveTab }: BottomNavProps) {
               }`}
             >
               <div
-                className={`relative flex h-8 w-8 items-center justify-center rounded-lg transition-all ${
+                className={`relative flex h-8 w-8 items-center justify-center rounded-xl transition-all ${
                   isActive ? "bg-[#0000F2]/30 text-[#00D2FF] shadow-cyan-glow" : ""
                 }`}
               >
@@ -54,10 +56,10 @@ export function BottomNav({ activeTab, setActiveTab }: BottomNavProps) {
           onClick={() => setIsTopUpOpen(true)}
           className="flex flex-col items-center justify-center gap-1 text-[#3B82F6] hover:text-[#00D2FF]"
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0000F2]/40 text-[#00D2FF] border border-[#0000F2]/60">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#0000F2]/40 text-[#00D2FF] border border-[#0000F2]/60">
             <PlusCircle className="h-4 w-4" />
           </div>
-          <span className="text-[10px] font-bold">Top-Up</span>
+          <span className="text-[10px] font-bold">{locale === "bn" ? "টপ-আপ" : "Top-Up"}</span>
         </button>
       </div>
     </nav>
