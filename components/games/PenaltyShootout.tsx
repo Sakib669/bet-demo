@@ -126,7 +126,7 @@ export function PenaltyShootout({ onRoundComplete }: PenaltyShootoutProps) {
           setGameState("GOAL");
           // Return to playing state after brief celebration
           setTimeout(() => {
-            if (gameState !== "WON") setGameState("PLAYING");
+            setGameState((prev) => (prev !== "WON" && prev !== "SAVED" ? "PLAYING" : prev));
           }, 1200);
         }
       } else {
