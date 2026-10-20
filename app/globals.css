@@ -3,16 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --background: #060814;
-  --foreground: #EDEDF2;
-  --primary: #0000F2;
-  --primary-hover: #1E29FF;
-  --primary-glow: rgba(0, 0, 242, 0.45);
-  --cyan: #00D2FF;
-  --cyan-glow: rgba(0, 210, 255, 0.35);
-  --border-card: rgba(30, 41, 59, 0.7);
-  --border-focus: #0000F2;
-  --card-bg: rgba(10, 16, 38, 0.75);
+  --background: #040F26;
+  --header-bg: #08478E;
+  --surface-dark: #051738;
+  --card-bg: rgba(13, 44, 92, 0.75);
+  --color-orange: #FF6B00;
+  --color-gold: #FFC700;
+  --color-text-main: #FFFFFF;
+  --color-text-sub: #8EA8C7;
+  --border-subtle: rgba(255, 255, 255, 0.08);
 }
 
 * {
@@ -21,39 +20,14 @@
 
 body {
   background-color: var(--background);
-  color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Cabinet Grotesk", "Satoshi", "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--color-text-main);
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
-  letter-spacing: -0.012em;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Subtle Ambient Noise Background */
-.bg-noise {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 0);
-  background-size: 24px 24px;
-}
-
-/* Custom High-Contrast Scrollbar */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-::-webkit-scrollbar-track {
-  background: #060814;
-}
-::-webkit-scrollbar-thumb {
-  background: #1E293B;
-  border-radius: 9999px;
-  border: 1px solid rgba(0, 0, 242, 0.2);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #0000F2;
-}
-
-/* Tabular Figures for Financial/Odds Numbers */
+/* Tabular Figures for Odds, Stakes, and Balances */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
@@ -63,48 +37,105 @@ body {
   text-wrap: balance;
 }
 
-/* Refraction Glassmorphism Surfaces */
-.glass-surface {
-  background: rgba(10, 16, 38, 0.72);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow: 
-    0 12px 36px -8px rgba(0, 0, 0, 0.65),
-    0 4px 12px -2px rgba(0, 0, 242, 0.12),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #030B1C;
+}
+::-webkit-scrollbar-thumb {
+  background: #08478E;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF6B00;
 }
 
-.glass-surface-cobalt {
-  background: rgba(12, 20, 50, 0.85);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 0, 242, 0.45);
-  box-shadow: 
-    0 16px 40px -10px rgba(0, 0, 242, 0.35),
-    0 0 20px rgba(0, 210, 255, 0.15),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+/* Mostbet Card Surfaces */
+.mst-card {
+  background: rgba(13, 44, 92, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.65), 0 4px 12px -2px rgba(8, 71, 142, 0.15);
 }
 
-/* Premium Tactile Button States */
-.btn-tactile {
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 18px rgba(0, 0, 242, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+.mst-card:hover {
+  border-color: rgba(255, 199, 0, 0.3);
 }
-.btn-tactile:hover {
-  background-color: #1E29FF;
-  box-shadow: 0 0 28px rgba(0, 0, 242, 0.65), 0 0 45px rgba(0, 210, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+
+/* Action Orange Button */
+.btn-action-orange {
+  background: linear-gradient(180deg, #FF7A1A 0%, #FF5500 100%);
+  color: #FFFFFF;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-action-orange:hover {
+  background: linear-gradient(180deg, #FF8C33 0%, #FF6600 100%);
+  box-shadow: 0 6px 25px rgba(255, 107, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
   transform: translateY(-1px);
 }
-.btn-tactile:active {
+.btn-action-orange:active {
   transform: translateY(1px) scale(0.985);
-  box-shadow: 0 0 10px rgba(0, 0, 242, 0.4);
+  box-shadow: 0 2px 8px rgba(255, 107, 0, 0.4);
 }
 
-/* 3D Coin Physics with Specular Highlights */
+/* Secondary Royal Blue Button */
+.btn-royal-blue {
+  background: #08478E;
+  color: #FFFFFF;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-royal-blue:hover {
+  background: #0B5CB8;
+  border-color: rgba(255, 199, 0, 0.4);
+  box-shadow: 0 4px 18px rgba(8, 71, 142, 0.45);
+}
+
+/* Star Loader Animation from Mostbet CSS */
+.star-loader-container {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.star-loader-star {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  background-color: #FFC700;
+  box-shadow: 0 0 10px rgba(255, 199, 0, 0.8);
+}
+.star-loader-arc {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(from 90deg, rgba(255, 199, 0, 0) 70%, #FF6B00 100%);
+  -webkit-mask: radial-gradient(circle, transparent 62%, black 63%);
+  mask: radial-gradient(circle, transparent 62%, black 63%);
+  animation: star-rotate 0.5s linear infinite;
+}
+@keyframes star-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 3D Coin Physics */
 .coin-container {
   perspective: 1200px;
 }
-
 .coin-inner {
   position: relative;
   width: 100%;
@@ -113,7 +144,6 @@ body {
   transition: transform 1.4s cubic-bezier(0.16, 0.9, 0.25, 1.25);
   transform-style: preserve-3d;
 }
-
 .coin-face {
   position: absolute;
   width: 100%;
@@ -125,15 +155,12 @@ body {
   align-items: center;
   justify-content: center;
 }
-
 .coin-back {
   transform: rotateY(180deg);
 }
-
 .flip-heads {
   transform: rotateY(1800deg);
 }
-
 .flip-tails {
   transform: rotateY(1980deg);
 }
