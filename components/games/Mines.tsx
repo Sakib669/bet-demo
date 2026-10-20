@@ -170,67 +170,68 @@ export function Mines() {
   const currentPayoutEstimate = parseFloat((betAmount * currentMultiplier).toFixed(2));
 
   return (
-    <div className="glass-surface relative overflow-hidden rounded-3xl p-6 sm:p-8 backdrop-blur-2xl">
-      <div className="absolute -right-24 -bottom-24 h-72 w-72 rounded-full bg-[#0000F2]/15 blur-3xl pointer-events-none" />
+    <div className="mst-card relative overflow-hidden rounded-3xl p-6 sm:p-8 backdrop-blur-2xl">
+      <div className="absolute -right-24 -bottom-24 h-72 w-72 rounded-full bg-[#08478E]/30 blur-3xl pointer-events-none" />
 
       {/* Header */}
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-5">
         <div className="flex items-center gap-3.5">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#0000F2]/20 text-[#00D2FF] border border-[#0000F2]/50 shadow-[0_0_20px_rgba(0,210,255,0.25)]">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#08478E] text-[#FFC700] border border-white/15 shadow-[0_0_15px_rgba(255,199,0,0.3)]">
             <Bomb className="h-5 w-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-lg font-black tracking-tight text-white">{t("minesTitle")}</h2>
-              <span className="rounded bg-amber-500/15 px-2 py-0.5 text-[10px] font-mono font-bold text-amber-300 border border-amber-500/30">
+              <h2 className="text-lg font-black tracking-tight text-white uppercase">{t("minesTitle")}</h2>
+              <span className="rounded bg-[#FF6B00] px-2 py-0.5 text-[10px] font-mono font-black text-white">
                 DYNAMIC CASHOUT
               </span>
             </div>
-            <p className="text-xs text-gray-400 font-medium">{t("minesHeaderDesc")}</p>
+            <p className="text-xs text-[#8EA8C7] font-medium">{t("minesHeaderDesc")}</p>
           </div>
         </div>
 
         <button
           onClick={() => setShowFairness(!showFairness)}
-          className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-gray-300 hover:text-[#00D2FF] hover:border-[#0000F2]/50 transition-all active:scale-95"
+          className="flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-bold text-white hover:border-[#FFC700] hover:text-[#FFC700] transition-all active:scale-95"
         >
-          <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+          <ShieldCheck className="h-3.5 w-3.5 text-[#FFC700]" />
           <span>{t("provablyFair")}</span>
         </button>
       </div>
 
+      {/* Fairness Drawer */}
       {showFairness && seedHash && (
-        <div className="mb-6 rounded-2xl border border-[#0000F2]/40 bg-[#060814]/90 p-4 font-mono text-xs text-gray-300 shadow-inner">
-          <div className="flex items-center justify-between mb-1.5 font-sans font-bold text-gray-400 text-[11px]">
+        <div className="mb-6 rounded-2xl border border-white/15 bg-[#030B1C] p-4 font-mono text-xs text-gray-300 shadow-inner">
+          <div className="flex items-center justify-between mb-1.5 font-sans font-bold text-[#8EA8C7] text-[11px]">
             <span>{t("sha256Hash")}</span>
             <button
               onClick={copySeed}
-              className="flex items-center gap-1 text-[#00D2FF] hover:underline text-[10px]"
+              className="flex items-center gap-1 text-[#FFC700] hover:underline text-[10px]"
             >
               {copiedHash ? <Check className="h-3 w-3" /> : null}
               {copiedHash ? t("copied") : t("copyHash")}
             </button>
           </div>
-          <span className="break-all text-[#00D2FF] text-[11px] select-all leading-relaxed">{seedHash}</span>
+          <span className="break-all text-[#FFC700] text-[11px] select-all leading-relaxed">{seedHash}</span>
         </div>
       )}
 
       {/* Multiplier Status Banner */}
       <div className="mb-6 grid grid-cols-3 gap-2 sm:gap-4">
-        <div className="rounded-2xl border border-white/10 bg-black/40 p-3 sm:p-4 text-center shadow-inner">
-          <span className="text-[10px] uppercase font-bold text-gray-400">{t("mineDensity")}</span>
+        <div className="rounded-2xl border border-white/15 bg-[#030B1C] p-3 sm:p-4 text-center shadow-inner">
+          <span className="text-[10px] uppercase font-bold text-[#8EA8C7]">{t("mineDensity")}</span>
           <p className="font-mono text-sm sm:text-base font-black text-white tabular-nums mt-0.5">
             {mineCount} / 25
           </p>
         </div>
-        <div className="rounded-2xl border border-[#0000F2]/50 bg-[#0000F2]/15 p-3 sm:p-4 text-center shadow-[0_0_20px_rgba(0,0,242,0.2)]">
-          <span className="text-[10px] uppercase font-bold text-[#00D2FF]">{t("currentMultiplier")}</span>
-          <p className="font-mono text-base sm:text-lg font-black text-[#00D2FF] tabular-nums mt-0.5">
+        <div className="rounded-2xl border border-[#FFC700]/40 bg-[#08478E]/40 p-3 sm:p-4 text-center shadow-[0_0_20px_rgba(255,199,0,0.2)]">
+          <span className="text-[10px] uppercase font-bold text-[#FFC700]">{t("currentMultiplier")}</span>
+          <p className="font-mono text-base sm:text-lg font-black text-[#FFC700] tabular-nums mt-0.5">
             {isPlaying ? `${currentMultiplier.toFixed(2)}x` : "1.00x"}
           </p>
         </div>
-        <div className="rounded-2xl border border-white/10 bg-black/40 p-3 sm:p-4 text-center shadow-inner">
-          <span className="text-[10px] uppercase font-bold text-gray-400">{t("nextTile")}</span>
+        <div className="rounded-2xl border border-white/15 bg-[#030B1C] p-3 sm:p-4 text-center shadow-inner">
+          <span className="text-[10px] uppercase font-bold text-[#8EA8C7]">{t("nextTile")}</span>
           <p className="font-mono text-sm sm:text-base font-black text-emerald-400 tabular-nums mt-0.5">
             {isPlaying ? `${nextMultiplier.toFixed(2)}x` : "--"}
           </p>
@@ -255,22 +256,22 @@ export function Mines() {
                   isExploded
                     ? "border-2 border-ruby bg-ruby text-white animate-bounce shadow-[0_0_30px_rgba(239,68,68,0.7)]"
                     : isRevealedGem
-                    ? "border border-emerald-400/80 bg-emerald-500/20 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.35)]"
+                    ? "border-2 border-[#FFC700] bg-[#FFC700]/20 text-[#FFC700] shadow-[0_0_20px_rgba(255,199,0,0.4)]"
                     : isMine
                     ? "border border-ruby/50 bg-ruby/20 text-ruby/80"
                     : isPlaying
-                    ? "border border-white/10 bg-white/[0.04] hover:border-[#0000F2] hover:bg-[#0000F2]/20 hover:shadow-cobalt-glow active:scale-95 cursor-pointer shadow-inner"
+                    ? "border border-white/15 bg-[#08478E]/50 hover:border-[#FFC700] hover:bg-[#08478E] hover:shadow-[0_0_15px_rgba(255,199,0,0.3)] active:scale-95 cursor-pointer shadow-inner"
                     : "border border-white/5 bg-white/[0.02] cursor-not-allowed text-gray-600"
                 }`}
               >
                 {isLoadingTile ? (
-                  <RefreshCw className="h-5 w-5 animate-spin text-[#00D2FF]" />
+                  <RefreshCw className="h-5 w-5 animate-spin text-[#FFC700]" />
                 ) : isExploded || isMine ? (
                   <Bomb className={`h-5 w-5 sm:h-6 sm:w-6 ${isExploded ? "text-white" : "text-ruby"}`} />
                 ) : isRevealedGem ? (
-                  <Gem className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-400 animate-in zoom-in-50 duration-200" />
+                  <Gem className="h-5 w-5 sm:h-6 sm:w-6 text-[#FFC700] animate-in zoom-in-50 duration-200" />
                 ) : (
-                  <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
+                  <span className="h-2 w-2 rounded-full bg-[#8EA8C7]/30" />
                 )}
               </button>
             );
@@ -284,8 +285,8 @@ export function Mines() {
           <div
             className={`inline-flex items-center gap-2 rounded-full px-5 py-1.5 text-xs font-black tracking-wide animate-in zoom-in-95 duration-200 ${
               lastWin
-                ? "border border-emerald-400/50 bg-emerald-500/15 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.3)]"
-                : "border border-ruby/50 bg-ruby/15 text-ruby"
+                ? "border border-emerald-400/50 bg-emerald-500/20 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+                : "border border-ruby/50 bg-ruby/20 text-ruby"
             }`}
           >
             <Sparkles className="h-3.5 w-3.5" />
@@ -300,7 +301,7 @@ export function Mines() {
       {!isPlaying ? (
         <div className="space-y-4">
           <div>
-            <label className="text-xs font-semibold text-gray-400 mb-2 block">{t("numberMines")}</label>
+            <label className="text-xs font-semibold text-[#8EA8C7] mb-2 block">{t("numberMines")}</label>
             <div className="grid grid-cols-6 gap-2">
               {[1, 2, 3, 5, 10, 15].map((cnt) => (
                 <button
@@ -308,8 +309,8 @@ export function Mines() {
                   onClick={() => setMineCount(cnt)}
                   className={`rounded-xl py-2 font-mono text-xs font-bold transition-all ${
                     mineCount === cnt
-                      ? "border border-[#0000F2] bg-[#0000F2]/40 text-[#00D2FF] shadow-[0_0_15px_rgba(0,210,255,0.3)]"
-                      : "border border-white/10 bg-white/[0.03] text-gray-400 hover:text-white"
+                      ? "border border-[#FFC700] bg-[#FFC700]/20 text-[#FFC700] shadow-[0_0_15px_rgba(255,199,0,0.3)]"
+                      : "border border-white/15 bg-white/5 text-[#8EA8C7] hover:text-white"
                   }`}
                 >
                   {cnt}
@@ -319,9 +320,9 @@ export function Mines() {
           </div>
 
           <div>
-            <div className="flex justify-between text-xs font-semibold text-gray-400 mb-2">
+            <div className="flex justify-between text-xs font-semibold text-[#8EA8C7] mb-2">
               <span>{t("stakeAmount")}</span>
-              <span className="font-mono tabular-nums text-gray-300">{t("balance")}: {formatCurrency(balance)} PTS</span>
+              <span className="font-mono tabular-nums text-white">{t("balance")}: {formatCurrency(balance)} PTS</span>
             </div>
 
             <div className="relative">
@@ -331,9 +332,9 @@ export function Mines() {
                 max={balance}
                 value={betAmount}
                 onChange={(e) => setBetAmount(Math.max(1, Number(e.target.value)))}
-                className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 font-mono text-base font-bold text-white tabular-nums focus:border-[#0000F2] focus:outline-none focus:ring-1 focus:ring-[#0000F2]"
+                className="w-full rounded-2xl border border-white/15 bg-[#030B1C] px-4 py-3.5 font-mono text-base font-bold text-white tabular-nums focus:border-[#FFC700] focus:outline-none focus:ring-1 focus:ring-[#FFC700]"
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-500 font-mono">
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-[#8EA8C7] font-mono">
                 PTS
               </span>
             </div>
@@ -348,7 +349,7 @@ export function Mines() {
 
           <button
             onClick={handleStartGame}
-            className="btn-tactile w-full rounded-2xl border border-[#0000F2] bg-[#0000F2] py-4 text-sm font-black tracking-wider text-white shadow-cobalt-glow active:scale-98"
+            className="btn-action-orange w-full rounded-2xl py-4 text-sm font-black tracking-wider"
           >
             {t("startMines")} ({betAmount} PTS)
           </button>
@@ -358,7 +359,7 @@ export function Mines() {
           <button
             onClick={handleCashout}
             disabled={revealedGems.length === 0 || cashoutLoading}
-            className="w-full rounded-2xl border border-emerald-400 bg-gradient-to-r from-emerald-600 to-teal-500 py-4 text-sm font-black tracking-wider text-white shadow-[0_0_30px_rgba(16,185,129,0.45)] transition-all hover:brightness-110 active:scale-98 disabled:opacity-40"
+            className="w-full rounded-2xl border border-[#FFC700] bg-gradient-to-r from-amber-500 via-[#FF6B00] to-orange-600 py-4 text-sm font-black tracking-wider text-white shadow-[0_0_30px_rgba(255,107,0,0.5)] transition-all hover:brightness-110 active:scale-98 disabled:opacity-40"
           >
             {cashoutLoading
               ? t("cashingOut")
