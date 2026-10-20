@@ -46,6 +46,12 @@ export const translations = {
     minesTitle: "Mines 5x5 Grid",
     minesDesc: "Step-by-step cashout matrix",
     minesTag: "Dynamic Risk",
+    aviatorTitle: "Aviator Crash",
+    aviatorDesc: "Real-time climbing curve with dynamic cashout",
+    aviatorTag: "High Multiplier",
+    penaltyTitle: "Penalty Shoot-Out",
+    penaltyDesc: "5-shot progressive multiplier ladder",
+    penaltyTag: "Arcade Sports",
 
     // Coin Flip Game
     multiplier: "Multiplier",
@@ -178,6 +184,12 @@ export const translations = {
     minesTitle: "মাইনস ৫x৫ গ্রিড",
     minesDesc: "ধাপে ধাপে ক্যাশআউট ম্যাট্রিক্স",
     minesTag: "উচ্চ মাল্টিপ্লায়ার",
+    aviatorTitle: "এভিয়েটর ক্র্যাশ",
+    aviatorDesc: "বিমান উড্ডয়নের সাথে দ্রুত গতিতে মাল্টিপ্লায়ার বৃদ্ধি",
+    aviatorTag: "জনপ্রিয় ও উচ্চ গুণক",
+    penaltyTitle: "পেনাল্টি শ্যুট-আউট",
+    penaltyDesc: "৫টি ক্রমান্বয়ে গোল এবং ক্রমবর্ধমান পেআউট ল্যাডার",
+    penaltyTag: "স্পোর্টস আর্কেড",
 
     // Coin Flip Game
     multiplier: "মাল্টিপ্লায়ার",
