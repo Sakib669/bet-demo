@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="bn" className="dark">
-      <body className="min-h-screen bg-[#060814] text-[#EDEDF2] antialiased selection:bg-[#0000F2] selection:text-white">
+      <body className="min-h-screen bg-[#040F26] text-[#EDEDF2] antialiased selection:bg-[#FF6B00] selection:text-white font-sans">
         <LanguageProvider>
           <WalletProvider>
             <div className="flex min-h-screen flex-col">
