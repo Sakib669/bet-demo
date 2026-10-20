@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { useWallet } from "@/lib/wallet-context";
+import { useLanguage } from "@/lib/language-context";
 import { formatCurrency } from "@/lib/utils";
-import { Coins, Sparkles, Shield, RefreshCw } from "lucide-react";
+import { Coins, Sparkles, Shield, RefreshCw, Languages } from "lucide-react";
 import { useState } from "react";
 
 export function Navbar() {
   const { balance, loading, refreshWallet, setIsTopUpOpen } = useWallet();
+  const { locale, toggleLocale, t } = useLanguage();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const handleRefresh = async () => {
@@ -56,27 +58,42 @@ export function Navbar() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-base sm:text-lg font-black tracking-tight text-white">HERMES</span>
+              <span className="text-base sm:text-lg font-black tracking-tight text-white">{t("appName")}</span>
               <span className="rounded-md bg-[#0000F2]/15 px-2 py-0.5 text-[10px] font-mono font-bold tracking-wider text-[#00D2FF] border border-[#0000F2]/40">
-                PROVABLY FAIR
+                {t("provablyFairBadge")}
               </span>
             </div>
             <p className="text-[10px] text-gray-400 font-medium tracking-tight -mt-0.5 hidden sm:block">
-              Cryptographic Gaming Engine
+              {t("tagline")}
             </p>
           </div>
         </Link>
 
         {/* Action Controls */}
-        <div className="flex items-center gap-2 sm:gap-3.5">
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Language Toggle Button (Bangla <-> English) */}
+          <button
+            onClick={toggleLocale}
+            className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-2.5 py-1.5 text-xs font-bold text-gray-300 transition-all hover:border-[#0000F2]/60 hover:text-white hover:bg-white/[0.08] active:scale-95"
+            title="Toggle between বাংলা and English"
+          >
+            <Languages className="h-3.5 w-3.5 text-[#00D2FF]" />
+            <span className="font-mono text-[11px] font-bold">
+              {locale === "bn" ? "বাংলা" : "ENG"}
+            </span>
+            <span className="text-[9px] text-gray-500 font-mono">
+              ({locale === "bn" ? "EN" : "বাং"})
+            </span>
+          </button>
+
           {/* Virtual Balance Display */}
-          <div className="flex items-center rounded-xl border border-white/10 bg-[#0A1026]/90 px-3.5 py-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+          <div className="flex items-center rounded-xl border border-white/10 bg-[#0A1026]/90 px-3 py-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
             <div className="mr-2 flex h-6 w-6 items-center justify-center rounded-lg bg-[#0000F2]/25 text-[#00D2FF]">
               <Coins className="h-3.5 w-3.5" />
             </div>
             <div className="flex flex-col">
               <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">
-                Simulation Credits
+                {t("simCredits")}
               </span>
               <span className="font-mono text-xs sm:text-sm font-bold text-white tabular-nums tracking-tight">
                 {loading ? "..." : `${formatCurrency(balance)} PTS`}
@@ -84,8 +101,8 @@ export function Navbar() {
             </div>
             <button
               onClick={handleRefresh}
-              aria-label="Refresh wallet balance"
-              className="ml-2.5 rounded-md p-1 text-gray-400 hover:text-white hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0000F2]"
+              aria-label={t("refreshBalance")}
+              className="ml-2 rounded-md p-1 text-gray-400 hover:text-white hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0000F2]"
             >
               <RefreshCw className={`h-3.5 w-3.5 ${isRefreshing ? "animate-spin text-[#00D2FF]" : ""}`} />
             </button>
@@ -97,7 +114,7 @@ export function Navbar() {
             className="btn-tactile flex items-center gap-1.5 rounded-xl border border-[#0000F2] bg-[#0000F2] px-3.5 py-2 text-xs font-bold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D2FF]"
           >
             <Sparkles className="h-3.5 w-3.5 text-[#00D2FF]" />
-            <span className="hidden sm:inline">Refill Credits</span>
+            <span className="hidden sm:inline">{t("refillCredits")}</span>
             <span className="sm:hidden">+</span>
           </button>
 
@@ -107,7 +124,7 @@ export function Navbar() {
             className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-semibold text-gray-300 transition-all hover:border-[#0000F2]/60 hover:bg-white/[0.06] hover:text-white active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0000F2]"
           >
             <Shield className="h-3.5 w-3.5 text-amber-400" />
-            <span className="hidden md:inline">Admin Desk</span>
+            <span className="hidden md:inline">{t("adminDesk")}</span>
           </Link>
         </div>
       </div>
