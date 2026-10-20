@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { useWallet } from "@/lib/wallet-context";
+import { useLanguage } from "@/lib/language-context";
 import { formatCurrency } from "@/lib/utils";
 import { Dices, ShieldCheck, Sparkles, AlertCircle, ArrowUpRight, ArrowDownRight, Check } from "lucide-react";
 
 export function DiceRoll() {
   const { balance, updateBalance } = useWallet();
+  const { t, locale } = useLanguage();
   const [betAmount, setBetAmount] = useState<number>(50);
   const [target, setTarget] = useState<number>(50.0);
   const [condition, setCondition] = useState<"OVER" | "UNDER">("OVER");
@@ -26,11 +28,11 @@ export function DiceRoll() {
 
   const handleRoll = async () => {
     if (betAmount <= 0) {
-      setErrorMessage("Enter a valid stake amount.");
+      setErrorMessage(locale === "bn" ? "সঠিক বাজির পরিমাণ লিখুন।" : "Enter a valid stake amount.");
       return;
     }
     if (betAmount > balance) {
-      setErrorMessage("Insufficient demo balance.");
+      setErrorMessage(locale === "bn" ? "পর্যাপ্ত ব্যালেন্স নেই।" : "Insufficient demo balance.");
       return;
     }
 
@@ -47,7 +49,7 @@ export function DiceRoll() {
       const data = await res.json();
 
       if (!data.success) {
-        setErrorMessage(data.message || "Failed to roll dice.");
+        setErrorMessage(data.message || (locale === "bn" ? "ডাইস রোল করতে সমস্যা হয়েছে।" : "Failed to roll dice."));
         setIsRolling(false);
         return;
       }
@@ -61,7 +63,7 @@ export function DiceRoll() {
         setIsRolling(false);
       }, 450);
     } catch {
-      setErrorMessage("Network error during roll.");
+      setErrorMessage(locale === "bn" ? "নেটওয়ার্ক ত্রুটি।" : "Network error during roll.");
       setIsRolling(false);
     }
   };
@@ -89,12 +91,12 @@ export function DiceRoll() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-lg font-black tracking-tight text-white">Dice Over / Under</h2>
+              <h2 className="text-lg font-black tracking-tight text-white">{t("diceTitle")}</h2>
               <span className="rounded bg-emerald-500/15 px-2 py-0.5 text-[10px] font-mono font-bold text-emerald-400 border border-emerald-500/30">
                 99% RTP
               </span>
             </div>
-            <p className="text-xs text-gray-400 font-medium">Fine-tune target multipliers up to 49.50x</p>
+            <p className="text-xs text-gray-400 font-medium">{t("diceHeaderDesc")}</p>
           </div>
         </div>
 
@@ -103,20 +105,20 @@ export function DiceRoll() {
           className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-gray-300 hover:text-[#00D2FF] hover:border-[#0000F2]/50 transition-all active:scale-95"
         >
           <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
-          <span>Provably Fair</span>
+          <span>{t("provablyFair")}</span>
         </button>
       </div>
 
       {showFairness && seedHash && (
         <div className="mb-6 rounded-2xl border border-[#0000F2]/40 bg-[#060814]/90 p-4 font-mono text-xs text-gray-300 shadow-inner">
           <div className="flex items-center justify-between mb-1.5 font-sans font-bold text-gray-400 text-[11px]">
-            <span>Deterministic SHA-256 Seed Hash</span>
+            <span>{t("sha256Hash")}</span>
             <button
               onClick={copySeed}
               className="flex items-center gap-1 text-[#00D2FF] hover:underline text-[10px]"
             >
               {copiedHash ? <Check className="h-3 w-3" /> : null}
-              {copiedHash ? "Copied" : "Copy Hash"}
+              {copiedHash ? t("copied") : t("copyHash")}
             </button>
           </div>
           <span className="break-all text-[#00D2FF] text-[11px] select-all leading-relaxed">{seedHash}</span>
@@ -137,7 +139,7 @@ export function DiceRoll() {
             }`}
           >
             {isRolling ? (
-              <span className="animate-pulse text-gray-500 tracking-widest font-sans text-sm uppercase">Rolling...</span>
+              <span className="animate-pulse text-gray-500 tracking-widest font-sans text-sm uppercase">{t("rolling")}</span>
             ) : lastRoll !== null ? (
               lastRoll.toFixed(2)
             ) : (
@@ -203,7 +205,7 @@ export function DiceRoll() {
 
         <div className="mt-2.5 flex justify-between font-mono text-xs text-gray-400 font-bold tabular-nums">
           <span>0.00</span>
-          <span className="text-[#00D2FF]">Target: {target.toFixed(2)}</span>
+          <span className="text-[#00D2FF]">{t("target")}: {target.toFixed(2)}</span>
           <span>100.00</span>
         </div>
       </div>
@@ -211,7 +213,7 @@ export function DiceRoll() {
       {/* Multiplier & Direction Controls */}
       <div className="grid grid-cols-3 gap-3 mb-6">
         <div className="rounded-2xl border border-white/10 bg-black/40 p-3.5 text-center shadow-inner">
-          <span className="text-[10px] uppercase font-bold text-gray-400">Multiplier</span>
+          <span className="text-[10px] uppercase font-bold text-gray-400">{t("multiplier")}</span>
           <p className="font-mono text-base sm:text-lg font-black text-[#00D2FF] tabular-nums mt-0.5">
             {multiplier}x
           </p>
@@ -223,7 +225,7 @@ export function DiceRoll() {
           className="flex flex-col items-center justify-center rounded-2xl border border-[#0000F2] bg-[#0000F2]/25 p-3.5 transition-all hover:bg-[#0000F2]/35 active:scale-95 text-white"
         >
           <div className="flex items-center gap-1 text-[10px] uppercase font-bold text-gray-300">
-            <span>Roll</span>
+            <span>{condition === "OVER" ? t("rollOver") : t("rollUnder")}</span>
             {condition === "OVER" ? (
               <ArrowUpRight className="h-3 w-3 text-emerald-400" />
             ) : (
@@ -236,7 +238,7 @@ export function DiceRoll() {
         </button>
 
         <div className="rounded-2xl border border-white/10 bg-black/40 p-3.5 text-center shadow-inner">
-          <span className="text-[10px] uppercase font-bold text-gray-400">Win Probability</span>
+          <span className="text-[10px] uppercase font-bold text-gray-400">{t("winProbability")}</span>
           <p className="font-mono text-base sm:text-lg font-black text-emerald-400 tabular-nums mt-0.5">
             {winChance.toFixed(2)}%
           </p>
@@ -247,9 +249,9 @@ export function DiceRoll() {
       <div className="space-y-4">
         <div>
           <div className="flex justify-between text-xs font-semibold text-gray-400 mb-2">
-            <span>Stake Amount</span>
+            <span>{t("stakeAmount")}</span>
             <span className="font-mono tabular-nums text-gray-300">
-              Est. Return: +{formatCurrency(potentialPayout)} PTS
+              {locale === "bn" ? "সম্ভাব্য লাভ" : "Est. Return"}: +{formatCurrency(potentialPayout)} PTS
             </span>
           </div>
 
@@ -301,7 +303,7 @@ export function DiceRoll() {
           disabled={isRolling}
           className="btn-tactile w-full rounded-2xl border border-[#0000F2] bg-[#0000F2] py-4 text-sm font-black tracking-wider text-white shadow-cobalt-glow active:scale-98 disabled:opacity-50"
         >
-          {isRolling ? "Rolling..." : `Roll Dice (${betAmount} PTS)`}
+          {isRolling ? t("rolling") : `${t("rollDice")} (${betAmount} PTS)`}
         </button>
       </div>
     </div>
