@@ -171,7 +171,7 @@ export default function AdminPage() {
       <div className="mb-6 flex items-center justify-between">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 rounded-xl border border-[#08478E]/60 bg-[#051738] px-4 py-2 text-xs font-bold text-gray-300 hover:border-[#FF6B00] hover:text-white transition-colors"
+          className="inline-flex items-center gap-2 rounded-xl border border-[#193e87]/60 bg-[#0e1f3d] px-4 py-2 text-xs font-bold text-gray-300 hover:border-[#fc7219] hover:text-white transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>{locale === "bn" ? "গেমিং এরিনায় ফিরুন" : "Back to Game Arena"}</span>
@@ -180,28 +180,28 @@ export default function AdminPage() {
         <div className="flex items-center gap-2">
           <button
             onClick={toggleLocale}
-            className="flex items-center gap-1.5 rounded-xl border border-[#08478E]/60 bg-[#051738] px-3.5 py-2 text-xs font-black uppercase text-gray-200 hover:text-white hover:border-[#FF6B00]"
+            className="flex items-center gap-1.5 rounded-xl border border-[#193e87]/60 bg-[#0e1f3d] px-3.5 py-2 text-xs font-black uppercase text-gray-200 hover:text-white hover:border-[#fc7219]"
           >
-            <Languages className="h-3.5 w-3.5 text-[#FFC700]" />
+            <Languages className="h-3.5 w-3.5 text-[#fedbbb]" />
             <span>{locale === "bn" ? "বাংলা" : "ENG"}</span>
           </button>
 
           <button
             onClick={fetchAdminData}
-            className="flex items-center gap-1.5 rounded-xl border border-[#08478E]/60 bg-[#051738] px-3.5 py-2 text-xs font-bold text-gray-300 hover:text-white transition-colors"
+            className="flex items-center gap-1.5 rounded-xl border border-[#193e87]/60 bg-[#0e1f3d] px-3.5 py-2 text-xs font-bold text-gray-300 hover:text-white transition-colors"
           >
-            <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin text-[#FF6B00]" : ""}`} />
+            <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin text-[#fc7219]" : ""}`} />
             <span>{locale === "bn" ? "রিফ্রেশ" : "Refresh"}</span>
           </button>
         </div>
       </div>
 
       {/* Admin Title Banner */}
-      <div className="relative mb-8 overflow-hidden rounded-2xl border border-[#08478E] bg-gradient-to-r from-[#051738] via-[#08478E]/50 to-[#051738] p-6 shadow-2xl">
-        <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-[#FF6B00]/15 blur-3xl pointer-events-none" />
+      <div className="relative mb-8 overflow-hidden rounded-2xl border border-[#193e87] bg-gradient-to-r from-[#0e1f3d] via-[#193e87]/50 to-[#0e1f3d] p-6 shadow-2xl">
+        <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-[#fc7219]/15 blur-3xl pointer-events-none" />
         <div className="flex items-center gap-3.5">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#08478E] text-[#FFC700] border border-[#FFC700]/30 shadow-[0_0_20px_rgba(255,199,0,0.25)]">
-            <ShieldAlert className="h-6 w-6 text-[#FFC700]" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#193e87] text-[#fedbbb] border border-[#fedbbb]/30 shadow-[0_0_20px_rgba(255,199,0,0.25)]">
+            <ShieldAlert className="h-6 w-6 text-[#fedbbb]" />
           </div>
           <div>
             <h1 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white">{t("adminTitle")}</h1>
@@ -225,9 +225,9 @@ export default function AdminPage() {
           <span className="text-xs font-bold uppercase tracking-wider text-gray-400">{t("registeredUsers")}</span>
           <p className="mt-1 font-mono text-2xl font-black text-white tabular-nums">{users.length}</p>
         </div>
-        <div className="mst-card rounded-xl p-4 border-[#FF6B00]/60 shadow-[0_0_15px_rgba(255,107,0,0.15)]">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#FFC700]">{t("pendingApprovals")}</span>
-          <p className="mt-1 font-mono text-2xl font-black text-[#FF6B00] tabular-nums">{pendingRequests.length}</p>
+        <div className="mst-card rounded-xl p-4 border-[#fc7219]/60 shadow-[0_0_15px_rgba(255,107,0,0.15)]">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#fedbbb]">{t("pendingApprovals")}</span>
+          <p className="mt-1 font-mono text-2xl font-black text-[#fc7219] tabular-nums">{pendingRequests.length}</p>
         </div>
         <div className="mst-card rounded-xl p-4">
           <span className="text-xs font-bold uppercase tracking-wider text-gray-400">{t("totalRounds")}</span>
@@ -243,9 +243,9 @@ export default function AdminPage() {
 
       {/* Section 1: Pending Simulation Top-Up Requests */}
       <div className="mst-card mb-8 rounded-2xl p-6 shadow-xl">
-        <div className="mb-4 flex items-center justify-between border-b border-[#08478E]/50 pb-4">
+        <div className="mb-4 flex items-center justify-between border-b border-[#193e87]/50 pb-4">
           <h2 className="text-base font-black uppercase tracking-tight text-white flex items-center gap-2">
-            <Coins className="h-4 w-4 text-[#FFC700]" />
+            <Coins className="h-4 w-4 text-[#fedbbb]" />
             {t("activePending")} ({pendingRequests.length})
           </h2>
           <span className="text-xs text-gray-400 font-medium">{t("manualReview")}</span>
@@ -259,7 +259,7 @@ export default function AdminPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-[#08478E]/50 text-gray-400 font-bold uppercase tracking-wider">
+                <tr className="border-b border-[#193e87]/50 text-gray-400 font-bold uppercase tracking-wider">
                   <th className="pb-3">{t("userCol")}</th>
                   <th className="pb-3">{t("balanceCol")}</th>
                   <th className="pb-3">{t("reqAmountCol")}</th>
@@ -267,12 +267,12 @@ export default function AdminPage() {
                   <th className="pb-3 text-right">{t("actionsCol")}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#08478E]/30">
+              <tbody className="divide-y divide-[#193e87]/30">
                 {pendingRequests.map((req) => (
                   <tr key={req.id} className="text-gray-300">
                     <td className="py-3 font-bold text-white">{req.user.username}</td>
                     <td className="py-3 font-mono tabular-nums">{formatCurrency(req.user.wallet?.balance || 0)} PTS</td>
-                    <td className="py-3 font-mono font-bold text-[#FFC700] tabular-nums">
+                    <td className="py-3 font-mono font-bold text-[#fedbbb] tabular-nums">
                       +{formatCurrency(req.requestedAmount)} PTS
                     </td>
                     <td className="py-3 text-gray-300 max-w-xs font-mono">{req.notes || "--"}</td>
@@ -303,7 +303,7 @@ export default function AdminPage() {
       {/* Section 2: Direct User Balance Modifier */}
       <div className="mst-card mb-8 rounded-2xl p-6 shadow-xl">
         <h2 className="text-base font-black uppercase tracking-tight text-white mb-4 flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-[#FF6B00]" />
+          <Sparkles className="h-4 w-4 text-[#fc7219]" />
           {t("directModifier")}
         </h2>
         <form onSubmit={handleDirectAdjust} className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
@@ -314,7 +314,7 @@ export default function AdminPage() {
             <select
               value={adjustUserId}
               onChange={(e) => setAdjustUserId(e.target.value)}
-              className="w-full rounded-xl border border-[#08478E]/60 bg-[#040F26] px-3.5 py-3 text-xs text-white focus:border-[#FF6B00] focus:outline-none"
+              className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-3.5 py-3 text-xs text-white focus:border-[#fc7219] focus:outline-none"
             >
               {users.map((u) => (
                 <option key={u.id} value={u.id}>
@@ -333,7 +333,7 @@ export default function AdminPage() {
               value={adjustAmount}
               onChange={(e) => setAdjustAmount(Number(e.target.value))}
               placeholder="e.g. 500 or -200"
-              className="w-full rounded-xl border border-[#08478E]/60 bg-[#040F26] px-3.5 py-3 font-mono text-xs text-white tabular-nums focus:border-[#FF6B00] focus:outline-none"
+              className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-3.5 py-3 font-mono text-xs text-white tabular-nums focus:border-[#fc7219] focus:outline-none"
             />
           </div>
 
@@ -350,13 +350,13 @@ export default function AdminPage() {
 
       {/* Section 3: Live Game Rounds Ledger */}
       <div className="mst-card rounded-2xl p-6 shadow-xl">
-        <div className="mb-4 flex items-center justify-between border-b border-[#08478E]/50 pb-4">
+        <div className="mb-4 flex items-center justify-between border-b border-[#193e87]/50 pb-4">
           <h2 className="text-base font-black uppercase tracking-tight text-white flex items-center gap-2">
-            <History className="h-4 w-4 text-[#FFC700]" />
+            <History className="h-4 w-4 text-[#fedbbb]" />
             {t("recentLedger")}
           </h2>
           <div className="flex items-center gap-1.5">
-            <Star className="h-3 w-3 text-[#FFC700] fill-[#FFC700]" />
+            <Star className="h-3 w-3 text-[#fedbbb] fill-[#fedbbb]" />
             <span className="text-xs text-gray-400 font-mono">CSPRNG Audit Verified</span>
           </div>
         </div>
@@ -364,7 +364,7 @@ export default function AdminPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-[#08478E]/50 text-gray-400 font-bold uppercase tracking-wider">
+              <tr className="border-b border-[#193e87]/50 text-gray-400 font-bold uppercase tracking-wider">
                 <th className="pb-3">{locale === "bn" ? "রাউন্ড আইডি" : "Round ID"}</th>
                 <th className="pb-3">{t("userCol")}</th>
                 <th className="pb-3">{locale === "bn" ? "গেম" : "Game"}</th>
@@ -375,13 +375,13 @@ export default function AdminPage() {
                 <th className="pb-3">{locale === "bn" ? "সার্ভার সিড" : "Seed"}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#08478E]/30">
+            <tbody className="divide-y divide-[#193e87]/30">
               {recentRounds.map((rnd) => (
                 <tr key={rnd.id} className="text-gray-300">
                   <td className="py-3 font-mono text-[10px] text-gray-500">{rnd.id.slice(0, 8)}...</td>
                   <td className="py-3 font-bold text-white">{rnd.user.username}</td>
                   <td className="py-3">
-                    <span className="rounded-md bg-[#08478E]/40 border border-[#08478E] px-2 py-0.5 text-[10px] font-mono font-bold text-[#FFC700]">
+                    <span className="rounded-md bg-[#193e87]/40 border border-[#193e87] px-2 py-0.5 text-[10px] font-mono font-bold text-[#fedbbb]">
                       {rnd.gameType}
                     </span>
                   </td>

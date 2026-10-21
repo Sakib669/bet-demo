@@ -177,15 +177,15 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
   const planeY = 85 - progressRatio * 70; // percent
 
   return (
-    <div className="mst-card relative overflow-hidden rounded-2xl border border-[#08478E]/60 bg-[#051738] p-4 sm:p-6 shadow-2xl">
+    <div className="mst-card relative overflow-hidden rounded-2xl border border-[#193e87]/60 bg-[#0e1f3d] p-4 sm:p-6 shadow-2xl">
       {/* Top Multiplier History Bar (Mostbet Aviator Header) */}
-      <div className="mb-4 flex items-center justify-between border-b border-[#08478E]/40 pb-3">
+      <div className="mb-4 flex items-center justify-between border-b border-[#193e87]/40 pb-3">
         <div className="flex items-center gap-2">
-          <Plane className="h-5 w-5 text-[#FF6B00]" />
+          <Plane className="h-5 w-5 text-[#fc7219]" />
           <span className="text-xs font-black uppercase tracking-wider text-white">
             {locale === "bn" ? "এভিয়েটর ক্র্যাশ" : "AVIATOR CRASH"}
           </span>
-          <span className="rounded bg-[#FF6B00]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-[#FF6B00]">
+          <span className="rounded bg-[#fc7219]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-[#fc7219]">
             99.0% RTP
           </span>
         </div>
@@ -200,10 +200,10 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
                 key={idx}
                 className={`rounded-md px-2 py-0.5 font-mono text-[11px] font-black tabular-nums transition-transform ${
                   isHigh
-                    ? "bg-[#FFC700]/20 text-[#FFC700] border border-[#FFC700]/50"
+                    ? "bg-[#fedbbb]/20 text-[#fedbbb] border border-[#fedbbb]/50"
                     : isMid
-                    ? "bg-[#FF6B00]/20 text-[#FF6B00] border border-[#FF6B00]/40"
-                    : "bg-[#08478E]/40 text-gray-300 border border-[#08478E]/60"
+                    ? "bg-[#fc7219]/20 text-[#fc7219] border border-[#fc7219]/40"
+                    : "bg-[#193e87]/40 text-gray-300 border border-[#193e87]/60"
                 }`}
               >
                 {m.toFixed(2)}x
@@ -214,7 +214,7 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
       </div>
 
       {/* Flight Canvas Arena */}
-      <div className="relative mb-5 h-64 sm:h-72 w-full overflow-hidden rounded-xl border border-[#08478E]/80 bg-[#040F26] shadow-inner flex flex-col justify-between p-4">
+      <div className="relative mb-5 h-64 sm:h-72 w-full overflow-hidden rounded-xl border border-[#193e87]/80 bg-[#081329] shadow-inner flex flex-col justify-between p-4">
         {/* Background Runway Grid */}
         <div
           className="absolute inset-0 opacity-15 pointer-events-none"
@@ -225,7 +225,7 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
         />
 
         {/* Glowing atmospheric flight aura */}
-        <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-[#FF6B00]/10 blur-3xl pointer-events-none" />
+        <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-[#fc7219]/10 blur-3xl pointer-events-none" />
 
         {/* Big Center Multiplier Display */}
         <div className="relative z-10 flex flex-col items-center justify-center my-auto text-center">
@@ -244,7 +244,7 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
                 <Sparkles className="h-3.5 w-3.5" />
                 <span>{locale === "bn" ? "ক্যাশআউট সফল!" : "CASHED OUT!"}</span>
               </div>
-              <p className="font-mono text-3xl sm:text-5xl font-black text-[#FFC700] tracking-tight tabular-nums drop-shadow-[0_0_20px_rgba(255,199,0,0.5)]">
+              <p className="font-mono text-3xl sm:text-5xl font-black text-[#fedbbb] tracking-tight tabular-nums drop-shadow-[0_0_20px_rgba(255,199,0,0.5)]">
                 {currentMultiplier.toFixed(2)}x
               </p>
               {winPayout && (
@@ -291,8 +291,8 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
             )}
             <defs>
               <linearGradient id="flightGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#08478E" stopOpacity="0.2" />
-                <stop offset="100%" stopColor="#FF6B00" stopOpacity="1" />
+                <stop offset="0%" stopColor="#193e87" stopOpacity="0.2" />
+                <stop offset="100%" stopColor="#fc7219" stopOpacity="1" />
               </linearGradient>
             </defs>
           </svg>
@@ -308,8 +308,8 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
             >
               <div className="relative flex items-center justify-center">
                 {/* Flame trail behind jet */}
-                <Flame className="absolute -left-4 h-5 w-5 text-[#FF6B00] animate-pulse -rotate-90" />
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#FF6B00] to-[#FFC700] text-white shadow-[0_0_20px_rgba(255,107,0,0.9)] transform -rotate-12">
+                <Flame className="absolute -left-4 h-5 w-5 text-[#fc7219] animate-pulse -rotate-90" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#fc7219] to-[#fedbbb] text-white shadow-[0_0_20px_rgba(255,107,0,0.9)] transform -rotate-12">
                   <Plane className="h-5 w-5 fill-white" />
                 </div>
               </div>
@@ -318,9 +318,9 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
         </div>
 
         {/* Bottom Arena Stats */}
-        <div className="relative z-10 flex items-center justify-between text-[11px] text-gray-400 border-t border-[#08478E]/40 pt-2 font-mono">
+        <div className="relative z-10 flex items-center justify-between text-[11px] text-gray-400 border-t border-[#193e87]/40 pt-2 font-mono">
           <div className="flex items-center gap-1.5">
-            <TrendingUp className="h-3.5 w-3.5 text-[#FF6B00]" />
+            <TrendingUp className="h-3.5 w-3.5 text-[#fc7219]" />
             <span>{locale === "bn" ? "অড বৃদ্ধি: সূচকীয়" : "Odds Scale: Exponential"}</span>
           </div>
           <span>CSPRNG HMAC-SHA256</span>
@@ -352,7 +352,7 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
               disabled={gameState === "FLYING"}
               value={betAmount}
               onChange={(e) => setBetAmount(Math.max(1, Number(e.target.value)))}
-              className="w-full rounded-xl border border-[#08478E]/60 bg-[#040F26] px-3.5 py-3 font-mono text-sm font-bold text-white tabular-nums focus:border-[#FF6B00] focus:outline-none"
+              className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-3.5 py-3 font-mono text-sm font-bold text-white tabular-nums focus:border-[#fc7219] focus:outline-none"
             />
             <span className="absolute right-3.5 top-1/2 -translate-y-1/2 font-mono text-xs font-bold text-gray-400">
               PTS
@@ -367,8 +367,8 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
                 onClick={() => setBetAmount(amt)}
                 className={`rounded-lg py-1.5 font-mono text-[11px] font-bold transition-all ${
                   betAmount === amt
-                    ? "border border-[#FF6B00] bg-[#FF6B00]/25 text-[#FFC700]"
-                    : "border border-[#08478E]/40 bg-[#040F26] text-gray-300 hover:text-white"
+                    ? "border border-[#fc7219] bg-[#fc7219]/25 text-[#fedbbb]"
+                    : "border border-[#193e87]/40 bg-[#081329] text-gray-300 hover:text-white"
                 }`}
               >
                 +{amt}
@@ -391,7 +391,7 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
                 onChange={(e) => setAutoCashout(e.target.checked)}
                 className="sr-only peer"
               />
-              <div className="w-8 h-4 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[#FF6B00]" />
+              <div className="w-8 h-4 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[#fc7219]" />
             </label>
           </div>
           <div className="relative">
@@ -401,9 +401,9 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
               disabled={!autoCashout || gameState === "FLYING"}
               value={autoCashoutTarget}
               onChange={(e) => setAutoCashoutTarget(Math.max(1.05, Number(e.target.value)))}
-              className="w-full rounded-xl border border-[#08478E]/60 bg-[#040F26] px-3.5 py-3 font-mono text-sm font-bold text-white tabular-nums focus:border-[#FF6B00] focus:outline-none disabled:opacity-40"
+              className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-3.5 py-3 font-mono text-sm font-bold text-white tabular-nums focus:border-[#fc7219] focus:outline-none disabled:opacity-40"
             />
-            <span className="absolute right-3.5 top-1/2 -translate-y-1/2 font-mono text-xs font-bold text-[#FFC700]">
+            <span className="absolute right-3.5 top-1/2 -translate-y-1/2 font-mono text-xs font-bold text-[#fedbbb]">
               X
             </span>
           </div>
@@ -416,8 +416,8 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
                 onClick={() => setAutoCashoutTarget(t)}
                 className={`rounded-lg py-1.5 font-mono text-[11px] font-bold transition-all disabled:opacity-30 ${
                   autoCashoutTarget === t
-                    ? "border border-[#FF6B00] bg-[#FF6B00]/25 text-[#FFC700]"
-                    : "border border-[#08478E]/40 bg-[#040F26] text-gray-300 hover:text-white"
+                    ? "border border-[#fc7219] bg-[#fc7219]/25 text-[#fedbbb]"
+                    : "border border-[#193e87]/40 bg-[#081329] text-gray-300 hover:text-white"
                 }`}
               >
                 {t}x
@@ -458,9 +458,9 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
       )}
 
       {/* Provably Fair Audit Drawer */}
-      <div className="mt-4 rounded-xl border border-[#08478E]/40 bg-[#040F26] p-3 text-xs text-gray-400 flex items-center justify-between">
+      <div className="mt-4 rounded-xl border border-[#193e87]/40 bg-[#081329] p-3 text-xs text-gray-400 flex items-center justify-between">
         <div className="flex items-center gap-1.5">
-          <ShieldCheck className="h-4 w-4 text-[#FFC700]" />
+          <ShieldCheck className="h-4 w-4 text-[#fedbbb]" />
           <span className="font-bold uppercase tracking-wider text-gray-300">
             {locale === "bn" ? "প্রুভেবলি ফেয়ার অডিট" : "Provably Fair Verification"}
           </span>

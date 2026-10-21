@@ -160,15 +160,15 @@ export function TopUpModal() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 sm:p-4 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
-      <div className="relative w-full max-w-lg my-auto overflow-hidden rounded-2xl border border-[#08478E]/60 bg-[#051738] p-5 sm:p-6 shadow-2xl">
+      <div className="relative w-full max-w-lg my-auto overflow-hidden rounded-2xl border border-[#193e87]/60 bg-[#0e1f3d] p-5 sm:p-6 shadow-2xl">
         {/* Mostbet glowing accent */}
-        <div className="absolute -top-20 left-1/2 h-36 w-72 -translate-x-1/2 rounded-full bg-[#FF6B00]/20 blur-3xl pointer-events-none" />
+        <div className="absolute -top-20 left-1/2 h-36 w-72 -translate-x-1/2 rounded-full bg-[#fc7219]/20 blur-3xl pointer-events-none" />
 
         {/* Header */}
-        <div className="relative mb-4 flex items-center justify-between border-b border-[#08478E]/50 pb-3">
+        <div className="relative mb-4 flex items-center justify-between border-b border-[#193e87]/50 pb-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#08478E] text-[#FFC700] border border-[#FFC700]/30 shadow-[0_0_15px_rgba(255,199,0,0.25)]">
-              <Star className="h-5 w-5 fill-[#FFC700]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#193e87] text-[#fedbbb] border border-[#fedbbb]/30 shadow-[0_0_15px_rgba(255,199,0,0.25)]">
+              <Star className="h-5 w-5 fill-[#fedbbb]" />
             </div>
             <div>
               <h3 className="text-base font-black uppercase tracking-tight text-white">{t("topUpTitle")}</h3>
@@ -177,19 +177,19 @@ export function TopUpModal() {
           </div>
           <button
             onClick={() => setIsTopUpOpen(false)}
-            className="rounded-xl p-2 text-gray-400 hover:bg-[#08478E]/40 hover:text-white transition-colors"
+            className="rounded-xl p-2 text-gray-400 hover:bg-[#193e87]/40 hover:text-white transition-colors"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
         {/* Sub Tabs */}
-        <div className="relative mb-4 grid grid-cols-2 gap-1 rounded-xl bg-[#040F26] p-1 border border-[#08478E]/40">
+        <div className="relative mb-4 grid grid-cols-2 gap-1 rounded-xl bg-[#081329] p-1 border border-[#193e87]/40">
           <button
             onClick={() => setActiveSubTab("request")}
             className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-xs font-black uppercase tracking-wider transition-all ${
               activeSubTab === "request"
-                ? "bg-[#FF6B00] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
+                ? "bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
                 : "text-gray-400 hover:text-white"
             }`}
           >
@@ -200,7 +200,7 @@ export function TopUpModal() {
             onClick={() => setActiveSubTab("daily")}
             className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-xs font-black uppercase tracking-wider transition-all ${
               activeSubTab === "daily"
-                ? "bg-[#FF6B00] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
+                ? "bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
                 : "text-gray-400 hover:text-white"
             }`}
           >
@@ -231,8 +231,8 @@ export function TopUpModal() {
                       }}
                       className={`relative flex flex-col items-center justify-center rounded-xl p-2.5 border transition-all ${
                         isSelected
-                          ? "border-[#FF6B00] bg-[#FF6B00]/15 shadow-[0_0_15px_rgba(255,107,0,0.35)] scale-[1.02]"
-                          : "border-white/10 bg-[#040F26] hover:border-white/30 opacity-70 hover:opacity-100"
+                          ? "border-[#fc7219] bg-[#fc7219]/15 shadow-[0_0_15px_rgba(255,107,0,0.35)] scale-[1.02]"
+                          : "border-white/10 bg-[#081329] hover:border-white/30 opacity-70 hover:opacity-100"
                       }`}
                     >
                       <div className="h-7 w-full flex items-center justify-center mb-1">
@@ -248,12 +248,12 @@ export function TopUpModal() {
             </div>
 
             {/* Step 2: Highlighted bKash / MFS Official Number Card */}
-            <div className="relative overflow-hidden rounded-xl border-2 border-[#08478E] bg-[#040F26] p-4 shadow-lg">
-              <div className="absolute top-0 right-0 h-28 w-28 bg-[#FF6B00]/10 rounded-full blur-2xl pointer-events-none" />
+            <div className="relative overflow-hidden rounded-xl border-2 border-[#193e87] bg-[#081329] p-4 shadow-lg">
+              <div className="absolute top-0 right-0 h-28 w-28 bg-[#fc7219]/10 rounded-full blur-2xl pointer-events-none" />
 
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div>
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#FFC700]">
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#fedbbb]">
                     {locale === "bn" ? "অফিসিয়াল পেমেন্ট নম্বর" : "Official Payment Recipient"}
                   </span>
                   <div className="flex items-baseline gap-2 mt-0.5">
@@ -273,7 +273,7 @@ export function TopUpModal() {
                   className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all ${
                     copied
                       ? "bg-emerald-500 text-white shadow-[0_0_12px_rgba(16,185,129,0.5)]"
-                      : "bg-[#08478E] text-[#FFC700] hover:bg-[#FF6B00] hover:text-white border border-white/15"
+                      : "bg-[#193e87] text-[#fedbbb] hover:bg-[#fc7219] hover:text-white border border-white/15"
                   }`}
                 >
                   {copied ? (
@@ -291,8 +291,8 @@ export function TopUpModal() {
               </div>
 
               {/* Step-by-Step Payment Instructions */}
-              <div className="mt-3 pt-3 border-t border-[#08478E]/50 text-[11px] text-gray-300 space-y-1 leading-relaxed">
-                <p className="font-bold text-[#FFC700]">
+              <div className="mt-3 pt-3 border-t border-[#193e87]/50 text-[11px] text-gray-300 space-y-1 leading-relaxed">
+                <p className="font-bold text-[#fedbbb]">
                   {locale === "bn" ? "পেমেন্ট করার নিয়ম:" : "How to Pay via Mobile Banking:"}
                 </p>
                 <ol className="list-decimal list-inside space-y-0.5 text-gray-400">
@@ -338,8 +338,8 @@ export function TopUpModal() {
                     onClick={() => setReqAmount(amt)}
                     className={`rounded-xl py-2 font-mono text-xs font-bold transition-all ${
                       reqAmount === amt
-                        ? "border border-[#FF6B00] bg-[#FF6B00]/25 text-[#FFC700] shadow-[0_0_12px_rgba(255,107,0,0.3)]"
-                        : "border border-[#08478E]/40 bg-[#040F26] text-gray-400 hover:text-white"
+                        ? "border border-[#fc7219] bg-[#fc7219]/25 text-[#fedbbb] shadow-[0_0_12px_rgba(255,107,0,0.3)]"
+                        : "border border-[#193e87]/40 bg-[#081329] text-gray-400 hover:text-white"
                     }`}
                   >
                     +{amt}
@@ -357,7 +357,7 @@ export function TopUpModal() {
                 <button
                   type="button"
                   onClick={() => setReqNotes(currentMfs.sampleTrx)}
-                  className="text-[10px] font-mono font-bold text-[#FF6B00] hover:text-[#FFC700] underline"
+                  className="text-[10px] font-mono font-bold text-[#fc7219] hover:text-[#fedbbb] underline"
                 >
                   {locale === "bn" ? "স্যাম্পল TrxID দিন" : "Fill Sample TrxID"}
                 </button>
@@ -367,7 +367,7 @@ export function TopUpModal() {
                 value={reqNotes}
                 onChange={(e) => setReqNotes(e.target.value)}
                 placeholder={locale === "bn" ? `যেমন: ${currentMfs.sampleTrx} (পেমেন্ট SMS থেকে)` : `e.g. ${currentMfs.sampleTrx}`}
-                className="w-full rounded-xl border border-[#08478E]/60 bg-[#040F26] px-3.5 py-3 font-mono text-xs text-white placeholder-gray-500 focus:border-[#FF6B00] focus:outline-none focus:ring-1 focus:ring-[#FF6B00]"
+                className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-3.5 py-3 font-mono text-xs text-white placeholder-gray-500 focus:border-[#fc7219] focus:outline-none focus:ring-1 focus:ring-[#fc7219]"
               />
             </div>
 
@@ -405,8 +405,8 @@ export function TopUpModal() {
         {/* Content Tab 2: Daily Bonus */}
         {activeSubTab === "daily" && (
           <div className="relative space-y-4">
-            <div className="rounded-xl border border-[#08478E]/50 bg-[#040F26]/60 p-5 text-center shadow-inner">
-              <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#FF6B00] to-[#FFC700] text-white shadow-[0_0_20px_rgba(255,107,0,0.35)]">
+            <div className="rounded-xl border border-[#193e87]/50 bg-[#081329]/60 p-5 text-center shadow-inner">
+              <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#fc7219] to-[#fedbbb] text-white shadow-[0_0_20px_rgba(255,107,0,0.35)]">
                 <Gift className="h-7 w-7" />
               </div>
               <h4 className="text-sm font-black uppercase tracking-wide text-white">{t("dailyBonusTitle")}</h4>

@@ -175,15 +175,15 @@ export function PenaltyShootout({ onRoundComplete }: PenaltyShootoutProps) {
   };
 
   return (
-    <div className="mst-card relative overflow-hidden rounded-2xl border border-[#08478E]/60 bg-[#051738] p-4 sm:p-6 shadow-2xl">
+    <div className="mst-card relative overflow-hidden rounded-2xl border border-[#193e87]/60 bg-[#0e1f3d] p-4 sm:p-6 shadow-2xl">
       {/* Header & Goal Multiplier Ladder */}
-      <div className="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#08478E]/40 pb-3">
+      <div className="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#193e87]/40 pb-3">
         <div className="flex items-center gap-2">
-          <Trophy className="h-5 w-5 text-[#FFC700]" />
+          <Trophy className="h-5 w-5 text-[#fedbbb]" />
           <span className="text-xs font-black uppercase tracking-wider text-white">
             {locale === "bn" ? "পেনাল্টি শ্যুট-আউট" : "PENALTY SHOOT-OUT"}
           </span>
-          <span className="rounded bg-[#FFC700]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-[#FFC700]">
+          <span className="rounded bg-[#fedbbb]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-[#fedbbb]">
             Evoplay Style
           </span>
         </div>
@@ -200,8 +200,8 @@ export function PenaltyShootout({ onRoundComplete }: PenaltyShootoutProps) {
                   isCompleted
                     ? "bg-emerald-500/20 border border-emerald-500/50 text-emerald-400"
                     : isCurrent
-                    ? "bg-[#FF6B00]/20 border border-[#FF6B00] text-[#FFC700] shadow-[0_0_12px_rgba(255,107,0,0.4)]"
-                    : "bg-[#040F26] border border-[#08478E]/40 text-gray-400"
+                    ? "bg-[#fc7219]/20 border border-[#fc7219] text-[#fedbbb] shadow-[0_0_12px_rgba(255,107,0,0.4)]"
+                    : "bg-[#081329] border border-[#193e87]/40 text-gray-400"
                 }`}
               >
                 <span className="text-[9px] font-bold uppercase">Shot {idx + 1}</span>
@@ -213,7 +213,7 @@ export function PenaltyShootout({ onRoundComplete }: PenaltyShootoutProps) {
       </div>
 
       {/* Goal Arena Viewport */}
-      <div className="relative mb-5 h-64 sm:h-72 w-full overflow-hidden rounded-xl border-4 border-[#08478E] bg-gradient-to-b from-[#040F26] via-[#051B38] to-[#0A2F1D] p-4 shadow-inner flex flex-col justify-between">
+      <div className="relative mb-5 h-64 sm:h-72 w-full overflow-hidden rounded-xl border-4 border-[#193e87] bg-gradient-to-b from-[#081329] via-[#051B38] to-[#0A2F1D] p-4 shadow-inner flex flex-col justify-between">
         {/* Stadium Goalpost & Net Pattern */}
         <div
           className="absolute inset-x-8 top-6 bottom-4 border-t-8 border-x-8 border-white rounded-t-lg pointer-events-none opacity-90 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
@@ -242,8 +242,8 @@ export function PenaltyShootout({ onRoundComplete }: PenaltyShootoutProps) {
             </div>
           )}
           {gameState === "WON" && (
-            <div className="inline-flex flex-col items-center gap-1 rounded-2xl bg-[#FF6B00]/25 border-2 border-[#FFC700] px-6 py-3 shadow-[0_0_30px_rgba(255,199,0,0.6)] animate-in zoom-in-95">
-              <span className="font-mono text-2xl font-black text-[#FFC700] uppercase tracking-wider">
+            <div className="inline-flex flex-col items-center gap-1 rounded-2xl bg-[#fc7219]/25 border-2 border-[#fedbbb] px-6 py-3 shadow-[0_0_30px_rgba(255,199,0,0.6)] animate-in zoom-in-95">
+              <span className="font-mono text-2xl font-black text-[#fedbbb] uppercase tracking-wider">
                 {locale === "bn" ? "ম্যাচ জয়ী!" : "MATCH WON!"}
               </span>
               {winPayout && (
@@ -287,9 +287,9 @@ export function PenaltyShootout({ onRoundComplete }: PenaltyShootoutProps) {
                 key={s.id}
                 onClick={() => handleShoot(s.id)}
                 disabled={shooting}
-                className={`absolute ${s.pos} group flex h-14 w-14 items-center justify-center rounded-full border-2 border-dashed border-[#FFC700]/70 bg-black/40 hover:bg-[#FF6B00]/40 hover:border-[#FF6B00] hover:scale-110 active:scale-95 transition-all shadow-[0_0_15px_rgba(255,199,0,0.3)]`}
+                className={`absolute ${s.pos} group flex h-14 w-14 items-center justify-center rounded-full border-2 border-dashed border-[#fedbbb]/70 bg-black/40 hover:bg-[#fc7219]/40 hover:border-[#fc7219] hover:scale-110 active:scale-95 transition-all shadow-[0_0_15px_rgba(255,199,0,0.3)]`}
               >
-                <Target className="h-7 w-7 text-[#FFC700] group-hover:text-white transition-colors" />
+                <Target className="h-7 w-7 text-[#fedbbb] group-hover:text-white transition-colors" />
                 <span className="sr-only">{s.label}</span>
               </button>
             ))}
@@ -297,12 +297,12 @@ export function PenaltyShootout({ onRoundComplete }: PenaltyShootoutProps) {
         )}
 
         {/* Penalty Spot & Football Ball Indicator */}
-        <div className="relative z-10 flex items-center justify-between text-[11px] text-gray-300 border-t border-[#08478E]/40 pt-2 font-mono">
+        <div className="relative z-10 flex items-center justify-between text-[11px] text-gray-300 border-t border-[#193e87]/40 pt-2 font-mono">
           <div className="flex items-center gap-1.5">
             <div className="h-3 w-3 rounded-full bg-white shadow-[0_0_8px_#fff]" />
             <span>{locale === "bn" ? "টার্গেটে ক্লিক করে শ্যুট করুন" : "Click target zone to shoot"}</span>
           </div>
-          <span className="text-[#FFC700] font-bold">Goals: {goals}/5</span>
+          <span className="text-[#fedbbb] font-bold">Goals: {goals}/5</span>
         </div>
       </div>
 
@@ -329,7 +329,7 @@ export function PenaltyShootout({ onRoundComplete }: PenaltyShootoutProps) {
             disabled={gameState === "PLAYING" || gameState === "GOAL"}
             value={betAmount}
             onChange={(e) => setBetAmount(Math.max(1, Number(e.target.value)))}
-            className="w-full rounded-xl border border-[#08478E]/60 bg-[#040F26] px-3.5 py-3 font-mono text-sm font-bold text-white tabular-nums focus:border-[#FF6B00] focus:outline-none"
+            className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-3.5 py-3 font-mono text-sm font-bold text-white tabular-nums focus:border-[#fc7219] focus:outline-none"
           />
           <span className="absolute right-3.5 top-1/2 -translate-y-1/2 font-mono text-xs font-bold text-gray-400">
             PTS
@@ -343,8 +343,8 @@ export function PenaltyShootout({ onRoundComplete }: PenaltyShootoutProps) {
               onClick={() => setBetAmount(amt)}
               className={`rounded-lg py-1.5 font-mono text-[11px] font-bold transition-all ${
                 betAmount === amt
-                  ? "border border-[#FF6B00] bg-[#FF6B00]/25 text-[#FFC700]"
-                  : "border border-[#08478E]/40 bg-[#040F26] text-gray-300 hover:text-white"
+                  ? "border border-[#fc7219] bg-[#fc7219]/25 text-[#fedbbb]"
+                  : "border border-[#193e87]/40 bg-[#081329] text-gray-300 hover:text-white"
               }`}
             >
               +{amt}
@@ -366,7 +366,7 @@ export function PenaltyShootout({ onRoundComplete }: PenaltyShootoutProps) {
               {locale === "bn" ? "ক্যাশ আউট" : "CASH OUT"} (+{formatCurrency(betAmount * currentMultiplier)} PTS)
             </span>
           </button>
-          <div className="flex items-center justify-center rounded-xl border border-[#08478E]/60 bg-[#040F26] p-2 text-xs font-bold text-[#FFC700] text-center">
+          <div className="flex items-center justify-center rounded-xl border border-[#193e87]/60 bg-[#081329] p-2 text-xs font-bold text-[#fedbbb] text-center">
             {locale === "bn" ? "যেকোনো টার্গেটে শট নিন" : "Aim and shoot at a target above"}
           </div>
         </div>
@@ -390,9 +390,9 @@ export function PenaltyShootout({ onRoundComplete }: PenaltyShootoutProps) {
       )}
 
       {/* Provably Fair Audit Drawer */}
-      <div className="mt-4 rounded-xl border border-[#08478E]/40 bg-[#040F26] p-3 text-xs text-gray-400 flex items-center justify-between">
+      <div className="mt-4 rounded-xl border border-[#193e87]/40 bg-[#081329] p-3 text-xs text-gray-400 flex items-center justify-between">
         <div className="flex items-center gap-1.5">
-          <ShieldCheck className="h-4 w-4 text-[#FFC700]" />
+          <ShieldCheck className="h-4 w-4 text-[#fedbbb]" />
           <span className="font-bold uppercase tracking-wider text-gray-300">
             {locale === "bn" ? "প্রুভেবলি ফেয়ার অডিট" : "Provably Fair Verification"}
           </span>

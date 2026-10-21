@@ -21,7 +21,7 @@ export function BottomNav({ activeTab, setActiveTab }: BottomNavProps) {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 z-40 w-full border-t border-[#08478E]/60 bg-[#051738]/95 backdrop-blur-xl sm:hidden">
+    <nav className="fixed bottom-0 left-0 z-40 w-full border-t border-[#193e87]/60 bg-[#0e1f3d]/95 backdrop-blur-xl sm:hidden">
       <div className="grid h-16 grid-cols-5 items-center px-2">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -36,18 +36,18 @@ export function BottomNav({ activeTab, setActiveTab }: BottomNavProps) {
               }}
               className={`flex flex-col items-center justify-center gap-1 transition-all ${
                 isActive
-                  ? "text-[#FFC700]"
+                  ? "text-[#fedbbb]"
                   : "text-gray-400 hover:text-gray-200"
               }`}
             >
               <div
                 className={`relative flex h-8 w-8 items-center justify-center rounded-xl transition-all ${
-                  isActive ? "bg-[#FF6B00]/20 text-[#FF6B00] border border-[#FF6B00]/50 shadow-[0_0_12px_rgba(255,107,0,0.4)]" : ""
+                  isActive ? "bg-[#fc7219]/20 text-[#fc7219] border border-[#fc7219]/50 shadow-[0_0_12px_rgba(255,107,0,0.4)]" : ""
                 }`}
               >
                 <Icon className="h-4 w-4" />
                 {isActive && (
-                  <span className="absolute -bottom-1 h-1 w-1 rounded-full bg-[#FF6B00]" />
+                  <span className="absolute -bottom-1 h-1 w-1 rounded-full bg-[#fc7219]" />
                 )}
               </div>
               <span className="text-[10px] font-black uppercase tracking-tight">{item.label}</span>
@@ -58,9 +58,9 @@ export function BottomNav({ activeTab, setActiveTab }: BottomNavProps) {
         {/* Top Up trigger on bottom bar */}
         <button
           onClick={() => setIsTopUpOpen(true)}
-          className="flex flex-col items-center justify-center gap-1 text-[#FF6B00] hover:text-[#FFC700]"
+          className="flex flex-col items-center justify-center gap-1 text-[#fc7219] hover:text-[#fedbbb]"
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#FF6B00] text-white shadow-[0_0_15px_rgba(255,107,0,0.5)]">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.5)]">
             <PlusCircle className="h-4 w-4" />
           </div>
           <span className="text-[10px] font-black uppercase tracking-tight">{locale === "bn" ? "রিফিল" : "Refill"}</span>

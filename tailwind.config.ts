@@ -9,26 +9,37 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#040F26",
+        background: "#081329",
         surface: {
-          DEFAULT: "#051738",
-          dark: "#030B1C",
-          card: "rgba(13, 44, 92, 0.75)",
-          hover: "rgba(18, 58, 120, 0.85)",
+          DEFAULT: "#0e1f3d",
+          dark: "#060d1c",
+          card: "rgba(25, 62, 135, 0.28)",
+          hover: "rgba(45, 132, 249, 0.2)",
         },
-        header: "#08478E",
+        header: "#193e87",
+        palette: {
+          navy: "#193e87",
+          cobalt: "#2d84f9",
+          sky: "#94caf9",
+          orange: "#fc7219",
+          peach: "#fedbbb",
+        },
         brand: {
-          blue: "#08478E",
-          lightBlue: "#0B5CB8",
-          orange: "#FF6B00",
-          orangeHover: "#FF5500",
-          gold: "#FFC700",
-          cyan: "#00D2FF",
+          navy: "#193e87",
+          blue: "#193e87",
+          lightBlue: "#2d84f9",
+          cobalt: "#2d84f9",
+          sky: "#94caf9",
+          orange: "#fc7219",
+          orangeHover: "#e56412",
+          gold: "#fedbbb",
+          peach: "#fedbbb",
+          cyan: "#94caf9",
         },
         text: {
           primary: "#FFFFFF",
-          secondary: "#8EA8C7",
-          muted: "#5B7596",
+          secondary: "#94caf9",
+          muted: "#668ab8",
         },
         ruby: {
           DEFAULT: "#EF4444",
@@ -40,10 +51,12 @@ const config: Config = {
         },
       },
       boxShadow: {
-        'orange-glow': '0 0 25px rgba(255, 107, 0, 0.45)',
-        'blue-glow': '0 0 30px rgba(8, 71, 142, 0.5)',
-        'gold-glow': '0 0 20px rgba(255, 199, 0, 0.35)',
-        'card': '0 12px 32px -8px rgba(0, 0, 0, 0.65), 0 4px 12px -2px rgba(8, 71, 142, 0.15)',
+        'orange-glow': '0 0 25px rgba(252, 114, 25, 0.5)',
+        'blue-glow': '0 0 30px rgba(45, 132, 249, 0.5)',
+        'cobalt-glow': '0 0 25px rgba(45, 132, 249, 0.45)',
+        'peach-glow': '0 0 20px rgba(254, 219, 187, 0.35)',
+        'gold-glow': '0 0 20px rgba(254, 219, 187, 0.35)',
+        'card': '0 12px 32px -8px rgba(0, 0, 0, 0.65), 0 4px 14px -2px rgba(25, 62, 135, 0.35)',
       },
       fontFamily: {
         sans: [

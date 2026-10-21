@@ -3,15 +3,18 @@
 @tailwind utilities;
 
 :root {
-  --background: #040F26;
-  --header-bg: #08478E;
-  --surface-dark: #051738;
-  --card-bg: rgba(13, 44, 92, 0.75);
-  --color-orange: #FF6B00;
-  --color-gold: #FFC700;
+  --background: #081329;
+  --header-bg: #193e87;
+  --surface-dark: #0e1f3d;
+  --card-bg: rgba(25, 62, 135, 0.28);
+  --color-navy: #193e87;
+  --color-cobalt: #2d84f9;
+  --color-sky: #94caf9;
+  --color-orange: #fc7219;
+  --color-peach: #fedbbb;
   --color-text-main: #FFFFFF;
-  --color-text-sub: #8EA8C7;
-  --border-subtle: rgba(255, 255, 255, 0.08);
+  --color-text-sub: #94caf9;
+  --border-subtle: rgba(148, 202, 249, 0.15);
 }
 
 * {
@@ -43,64 +46,64 @@ body {
   height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #030B1C;
+  background: #060d1c;
 }
 ::-webkit-scrollbar-thumb {
-  background: #08478E;
+  background: #193e87;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF6B00;
+  background: #2d84f9;
 }
 
-/* Mostbet Card Surfaces */
+/* Card Surfaces */
 .mst-card {
-  background: rgba(13, 44, 92, 0.75);
+  background: rgba(25, 62, 135, 0.28);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.65), 0 4px 12px -2px rgba(8, 71, 142, 0.15);
+  border: 1px solid rgba(148, 202, 249, 0.16);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.65), 0 4px 14px -2px rgba(25, 62, 135, 0.35);
 }
 
 .mst-card:hover {
-  border-color: rgba(255, 199, 0, 0.3);
+  border-color: rgba(45, 132, 249, 0.45);
 }
 
 /* Action Orange Button */
 .btn-action-orange {
-  background: linear-gradient(180deg, #FF7A1A 0%, #FF5500 100%);
+  background: linear-gradient(180deg, #fc7219 0%, #e56412 100%);
   color: #FFFFFF;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(252, 114, 25, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .btn-action-orange:hover {
-  background: linear-gradient(180deg, #FF8C33 0%, #FF6600 100%);
-  box-shadow: 0 6px 25px rgba(255, 107, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  background: linear-gradient(180deg, #fd8639 0%, #fc7219 100%);
+  box-shadow: 0 6px 25px rgba(252, 114, 25, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.4);
   transform: translateY(-1px);
 }
 .btn-action-orange:active {
   transform: translateY(1px) scale(0.985);
-  box-shadow: 0 2px 8px rgba(255, 107, 0, 0.4);
+  box-shadow: 0 2px 8px rgba(252, 114, 25, 0.4);
 }
 
-/* Secondary Royal Blue Button */
+/* Secondary Royal/Cobalt Blue Button */
 .btn-royal-blue {
-  background: #08478E;
+  background: #193e87;
   color: #FFFFFF;
   font-weight: 700;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(148, 202, 249, 0.25);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .btn-royal-blue:hover {
-  background: #0B5CB8;
-  border-color: rgba(255, 199, 0, 0.4);
-  box-shadow: 0 4px 18px rgba(8, 71, 142, 0.45);
+  background: #2d84f9;
+  border-color: rgba(254, 219, 187, 0.5);
+  box-shadow: 0 4px 18px rgba(45, 132, 249, 0.5);
 }
 
-/* Star Loader Animation from Mostbet CSS */
+/* Star Loader Animation */
 .star-loader-container {
   position: relative;
   width: 56px;
@@ -114,15 +117,15 @@ body {
   width: 24px;
   height: 24px;
   clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-  background-color: #FFC700;
-  box-shadow: 0 0 10px rgba(255, 199, 0, 0.8);
+  background-color: #fedbbb;
+  box-shadow: 0 0 10px rgba(254, 219, 187, 0.85);
 }
 .star-loader-arc {
   position: absolute;
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: conic-gradient(from 90deg, rgba(255, 199, 0, 0) 70%, #FF6B00 100%);
+  background: conic-gradient(from 90deg, rgba(254, 219, 187, 0) 70%, #fc7219 100%);
   -webkit-mask: radial-gradient(circle, transparent 62%, black 63%);
   mask: radial-gradient(circle, transparent 62%, black 63%);
   animation: star-rotate 0.5s linear infinite;
