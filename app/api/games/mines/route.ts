@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getGameUser } from "@/lib/session-user";
 import {
   generateServerSeed,
   hashSeed,
@@ -7,17 +8,12 @@ import {
   calculateMinesMultiplier,
 } from "@/lib/provably-fair";
 
-const DEMO_USERNAME = "player_one";
-
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { action, roundId, betAmount, mineCount, tileIndex, clientSeed } = body;
 
-    const user = await prisma.user.findUnique({
-      where: { username: DEMO_USERNAME },
-      include: { wallet: true },
-    });
+    const user = await getGameUser();
 
     if (!user || !user.wallet) {
       return NextResponse.json(
