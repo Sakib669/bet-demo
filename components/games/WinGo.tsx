@@ -132,7 +132,7 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
     }
 
     // Advance period
-    setPeriod((prev) => (BigInt(prev) + 1n).toString());
+    setPeriod((prev) => (BigInt(prev) + BigInt(1)).toString());
   };
 
   const handlePlaceBet = async () => {
