@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useWallet } from "@/lib/wallet-context";
 import { useLanguage } from "@/lib/language-context";
 import {
@@ -14,89 +14,118 @@ import {
   Smartphone,
   Copy,
   Check,
-  HelpCircle,
+  History,
   Sparkles,
 } from "lucide-react";
 
-type MfsType = "bkash" | "nagad" | "rocket";
-
-interface MfsConfig {
-  name: string;
-  number: string;
-  rawNumber: string;
-  type: string;
-  typeBn: string;
-  color: string;
-  logo: string;
-  ussd: string;
-  sampleTrx: string;
+interface DepositItem {
+  id: string;
+  amount: number;
+  bkashTrxId: string;
+  senderNumber: string;
+  status: string;
+  adminNote?: string;
+  createdAt: string;
 }
 
-const MFS_PROVIDERS: Record<MfsType, MfsConfig> = {
-  bkash: {
-    name: "bKash",
-    number: "01798-234567",
-    rawNumber: "01798234567",
-    type: "Personal (Send Money)",
-    typeBn: "পার্সোনাল (Send Money)",
-    color: "#E2136E",
-    logo: "/images/payments/bkash.svg",
-    ussd: "*247#",
-    sampleTrx: "BK9X728Q41",
-  },
-  nagad: {
-    name: "Nagad",
-    number: "01987-654321",
-    rawNumber: "01987654321",
-    type: "Personal (Send Money)",
-    typeBn: "পার্সোনাল (Send Money)",
-    color: "#F7931E",
-    logo: "/images/payments/nagad.svg",
-    ussd: "*167#",
-    sampleTrx: "NG82940172",
-  },
-  rocket: {
-    name: "Rocket",
-    number: "01812-345678-4",
-    rawNumber: "018123456784",
-    type: "Personal (Send Money)",
-    typeBn: "পার্সোনাল (Send Money)",
-    color: "#8C3494",
-    logo: "/images/payments/rocket.svg",
-    ussd: "*322#",
-    sampleTrx: "RK40192831",
-  },
-};
-
 export function TopUpModal() {
-  const { isTopUpOpen, setIsTopUpOpen, refreshWallet } = useWallet();
+  const { isTopUpOpen, setIsTopUpOpen, refreshWallet, isAuthenticated } = useWallet();
   const { t, locale } = useLanguage();
-  const [activeSubTab, setActiveSubTab] = useState<"daily" | "request">("request");
-  
-  // Selected MFS provider
-  const [selectedMfs, setSelectedMfs] = useState<MfsType>("bkash");
+  const [activeSubTab, setActiveSubTab] = useState<"deposit" | "history" | "daily">("deposit");
+
+  // Dynamic bKash configuration from database
+  const [bkashNumber, setBkashNumber] = useState<string>("01798-234567");
+  const [bkashType, setBkashType] = useState<string>("Personal (Send Money)");
   const [copied, setCopied] = useState<boolean>(false);
 
+  // Form states
+  const [amount, setAmount] = useState<number>(500);
+  const [senderNumber, setSenderNumber] = useState<string>("");
+  const [bkashTrxId, setBkashTrxId] = useState<string>("");
+  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  // History state
+  const [historyList, setHistoryList] = useState<DepositItem[]>([]);
+  const [loadingHistory, setLoadingHistory] = useState<boolean>(false);
+
   // Daily bonus state
-  const [dailyLoading, setDailyLoading] = useState(false);
+  const [dailyLoading, setDailyLoading] = useState<boolean>(false);
   const [dailyMessage, setDailyMessage] = useState<string | null>(null);
   const [dailyError, setDailyError] = useState<string | null>(null);
 
-  // Manual simulation request state
-  const [reqAmount, setReqAmount] = useState<number>(500);
-  const [reqNotes, setReqNotes] = useState<string>("");
-  const [reqLoading, setReqLoading] = useState(false);
-  const [reqSuccess, setReqSuccess] = useState<string | null>(null);
-  const [reqError, setReqError] = useState<string | null>(null);
+  // Load bKash settings on open
+  useEffect(() => {
+    if (isTopUpOpen) {
+      fetch("/api/settings/bkash")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success && data.data) {
+            setBkashNumber(data.data.number || "01798-234567");
+            setBkashType(data.data.type || "Personal (Send Money)");
+          }
+        })
+        .catch(() => {});
+    }
+  }, [isTopUpOpen]);
+
+  // Load history when tab is opened
+  useEffect(() => {
+    if (isTopUpOpen && activeSubTab === "history") {
+      setLoadingHistory(true);
+      fetch("/api/deposit/history")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            setHistoryList(data.deposits || []);
+          }
+        })
+        .catch(() => {})
+        .finally(() => setLoadingHistory(false));
+    }
+  }, [isTopUpOpen, activeSubTab]);
 
   if (!isTopUpOpen) return null;
 
-  const currentMfs = MFS_PROVIDERS[selectedMfs];
+  const rawNumber = bkashNumber.replace(/[-\s]/g, "");
 
   const handleCopyNumber = () => {
-    navigator.clipboard.writeText(currentMfs.rawNumber);
+    navigator.clipboard.writeText(rawNumber);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDepositSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setSubmitSuccess(null);
+    setSubmitError(null);
+
+    try {
+      const res = await fetch("/api/deposit/request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount,
+          senderNumber,
+          bkashTrxId,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setSubmitSuccess(data.message);
+        setBkashTrxId("");
+        setSenderNumber("");
+      } else {
+        setSubmitError(data.message);
+      }
+    } catch {
+      setSubmitError(locale === "bn" ? "পেমেন্ট রিকোয়েস্ট পাঠাতে ব্যর্থ হয়েছে।" : "Failed to submit deposit request.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleClaimDaily = async () => {
@@ -124,55 +153,24 @@ export function TopUpModal() {
     }
   };
 
-  const handleSendRequest = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setReqLoading(true);
-    setReqSuccess(null);
-    setReqError(null);
-
-    const submissionNotes = reqNotes
-      ? `${currentMfs.name} TrxID: ${reqNotes}`
-      : `${currentMfs.name} TrxID: ${currentMfs.sampleTrx}`;
-
-    try {
-      const res = await fetch("/api/wallet", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "REQUEST_CREDITS",
-          amount: reqAmount,
-          notes: submissionNotes,
-        }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setReqSuccess(data.message);
-        setReqNotes("");
-      } else {
-        setReqError(data.message);
-      }
-    } catch {
-      setReqError(locale === "bn" ? "রিকোয়েস্ট পাঠাতে ব্যর্থ হয়েছে।" : "Failed to submit request.");
-    } finally {
-      setReqLoading(false);
-    }
-  };
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 sm:p-4 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
-      <div className="relative w-full max-w-lg my-auto overflow-hidden rounded-2xl border border-[#193e87]/60 bg-[#0e1f3d] p-5 sm:p-6 shadow-2xl">
-        {/* Mostbet glowing accent */}
+      <div className="relative w-full max-w-lg my-auto overflow-hidden rounded-2xl border border-[#193e87]/70 bg-[#0e1f3d] p-5 sm:p-6 shadow-2xl">
         <div className="absolute -top-20 left-1/2 h-36 w-72 -translate-x-1/2 rounded-full bg-[#fc7219]/20 blur-3xl pointer-events-none" />
 
-        {/* Header */}
+        {/* Modal Header */}
         <div className="relative mb-4 flex items-center justify-between border-b border-[#193e87]/50 pb-3">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#193e87] text-[#fedbbb] border border-[#fedbbb]/30 shadow-[0_0_15px_rgba(255,199,0,0.25)]">
               <Star className="h-5 w-5 fill-[#fedbbb]" />
             </div>
             <div>
-              <h3 className="text-base font-black uppercase tracking-tight text-white">{t("topUpTitle")}</h3>
-              <p className="text-xs text-gray-400 font-medium">{t("topUpSubtitle")}</p>
+              <h3 className="text-base font-black uppercase tracking-tight text-white">
+                {locale === "bn" ? "বিকাশ ডিপোজিট ও টপ-আপ" : "bKash Deposit & Top-Up"}
+              </h3>
+              <p className="text-xs text-gray-400 font-medium">
+                {locale === "bn" ? "১ টাকা = ১ গেম পয়েন্ট (১:১ রেশিও)" : "1 BDT = 1 Game Credit (1:1 Ratio)"}
+              </p>
             </div>
           </div>
           <button
@@ -184,96 +182,72 @@ export function TopUpModal() {
         </div>
 
         {/* Sub Tabs */}
-        <div className="relative mb-4 grid grid-cols-2 gap-1 rounded-xl bg-[#081329] p-1 border border-[#193e87]/40">
+        <div className="relative mb-4 grid grid-cols-3 gap-1 rounded-xl bg-[#081329] p-1 border border-[#193e87]/40 text-center">
           <button
-            onClick={() => setActiveSubTab("request")}
-            className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-xs font-black uppercase tracking-wider transition-all ${
-              activeSubTab === "request"
+            onClick={() => setActiveSubTab("deposit")}
+            className={`flex items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-black uppercase tracking-wider transition-all ${
+              activeSubTab === "deposit"
                 ? "bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
                 : "text-gray-400 hover:text-white"
             }`}
           >
             <Smartphone className="h-3.5 w-3.5" />
-            {locale === "bn" ? "বিকাশ / নগদ পেমেন্ট" : "bKash / MFS Top-Up"}
+            <span>{locale === "bn" ? "বিকাশ পে" : "Deposit"}</span>
           </button>
+
+          <button
+            onClick={() => setActiveSubTab("history")}
+            className={`flex items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-black uppercase tracking-wider transition-all ${
+              activeSubTab === "history"
+                ? "bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
+                : "text-gray-400 hover:text-white"
+            }`}
+          >
+            <History className="h-3.5 w-3.5" />
+            <span>{locale === "bn" ? "হিস্ট্রি" : "History"}</span>
+          </button>
+
           <button
             onClick={() => setActiveSubTab("daily")}
-            className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-xs font-black uppercase tracking-wider transition-all ${
+            className={`flex items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-black uppercase tracking-wider transition-all ${
               activeSubTab === "daily"
                 ? "bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
                 : "text-gray-400 hover:text-white"
             }`}
           >
             <Gift className="h-3.5 w-3.5" />
-            {t("dailyAllowance")}
+            <span>{locale === "bn" ? "ফ্রি বোনাস" : "Bonus"}</span>
           </button>
         </div>
 
-        {/* Content Tab 1: bKash / Nagad Payment & Simulation Form */}
-        {activeSubTab === "request" && (
-          <form onSubmit={handleSendRequest} className="relative space-y-4">
-            {/* Step 1: Select Payment Gateway (bKash / Nagad / Rocket) */}
-            <div>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-gray-300 block mb-2">
-                {locale === "bn" ? "পেমেন্ট মাধ্যম নির্বাচন করুন" : "Select Payment Gateway"}
-              </span>
-              <div className="grid grid-cols-3 gap-2">
-                {(["bkash", "nagad", "rocket"] as MfsType[]).map((key) => {
-                  const mfs = MFS_PROVIDERS[key];
-                  const isSelected = selectedMfs === key;
-                  return (
-                    <button
-                      key={key}
-                      type="button"
-                      onClick={() => {
-                        setSelectedMfs(key);
-                        setCopied(false);
-                      }}
-                      className={`relative flex flex-col items-center justify-center rounded-xl p-2.5 border transition-all ${
-                        isSelected
-                          ? "border-[#fc7219] bg-[#fc7219]/15 shadow-[0_0_15px_rgba(255,107,0,0.35)] scale-[1.02]"
-                          : "border-white/10 bg-[#081329] hover:border-white/30 opacity-70 hover:opacity-100"
-                      }`}
-                    >
-                      <div className="h-7 w-full flex items-center justify-center mb-1">
-                        <img src={mfs.logo} alt={mfs.name} className="h-full object-contain" />
-                      </div>
-                      <span className="text-[10px] font-black uppercase tracking-tight text-white">
-                        {mfs.name}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Step 2: Highlighted bKash / MFS Official Number Card */}
-            <div className="relative overflow-hidden rounded-xl border-2 border-[#193e87] bg-[#081329] p-4 shadow-lg">
-              <div className="absolute top-0 right-0 h-28 w-28 bg-[#fc7219]/10 rounded-full blur-2xl pointer-events-none" />
-
+        {/* TAB 1: bKash Deposit Form */}
+        {activeSubTab === "deposit" && (
+          <form onSubmit={handleDepositSubmit} className="space-y-4">
+            {/* Official bKash Recipient Card */}
+            <div className="relative overflow-hidden rounded-xl border-2 border-[#E2136E]/60 bg-[#081329] p-4 shadow-lg">
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div>
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#fedbbb]">
-                    {locale === "bn" ? "অফিসিয়াল পেমেন্ট নম্বর" : "Official Payment Recipient"}
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#fedbbb] flex items-center gap-1">
+                    <span className="h-2 w-2 rounded-full bg-[#E2136E] animate-pulse" />
+                    {locale === "bn" ? "অফিসিয়াল বিকাশ নম্বর" : "Official bKash Number"}
                   </span>
                   <div className="flex items-baseline gap-2 mt-0.5">
                     <span className="font-mono text-xl sm:text-2xl font-black text-white tracking-wider tabular-nums">
-                      {currentMfs.number}
+                      {bkashNumber}
                     </span>
                   </div>
                   <span className="text-[10px] font-semibold text-gray-400 block mt-0.5">
-                    {locale === "bn" ? currentMfs.typeBn : currentMfs.type} • USSD: {currentMfs.ussd}
+                    {bkashType} • USSD: *247#
                   </span>
                 </div>
 
-                {/* Copy Button */}
                 <button
                   type="button"
                   onClick={handleCopyNumber}
                   className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all ${
                     copied
                       ? "bg-emerald-500 text-white shadow-[0_0_12px_rgba(16,185,129,0.5)]"
-                      : "bg-[#193e87] text-[#fedbbb] hover:bg-[#fc7219] hover:text-white border border-white/15"
+                      : "bg-[#E2136E] text-white hover:bg-[#E2136E]/80 shadow-[0_0_12px_rgba(226,19,110,0.4)]"
                   }`}
                 >
                   {copied ? (
@@ -284,60 +258,41 @@ export function TopUpModal() {
                   ) : (
                     <>
                       <Copy className="h-3.5 w-3.5" />
-                      <span>{locale === "bn" ? "নম্বর কপি" : "Copy"}</span>
+                      <span>{locale === "bn" ? "কপি নম্বর" : "Copy"}</span>
                     </>
                   )}
                 </button>
               </div>
 
-              {/* Step-by-Step Payment Instructions */}
-              <div className="mt-3 pt-3 border-t border-[#193e87]/50 text-[11px] text-gray-300 space-y-1 leading-relaxed">
-                <p className="font-bold text-[#fedbbb]">
-                  {locale === "bn" ? "পেমেন্ট করার নিয়ম:" : "How to Pay via Mobile Banking:"}
+              {/* Instructions */}
+              <div className="mt-2.5 pt-2.5 border-t border-white/10 text-[11px] text-gray-300 space-y-0.5">
+                <p className="text-gray-400">
+                  ১. আপনার বিকাশ অ্যাপ থেকে <strong className="text-white">Send Money</strong> করুন।
                 </p>
-                <ol className="list-decimal list-inside space-y-0.5 text-gray-400">
-                  <li>
-                    {locale === "bn"
-                      ? `আপনার ${currentMfs.name} অ্যাপ খুলুন বা ডায়াল করুন ${currentMfs.ussd}`
-                      : `Open your ${currentMfs.name} App or dial ${currentMfs.ussd}`}
-                  </li>
-                  <li>
-                    {locale === "bn"
-                      ? `"Send Money" অপশনে যান এবং উপরের নম্বরে (${currentMfs.number}) টাকা পাঠান`
-                      : `Select "Send Money" and send amount to ${currentMfs.number}`}
-                  </li>
-                  <li>
-                    {locale === "bn"
-                      ? `১ টাকা = ১ ক্রেডিট পয়েন্টস (যেমন: ৫০০ টাকা = ৫০০ PTS)`
-                      : `1 BDT = 1 Demo Credit Point (e.g. 500 BDT = 500 PTS)`}
-                  </li>
-                  <li>
-                    {locale === "bn"
-                      ? `পেমেন্ট সম্পন্ন হওয়ার পর পাওয়া TrxID নিচে লিখুন`
-                      : `Enter the 10-digit TrxID received in SMS below`}
-                  </li>
-                </ol>
+                <p className="text-gray-400">
+                  ২. পেমেন্ট সম্পন্ন হলে পাওয়া ১০ ডিজিটের <strong className="text-[#fedbbb]">TrxID</strong> নিচে লিখুন।
+                </p>
               </div>
             </div>
 
-            {/* Quick Amount Selection */}
+            {/* Amount Selection */}
             <div>
               <div className="flex items-center justify-between text-xs mb-1.5">
                 <label className="font-bold text-gray-300 uppercase tracking-wider">
-                  {t("requestedCredits")}
+                  {locale === "bn" ? "টাকার পরিমাণ (BDT)" : "Deposit Amount (BDT)"}
                 </label>
-                <span className="font-mono text-gray-400 text-[11px]">
-                  1 BDT = 1 PTS
+                <span className="font-mono text-xs text-[#fedbbb] font-bold">
+                  +{amount} PTS
                 </span>
               </div>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-4 gap-2 mb-2">
                 {[500, 1000, 2500, 5000].map((amt) => (
                   <button
                     key={amt}
                     type="button"
-                    onClick={() => setReqAmount(amt)}
+                    onClick={() => setAmount(amt)}
                     className={`rounded-xl py-2 font-mono text-xs font-bold transition-all ${
-                      reqAmount === amt
+                      amount === amt
                         ? "border border-[#fc7219] bg-[#fc7219]/25 text-[#fedbbb] shadow-[0_0_12px_rgba(255,107,0,0.3)]"
                         : "border border-[#193e87]/40 bg-[#081329] text-gray-400 hover:text-white"
                     }`}
@@ -348,70 +303,140 @@ export function TopUpModal() {
               </div>
             </div>
 
-            {/* TrxID / Reference Input Field */}
-            <div>
-              <div className="flex items-center justify-between text-xs mb-1.5">
-                <label className="font-bold text-gray-300 uppercase tracking-wider">
-                  {locale === "bn" ? `${currentMfs.name} ট্রানজেকশন আইডি (TrxID)` : `${currentMfs.name} Transaction ID (TrxID)`}
+            {/* Sender Number & TrxID Input Fields */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-gray-300">
+                  {locale === "bn" ? "আপনার বিকাশ নম্বর" : "Your bKash Number"}
                 </label>
-                <button
-                  type="button"
-                  onClick={() => setReqNotes(currentMfs.sampleTrx)}
-                  className="text-[10px] font-mono font-bold text-[#fc7219] hover:text-[#fedbbb] underline"
-                >
-                  {locale === "bn" ? "স্যাম্পল TrxID দিন" : "Fill Sample TrxID"}
-                </button>
+                <input
+                  type="text"
+                  required
+                  value={senderNumber}
+                  onChange={(e) => setSenderNumber(e.target.value)}
+                  placeholder="017XXXXXXXX"
+                  className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-3.5 py-2.5 font-mono text-xs text-white placeholder-gray-500 focus:border-[#fc7219] focus:outline-none"
+                />
               </div>
-              <input
-                type="text"
-                value={reqNotes}
-                onChange={(e) => setReqNotes(e.target.value)}
-                placeholder={locale === "bn" ? `যেমন: ${currentMfs.sampleTrx} (পেমেন্ট SMS থেকে)` : `e.g. ${currentMfs.sampleTrx}`}
-                className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-3.5 py-3 font-mono text-xs text-white placeholder-gray-500 focus:border-[#fc7219] focus:outline-none focus:ring-1 focus:ring-[#fc7219]"
-              />
+
+              <div>
+                <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-gray-300">
+                  {locale === "bn" ? "বিকাশ TrxID" : "bKash TrxID"}
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={bkashTrxId}
+                  onChange={(e) => setBkashTrxId(e.target.value)}
+                  placeholder="e.g. BK9X728Q41"
+                  className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-3.5 py-2.5 font-mono text-xs text-white uppercase placeholder-gray-500 focus:border-[#fc7219] focus:outline-none"
+                />
+              </div>
             </div>
 
-            {reqSuccess && (
-              <div className="flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-xs font-bold text-emerald-400">
+            {submitSuccess && (
+              <div className="flex items-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-3 text-xs font-bold text-emerald-400">
                 <CheckCircle2 className="h-4 w-4 shrink-0" />
-                <span>{reqSuccess}</span>
+                <span>{submitSuccess}</span>
               </div>
             )}
 
-            {reqError && (
-              <div className="flex items-center gap-2 rounded-xl border border-ruby/30 bg-ruby/10 p-3 text-xs font-bold text-ruby">
+            {submitError && (
+              <div className="flex items-center gap-2 rounded-xl border border-rose-500/40 bg-rose-500/10 p-3 text-xs font-bold text-rose-400">
                 <AlertCircle className="h-4 w-4 shrink-0" />
-                <span>{reqError}</span>
+                <span>{submitError}</span>
               </div>
             )}
 
             <button
               type="submit"
-              disabled={reqLoading}
+              disabled={submitting}
               className="btn-action-orange w-full rounded-xl py-3.5 text-xs font-black tracking-wider uppercase text-white shadow-[0_4px_14px_rgba(255,107,0,0.4)] active:scale-98 disabled:opacity-50 flex items-center justify-center gap-2"
             >
               <Send className="h-4 w-4" />
               <span>
-                {reqLoading
-                  ? t("submittingBtn")
+                {submitting
+                  ? locale === "bn"
+                    ? "পাঠানো হচ্ছে..."
+                    : "SUBMITTING..."
                   : locale === "bn"
-                  ? `${currentMfs.name} পেমেন্ট সাবমিট করুন (${reqAmount} PTS)`
-                  : `Submit ${currentMfs.name} Top-Up (${reqAmount} PTS)`}
+                  ? `বিকাশ ডিপোজিট রিকোয়েস্ট (${amount} BDT)`
+                  : `SUBMIT DEPOSIT REQUEST (${amount} BDT)`}
               </span>
             </button>
           </form>
         )}
 
-        {/* Content Tab 2: Daily Bonus */}
+        {/* TAB 2: Deposit History */}
+        {activeSubTab === "history" && (
+          <div className="space-y-3 max-h-80 overflow-y-auto no-scrollbar">
+            {loadingHistory ? (
+              <div className="py-8 text-center text-xs text-gray-400">
+                {locale === "bn" ? "হিস্ট্রি লোড হচ্ছে..." : "Loading deposit history..."}
+              </div>
+            ) : historyList.length === 0 ? (
+              <div className="py-8 text-center text-xs text-gray-400">
+                {locale === "bn"
+                  ? "এখনো কোনো ডিপোজিট রিকোয়েস্ট নেই。"
+                  : "No deposit requests submitted yet."}
+              </div>
+            ) : (
+              historyList.map((dep) => {
+                const isApproved = dep.status === "APPROVED";
+                const isRejected = dep.status === "REJECTED";
+                return (
+                  <div
+                    key={dep.id}
+                    className="flex items-center justify-between rounded-xl border border-[#193e87]/40 bg-[#081329] p-3 text-xs"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono font-black text-white">{dep.amount} BDT</span>
+                        <span
+                          className={`rounded px-1.5 py-0.5 text-[10px] font-mono font-black uppercase ${
+                            isApproved
+                              ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
+                              : isRejected
+                              ? "bg-rose-500/20 text-rose-400 border border-rose-500/40"
+                              : "bg-amber-500/20 text-amber-400 border border-amber-500/40"
+                          }`}
+                        >
+                          {dep.status}
+                        </span>
+                      </div>
+                      <span className="font-mono text-[10px] text-gray-400 block mt-0.5">
+                        TrxID: {dep.bkashTrxId} • From: {dep.senderNumber}
+                      </span>
+                      {dep.adminNote && (
+                        <span className="text-[10px] text-gray-300 block mt-0.5 italic">
+                          Note: {dep.adminNote}
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-[10px] font-mono text-gray-500">
+                      {new Date(dep.createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        )}
+
+        {/* TAB 3: Daily Allowance */}
         {activeSubTab === "daily" && (
-          <div className="relative space-y-4">
+          <div className="space-y-4">
             <div className="rounded-xl border border-[#193e87]/50 bg-[#081329]/60 p-5 text-center shadow-inner">
               <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#fc7219] to-[#fedbbb] text-white shadow-[0_0_20px_rgba(255,107,0,0.35)]">
                 <Gift className="h-7 w-7" />
               </div>
-              <h4 className="text-sm font-black uppercase tracking-wide text-white">{t("dailyBonusTitle")}</h4>
+              <h4 className="text-sm font-black uppercase tracking-wide text-white">
+                {locale === "bn" ? "দৈনিক ফ্রি ডেমো রিফিল" : "Daily Free Demo Credits"}
+              </h4>
               <p className="mt-1 text-xs text-gray-300 font-medium leading-relaxed">
-                {t("dailyBonusDesc")}
+                {locale === "bn"
+                  ? "প্রতি ২৪ ঘণ্টায় একবার ২৫০ ফ্রি ডেমো ক্রেডিট পয়েন্ট ক্লেইম করতে পারবেন。"
+                  : "Claim 250 free demo credit points once every 24 hours."}
               </p>
             </div>
 
@@ -435,7 +460,15 @@ export function TopUpModal() {
               className="btn-action-orange w-full rounded-xl py-3.5 text-xs font-black tracking-wider uppercase text-white shadow-[0_4px_14px_rgba(255,107,0,0.4)] active:scale-98 disabled:opacity-50 flex items-center justify-center gap-2"
             >
               <Sparkles className="h-4 w-4" />
-              <span>{dailyLoading ? t("claimingBtn") : t("claimDailyBtn")}</span>
+              <span>
+                {dailyLoading
+                  ? locale === "bn"
+                    ? "ক্লেইম হচ্ছে..."
+                    : "CLAIMING..."
+                  : locale === "bn"
+                  ? "২৫০ ফ্রি পয়েন্ট নিন"
+                  : "CLAIM 250 FREE PTS"}
+              </span>
             </button>
           </div>
         )}

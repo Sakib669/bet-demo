@@ -2,6 +2,14 @@
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 
+export interface CurrentUser {
+  id: string;
+  name: string;
+  mobile: string;
+  email?: string;
+  role: string;
+}
+
 interface WalletContextType {
   balance: number;
   loading: boolean;
@@ -10,6 +18,8 @@ interface WalletContextType {
   isTopUpOpen: boolean;
   setIsTopUpOpen: (open: boolean) => void;
   username: string;
+  user: CurrentUser | null;
+  isAuthenticated: boolean;
 }
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
@@ -17,6 +27,8 @@ const WalletContext = createContext<WalletContextType | undefined>(undefined);
 export function WalletProvider({ children }: { children: React.ReactNode }) {
   const [balance, setBalance] = useState<number>(1000.0);
   const [username, setUsername] = useState<string>("player_one");
+  const [user, setUser] = useState<CurrentUser | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [isTopUpOpen, setIsTopUpOpen] = useState<boolean>(false);
 
@@ -26,7 +38,15 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
       const data = await res.json();
       if (data.success && data.user) {
         setBalance(data.user.wallet?.balance ?? 1000.0);
-        setUsername(data.user.username);
+        setUsername(data.user.name || data.user.mobile || "Player");
+        setUser({
+          id: data.user.id,
+          name: data.user.name,
+          mobile: data.user.mobile,
+          email: data.user.email,
+          role: data.user.role,
+        });
+        setIsAuthenticated(!!data.isAuthenticated);
       }
     } catch (err) {
       console.error("Failed to fetch wallet:", err);
@@ -53,6 +73,8 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
         isTopUpOpen,
         setIsTopUpOpen,
         username,
+        user,
+        isAuthenticated,
       }}
     >
       {children}
