@@ -1,59 +1,62 @@
 import { NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-
-const DEMO_USERNAME = "player_one";
 
 export async function GET() {
   try {
-    let user = await prisma.user.findUnique({
-      where: { username: DEMO_USERNAME },
-      include: {
-        wallet: {
-          include: {
-            transactions: {
-              orderBy: { createdAt: "desc" },
-              take: 15,
-            },
-          },
-        },
-      },
-    });
+    const session = await auth();
+    let userId = session?.user?.id;
 
-    if (!user) {
-      user = await prisma.user.create({
-        data: {
-          username: DEMO_USERNAME,
-          role: "USER",
-          wallet: {
-            create: {
-              balance: 1000.0,
-              transactions: {
-                create: {
-                  type: "DAILY_BONUS",
-                  amount: 1000.0,
-                  balanceBefore: 0.0,
-                  balanceAfter: 1000.0,
-                  description: "Welcome grant: 1,000 free demo credits",
-                },
-              },
-            },
-          },
-        },
+    let user: any = null;
+
+    if (userId) {
+      user = await prisma.user.findUnique({
+        where: { id: userId },
         include: {
           wallet: {
             include: {
-              transactions: true,
+              transactions: {
+                orderBy: { createdAt: "desc" },
+                take: 15,
+              },
             },
           },
         },
       });
     }
 
+    // Fallback to default demo customer if not logged in
+    if (!user) {
+      user = await prisma.user.findUnique({
+        where: { mobile: "01711111111" },
+        include: {
+          wallet: {
+            include: {
+              transactions: {
+                orderBy: { createdAt: "desc" },
+                take: 15,
+              },
+            },
+          },
+        },
+      });
+    }
+
+    if (!user) {
+      return NextResponse.json(
+        { success: false, message: "User not found" },
+        { status: 404 }
+      );
+    }
+
     return NextResponse.json({
       success: true,
+      isAuthenticated: !!session?.user,
       user: {
         id: user.id,
-        username: user.username,
+        name: user.name,
+        mobile: user.mobile,
+        email: user.email,
         role: user.role,
         wallet: user.wallet,
       },
@@ -69,13 +72,20 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
+    const session = await auth();
     const body = await req.json();
     const { action, amount, notes } = body;
 
-    const user = await prisma.user.findUnique({
-      where: { username: DEMO_USERNAME },
-      include: { wallet: true },
-    });
+    let userId = session?.user?.id;
+    let user = userId
+      ? await prisma.user.findUnique({
+          where: { id: userId },
+          include: { wallet: true },
+        })
+      : await prisma.user.findUnique({
+          where: { mobile: "01711111111" },
+          include: { wallet: true },
+        });
 
     if (!user || !user.wallet) {
       return NextResponse.json(
@@ -136,7 +146,7 @@ export async function POST(req: Request) {
       });
     }
 
-    // Submit Simulated Credit Request
+    // Submit Simulation Request
     if (action === "REQUEST_CREDITS") {
       const parsedAmount = Math.max(10, Math.min(50000, Number(amount) || 500));
 
