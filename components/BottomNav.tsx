@@ -2,7 +2,7 @@
 
 import { useWallet } from "@/lib/wallet-context";
 import { useLanguage } from "@/lib/language-context";
-import { Plane, Trophy, Bomb, Coins, PlusCircle } from "lucide-react";
+import { Disc3, Flame, Plane, Timer, PlusCircle } from "lucide-react";
 
 interface BottomNavProps {
   activeTab: string;
@@ -14,10 +14,10 @@ export function BottomNav({ activeTab, setActiveTab }: BottomNavProps) {
   const { locale } = useLanguage();
 
   const navItems = [
+    { id: "wingo", label: locale === "bn" ? "উইন গো" : "Win Go", icon: Timer },
+    { id: "dragon-tiger", label: locale === "bn" ? "ড্রাগন" : "D-Tiger", icon: Flame },
+    { id: "wheel", label: locale === "bn" ? "হুইল" : "Wheel", icon: Disc3 },
     { id: "aviator", label: locale === "bn" ? "এভিয়েটর" : "Aviator", icon: Plane },
-    { id: "penalty", label: locale === "bn" ? "পেনাল্টি" : "Penalty", icon: Trophy },
-    { id: "mines", label: locale === "bn" ? "মাইনস" : "Mines", icon: Bomb },
-    { id: "coin-flip", label: locale === "bn" ? "কয়েন" : "Coin", icon: Coins },
   ];
 
   return (

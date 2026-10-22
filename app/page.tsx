@@ -1,32 +1,31 @@
 "use client";
 
 import { useState } from "react";
+import { WinGo } from "@/components/games/WinGo";
+import { DragonTiger } from "@/components/games/DragonTiger";
+import { CrazyWheel } from "@/components/games/CrazyWheel";
 import { Aviator } from "@/components/games/Aviator";
-import { PenaltyShootout } from "@/components/games/PenaltyShootout";
-import { CoinFlip } from "@/components/games/CoinFlip";
-import { DiceRoll } from "@/components/games/DiceRoll";
 import { Mines } from "@/components/games/Mines";
 import { CasinoVerticalGameCard } from "@/components/CasinoVerticalGameCard";
 import { BottomNav } from "@/components/BottomNav";
 import { useWallet } from "@/lib/wallet-context";
 import { useLanguage } from "@/lib/language-context";
 import {
-  Coins,
-  Dices,
-  Bomb,
+  Timer,
+  Flame,
+  Disc3,
   Plane,
-  Trophy,
+  Bomb,
   Activity,
   Sparkles,
   Cpu,
   ChevronRight,
   ShieldCheck,
   Star,
-  Flame,
 } from "lucide-react";
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<string>("aviator");
+  const [activeTab, setActiveTab] = useState<string>("wingo");
   const { setIsTopUpOpen, refreshWallet } = useWallet();
   const { t, locale } = useLanguage();
 
@@ -36,7 +35,7 @@ export default function Home() {
 
   return (
     <main className="w-full max-w-full overflow-x-hidden bg-[#081329] text-white">
-      {/* SECTION 1: MOSTBET HERO BANNER */}
+      {/* SECTION 1: CV666 FAST GAMES HERO BANNER */}
       <section className="relative w-full bg-gradient-to-b from-[#193e87] via-[#0e1f3d] to-[#081329] pt-8 pb-16 px-4 sm:px-6 lg:px-8 border-b border-[#2d84f9]/50">
         <div className="mx-auto max-w-7xl">
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#0e1f3d] via-[#193e87] to-[#0e1f3d] p-6 sm:p-10 border border-white/15 shadow-[0_15px_35px_rgba(0,0,0,0.5)]">
@@ -47,17 +46,17 @@ export default function Home() {
                 {/* Star Emblem Capsule */}
                 <div className="inline-flex items-center gap-2 rounded-full border border-[#fedbbb]/40 bg-[#081329]/60 px-3.5 py-1 text-xs font-mono font-bold text-[#fedbbb] mb-4 shadow-inner">
                   <Star className="h-3.5 w-3.5 fill-[#fedbbb] text-[#fedbbb]" />
-                  <span>MOSTBET FAST GAMES ARENA • BANGLADESH</span>
+                  <span>CV666 FAST LOTTERY & LIVE GAMES • BANGLADESH</span>
                 </div>
 
                 <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.08] uppercase italic">
                   {locale === "bn" ? (
                     <>
-                      ১০০% স্বচ্ছ <span className="text-[#fc7219]">গেমিং সিমুলেশন</span>
+                      ১০০% স্বচ্ছ <span className="text-[#fc7219]">লটারি ও লাইভ গেম</span>
                     </>
                   ) : (
                     <>
-                      PROVABLY FAIR <span className="text-[#fc7219]">SIMULATION</span>
+                      PROVABLY FAIR <span className="text-[#fc7219]">LIVE GAMES</span>
                     </>
                   )}
                 </h1>
@@ -89,17 +88,17 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Star Loader Graphic Animation from Mostbet CSS */}
+              {/* Live Status Container */}
               <div className="flex flex-col items-center justify-center p-6 rounded-2xl bg-[#081329]/70 border border-white/10 shadow-inner">
                 <div className="star-loader-container mb-3">
                   <div className="star-loader-arc" />
                   <div className="star-loader-star" />
                 </div>
                 <span className="font-mono text-xs font-bold text-[#fedbbb] uppercase tracking-wider">
-                  HMAC-SHA256 ACTIVE
+                  HMAC-SHA256 CSPRNG
                 </span>
                 <span className="text-[10px] text-[#94caf9]">
-                  {locale === "bn" ? "শূন্য ঝুঁকি সিমুলেশন" : "Zero Risk Simulation"}
+                  {locale === "bn" ? "প্রুভেবলি ফেয়ার লাইভ রাউন্ডস" : "CV666 Provably Fair Dynamic Engine"}
                 </span>
               </div>
             </div>
@@ -107,35 +106,92 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 2: VERTICAL GAME CARDS CATALOG (MOSTBET ARCHITECTURE) */}
+      {/* SECTION 2: VERTICAL GAME CARDS CATALOG (CV666 REPLACEMENT LINEUP) */}
       <section className="w-full py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="mb-6 flex items-center justify-between border-b border-[#193e87]/50 pb-4">
           <div>
             <h2 className="text-xl font-black text-white uppercase italic tracking-tight flex items-center gap-2">
               <Flame className="h-5 w-5 text-[#fc7219]" />
-              {locale === "bn" ? "জনপ্রিয় গেমস ক্যাটালগ (MOSTBET GAMES)" : "Top Games Catalog (Mostbet)"}
+              {locale === "bn" ? "জনপ্রিয় গেমস ক্যাটালগ (CV666 GAMES)" : "Top Games Catalog (CV666)"}
             </h2>
             <p className="text-xs text-[#94caf9]">
-              {locale === "bn" ? "ক্লিক করে পছন্দের ইনস্ট্যান্ট গেম শুরু করুন" : "Select a card to play or run demo mode"}
+              {locale === "bn" ? "ক্লিক করে পছন্দের ইনস্ট্যান্ট গেম শুরু করুন" : "Select a card to play or run live simulation"}
             </p>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="rounded bg-[#193e87] px-2.5 py-1 text-xs font-mono font-bold text-[#fedbbb] border border-white/10">
-              5 FAST GAMES ONLINE
+              5 CV666 GAMES ONLINE
             </span>
           </div>
         </div>
 
-        {/* Responsive Grid: 5 Mostbet vertical game cards */}
+        {/* Responsive Grid: 5 CV666 vertical game cards */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {/* 1. Aviator */}
+          {/* 1. Win Go (Color Trading Lottery) */}
+          <CasinoVerticalGameCard
+            title={t("wingoTitle")}
+            category={locale === "bn" ? "কালার ট্রেডিং" : "Color Lottery"}
+            multiplier="9.0x"
+            provider="CV666"
+            badge="HOT #1"
+            imageSrc="/images/games/wingo.svg"
+            imageBg="bg-gradient-to-tr from-emerald-950 via-[#193e87] to-purple-900"
+            isActive={activeTab === "wingo"}
+            onSelect={() => {
+              setActiveTab("wingo");
+              const el = document.getElementById("arena-stage");
+              el?.scrollIntoView({ behavior: "smooth" });
+            }}
+            playText={locale === "bn" ? "খেলুন" : "PLAY NOW"}
+            demoText={locale === "bn" ? "ডেমো রান" : "DEMO RUN"}
+          />
+
+          {/* 2. Dragon Tiger */}
+          <CasinoVerticalGameCard
+            title={t("dragonTigerTitle")}
+            category={locale === "bn" ? "এশিয়ান লাইভ টেবিল" : "Asian Table"}
+            multiplier="9.0x"
+            provider="EVOLUTION"
+            badge="LIVE DEAL"
+            imageSrc="/images/games/dragon-tiger.svg"
+            imageBg="bg-gradient-to-tr from-rose-950 via-[#0e1f3d] to-blue-900"
+            isActive={activeTab === "dragon-tiger"}
+            onSelect={() => {
+              setActiveTab("dragon-tiger");
+              const el = document.getElementById("arena-stage");
+              el?.scrollIntoView({ behavior: "smooth" });
+            }}
+            playText={locale === "bn" ? "খেলুন" : "PLAY NOW"}
+            demoText={locale === "bn" ? "ডেমো রান" : "DEMO RUN"}
+          />
+
+          {/* 3. Crazy Wheel */}
+          <CasinoVerticalGameCard
+            title={t("crazyWheelTitle")}
+            category={locale === "bn" ? "মানি হুইল" : "Money Wheel"}
+            multiplier="50.0x"
+            provider="PRAGMATIC"
+            badge="50X MAX"
+            imageSrc="/images/games/wheel.svg"
+            imageBg="bg-gradient-to-tr from-[#193e87] via-[#fc7219] to-orange-700"
+            isActive={activeTab === "wheel"}
+            onSelect={() => {
+              setActiveTab("wheel");
+              const el = document.getElementById("arena-stage");
+              el?.scrollIntoView({ behavior: "smooth" });
+            }}
+            playText={locale === "bn" ? "খেলুন" : "PLAY NOW"}
+            demoText={locale === "bn" ? "ডেমো রান" : "DEMO RUN"}
+          />
+
+          {/* 4. Aviator */}
           <CasinoVerticalGameCard
             title={t("aviatorTitle")}
             category={locale === "bn" ? "ক্র্যাশ গেম" : "Crash Flight"}
             multiplier="100x+"
             provider="SPRIBE"
-            badge="HOT #1"
+            badge="POPULAR"
             imageSrc="/images/games/aviator.svg"
             imageBg="bg-gradient-to-tr from-red-950 via-[#193e87] to-[#fc7219]"
             isActive={activeTab === "aviator"}
@@ -148,75 +204,18 @@ export default function Home() {
             demoText={locale === "bn" ? "ডেমো রান" : "DEMO RUN"}
           />
 
-          {/* 2. Penalty Shoot-out */}
-          <CasinoVerticalGameCard
-            title={t("penaltyTitle")}
-            category={locale === "bn" ? "ফুটবল পেনাল্টি" : "Penalty Shoot"}
-            multiplier="30.72x"
-            provider="EVOPLAY"
-            badge="SPORTS"
-            imageSrc="/images/games/penalty.svg"
-            imageBg="bg-gradient-to-tr from-emerald-950 via-[#193e87] to-[#fedbbb]"
-            isActive={activeTab === "penalty"}
-            onSelect={() => {
-              setActiveTab("penalty");
-              const el = document.getElementById("arena-stage");
-              el?.scrollIntoView({ behavior: "smooth" });
-            }}
-            playText={locale === "bn" ? "খেলুন" : "PLAY NOW"}
-            demoText={locale === "bn" ? "ডেমো রান" : "DEMO RUN"}
-          />
-
-          {/* 3. Mines */}
+          {/* 5. Mines */}
           <CasinoVerticalGameCard
             title={t("minesTitle")}
             category={locale === "bn" ? "মাইনস ৫x৫" : "Crash & Mines"}
             multiplier="100x+"
             provider="AMARIX"
-            badge="TOP WIN"
+            badge="99% RTP"
             imageSrc="/images/games/mines.svg"
-            imageBg="bg-gradient-to-tr from-[#193e87] via-[#fc7219] to-orange-700"
+            imageBg="bg-gradient-to-tr from-[#0e1f3d] via-[#193e87] to-[#fedbbb]"
             isActive={activeTab === "mines"}
             onSelect={() => {
               setActiveTab("mines");
-              const el = document.getElementById("arena-stage");
-              el?.scrollIntoView({ behavior: "smooth" });
-            }}
-            playText={locale === "bn" ? "খেলুন" : "PLAY NOW"}
-            demoText={locale === "bn" ? "ডেমো রান" : "DEMO RUN"}
-          />
-
-          {/* 4. Coin Flip */}
-          <CasinoVerticalGameCard
-            title={t("coinFlipTitle")}
-            category={locale === "bn" ? "কয়েন ফ্লিপ" : "Classic Table"}
-            multiplier="1.98x"
-            provider="HERMES RNG"
-            badge="99% RTP"
-            imageSrc="/images/games/coin-flip.svg"
-            imageBg="bg-gradient-to-tr from-[#193e87] via-[#2d84f9] to-[#fc7219]"
-            isActive={activeTab === "coin-flip"}
-            onSelect={() => {
-              setActiveTab("coin-flip");
-              const el = document.getElementById("arena-stage");
-              el?.scrollIntoView({ behavior: "smooth" });
-            }}
-            playText={locale === "bn" ? "খেলুন" : "PLAY NOW"}
-            demoText={locale === "bn" ? "ডেমো রান" : "DEMO RUN"}
-          />
-
-          {/* 5. Dice Roll */}
-          <CasinoVerticalGameCard
-            title={t("diceTitle")}
-            category={locale === "bn" ? "ডাইস ওভার/আন্ডার" : "Instant Multiplier"}
-            multiplier="49.50x"
-            provider="EVOLUTION"
-            badge="CUSTOM"
-            imageSrc="/images/games/dice.svg"
-            imageBg="bg-gradient-to-tr from-[#0e1f3d] via-[#193e87] to-[#fedbbb]"
-            isActive={activeTab === "dice"}
-            onSelect={() => {
-              setActiveTab("dice");
               const el = document.getElementById("arena-stage");
               el?.scrollIntoView({ behavior: "smooth" });
             }}
@@ -232,11 +231,11 @@ export default function Home() {
         <div className="mb-6 flex items-center justify-between overflow-x-auto no-scrollbar gap-2 pb-2">
           <div className="flex items-center gap-2">
             {[
+              { id: "wingo", label: locale === "bn" ? "উইন গো ৩০ সে." : "Win Go 30s", icon: Timer },
+              { id: "dragon-tiger", label: locale === "bn" ? "ড্রাগন টাইগার" : "Dragon Tiger", icon: Flame },
+              { id: "wheel", label: locale === "bn" ? "ক্রেজি হুইল" : "Crazy Wheel", icon: Disc3 },
               { id: "aviator", label: locale === "bn" ? "এভিয়েটর" : "Aviator", icon: Plane },
-              { id: "penalty", label: locale === "bn" ? "পেনাল্টি" : "Penalty", icon: Trophy },
-              { id: "mines", label: locale === "bn" ? "মাইনস" : "Mines", icon: Bomb },
-              { id: "coin-flip", label: locale === "bn" ? "কয়েন ফ্লিপ" : "Coin Flip", icon: Coins },
-              { id: "dice", label: locale === "bn" ? "ডাইস" : "Dice", icon: Dices },
+              { id: "mines", label: locale === "bn" ? "মাইনস ৫x৫" : "Mines 5x5", icon: Bomb },
             ].map((tab) => {
               const Icon = tab.icon;
               const isSelected = activeTab === tab.id;
@@ -259,19 +258,18 @@ export default function Home() {
 
           <div className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-[#94caf9]">
             <ShieldCheck className="h-4 w-4 text-[#fedbbb]" />
-            <span>Deterministic Verified</span>
+            <span>CV666 Provably Fair</span>
           </div>
         </div>
 
         <div className="grid grid-cols-12 gap-6">
           {/* Active Game Console: 8 Columns */}
           <div className="col-span-12 lg:col-span-8">
+            {activeTab === "wingo" && <WinGo onRoundComplete={handleRoundDone} />}
+            {activeTab === "dragon-tiger" && <DragonTiger onRoundComplete={handleRoundDone} />}
+            {activeTab === "wheel" && <CrazyWheel onRoundComplete={handleRoundDone} />}
             {activeTab === "aviator" && <Aviator onRoundComplete={handleRoundDone} />}
-            {activeTab === "penalty" && <PenaltyShootout onRoundComplete={handleRoundDone} />}
             {activeTab === "mines" && <Mines />}
-            {activeTab === "coin-flip" && <CoinFlip />}
-            {activeTab === "dice" && <DiceRoll />}
-            {activeTab === "lobby" && <Aviator onRoundComplete={handleRoundDone} />}
           </div>
 
           {/* Right Activity & Stats Column: 4 Columns */}
@@ -291,11 +289,11 @@ export default function Home() {
 
               <div className="space-y-2.5">
                 {[
-                  { game: locale === "bn" ? "এভিয়েটর" : "Aviator", user: "shakib_75", bet: 250, win: 2625, mult: "10.50x", won: true },
-                  { game: locale === "bn" ? "পেনাল্টি" : "Penalty", user: "tanvir_bd", bet: 100, win: 768, mult: "7.68x", won: true },
-                  { game: locale === "bn" ? "এভিয়েটর" : "Aviator", user: "hasan_dhaka", bet: 500, win: 0, mult: "1.08x", won: false },
-                  { game: locale === "bn" ? "মাইনস ৫x৫" : "Mines 5x5", user: "sultana_dhk", bet: 300, win: 1110, mult: "3.70x", won: true },
-                  { game: locale === "bn" ? "কয়েন ফ্লিপ" : "Coin Flip", user: "fahim_ctg", bet: 150, win: 297, mult: "1.98x", won: true },
+                  { game: locale === "bn" ? "উইন গো ৩০ সে." : "Win Go 30s", user: "shakib_75", bet: 250, win: 2250, mult: "9.00x", won: true },
+                  { game: locale === "bn" ? "ড্রাগন টাইগার" : "Dragon Tiger", user: "tanvir_bd", bet: 500, win: 1000, mult: "2.00x", won: true },
+                  { game: locale === "bn" ? "ক্রেজি হুইল" : "Crazy Wheel", user: "hasan_dhaka", bet: 100, win: 5000, mult: "50.00x", won: true },
+                  { game: locale === "bn" ? "এভিয়েটর" : "Aviator", user: "sultana_dhk", bet: 300, win: 1110, mult: "3.70x", won: true },
+                  { game: locale === "bn" ? "উইন গো ৩০ সে." : "Win Go 30s", user: "fahim_ctg", bet: 200, win: 400, mult: "2.00x", won: true },
                 ].map((round, i) => (
                   <div
                     key={i}
@@ -352,7 +350,7 @@ export default function Home() {
       <footer className="w-full border-t border-[#193e87]/50 py-12 bg-[#081329] text-center text-xs text-[#94caf9]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-center gap-6 text-white mb-3 font-bold uppercase tracking-wider">
-            <span>MOSTBET ARCHITECTURE DEMO</span>
+            <span>CV666 FAST GAMING SIMULATION</span>
             <span>•</span>
             <span>{t("eduPurpose")}</span>
             <span>•</span>
