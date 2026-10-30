@@ -1,5 +1,7 @@
 "use client";
 
+import { localFetch } from "@/lib/browser-db";
+
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
@@ -46,9 +48,9 @@ export default function AdminDashboardPage() {
     setLoading(true);
     try {
       const [depRes, txRes, usersRes] = await Promise.all([
-        fetch("/api/admin/deposits?status=PENDING"),
-        fetch("/api/admin/transactions"),
-        fetch("/api/admin/users"),
+        localFetch("/api/admin/deposits?status=PENDING"),
+        localFetch("/api/admin/transactions"),
+        localFetch("/api/admin/users"),
       ]);
 
       const depData = await depRes.json();

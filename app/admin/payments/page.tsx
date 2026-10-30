@@ -1,5 +1,7 @@
 "use client";
 
+import { localFetch } from "@/lib/browser-db";
+
 import { useEffect, useState, useCallback } from "react";
 import { formatCurrency } from "@/lib/utils";
 import { useLanguage } from "@/lib/language-context";
@@ -54,7 +56,7 @@ export default function AdminPaymentsPage() {
   const fetchDeposits = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/admin/deposits?status=${filterStatus}`);
+      const res = await localFetch(`/api/admin/deposits?status=${filterStatus}`);
       const data = await res.json();
       if (data.success) {
         setDeposits(data.deposits || []);
@@ -75,7 +77,7 @@ export default function AdminPaymentsPage() {
     setReviewing(true);
     setErrorMsg(null);
     try {
-      const res = await fetch(`/api/admin/deposits/${approveId}/review`, {
+      const res = await localFetch(`/api/admin/deposits/${approveId}/review`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "APPROVE", verifiedOnStatement: true }),
@@ -97,7 +99,7 @@ export default function AdminPaymentsPage() {
   const handleConfirmReject = async () => {
     if (!rejectId) return;
     try {
-      const res = await fetch(`/api/admin/deposits/${rejectId}/review`, {
+      const res = await localFetch(`/api/admin/deposits/${rejectId}/review`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -1,5 +1,7 @@
 "use client";
 
+import { localFetch } from "@/lib/browser-db";
+
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
@@ -42,7 +44,7 @@ export default function AdminUsersPage() {
   const fetchUsers = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/admin/users?role=${roleFilter}&search=${encodeURIComponent(searchTerm)}`);
+      const res = await localFetch(`/api/admin/users?role=${roleFilter}&search=${encodeURIComponent(searchTerm)}`);
       const data = await res.json();
       if (data.success) {
         setUsers(data.users || []);
@@ -67,7 +69,7 @@ export default function AdminUsersPage() {
     if (!confirm(confirmText)) return;
 
     try {
-      const res = await fetch(`/api/admin/users/${id}/promote`, {
+      const res = await localFetch(`/api/admin/users/${id}/promote`, {
         method: "POST",
       });
       const data = await res.json();

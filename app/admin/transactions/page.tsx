@@ -1,5 +1,7 @@
 "use client";
 
+import { localFetch } from "@/lib/browser-db";
+
 import { useEffect, useState, useCallback } from "react";
 import { formatCurrency } from "@/lib/utils";
 import { useLanguage } from "@/lib/language-context";
@@ -71,7 +73,7 @@ export default function AdminTransactionsPage() {
   const fetchLedgers = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/admin/transactions");
+      const res = await localFetch("/api/admin/transactions");
       const data = await res.json();
       if (data.success) {
         setIncomeLedger(data.incomeLedger || []);

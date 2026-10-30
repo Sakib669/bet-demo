@@ -1,5 +1,7 @@
 "use client";
 
+import { localFetch } from "@/lib/browser-db";
+
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/lib/language-context";
 import {
@@ -20,7 +22,7 @@ export default function AdminSettingsPage() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/admin/settings")
+    localFetch("/api/admin/settings")
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.settings) {
@@ -38,7 +40,7 @@ export default function AdminSettingsPage() {
     setErrorMsg(null);
 
     try {
-      const res = await fetch("/api/admin/settings", {
+      const res = await localFetch("/api/admin/settings", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -85,6 +87,7 @@ export default function AdminSettingsPage() {
       {errorMsg && <p className="rounded-lg border border-rose-500/40 bg-rose-500/10 p-3 text-sm text-rose-300" role="alert">{errorMsg}</p>}
 
       {/* Settings Form */}
+      <p className="rounded-lg border border-amber-400/35 bg-amber-400/10 p-4 text-sm text-amber-100">Browser-only preview: payment claims and approvals appear only in this browser profile. Do not use this as a live payment ledger.</p>
       <form onSubmit={handleSave} className="mst-card rounded-2xl p-6 shadow-xl space-y-5">
         <div className="flex items-center gap-2 text-sm font-black text-white uppercase border-b border-[#345441]/60 pb-3">
           <Smartphone className="h-4 w-4 text-[#c4e77d]" />

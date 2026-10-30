@@ -1,5 +1,7 @@
 "use client";
 
+import { localFetch } from "@/lib/browser-db";
+
 import { useEffect, useState, use } from "react";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
@@ -98,7 +100,7 @@ export default function UserDetailPage({
   const fetchUserDetails = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/admin/users/${id}`);
+      const res = await localFetch(`/api/admin/users/${id}`);
       const json = await res.json();
       if (json.success) {
         setData(json);
@@ -121,7 +123,7 @@ export default function UserDetailPage({
     setAdjustMsg(null);
 
     try {
-      const res = await fetch(`/api/admin/users/${id}/credit`, {
+      const res = await localFetch(`/api/admin/users/${id}/credit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
