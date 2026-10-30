@@ -82,14 +82,14 @@ export async function POST(
         });
       }
 
-      const balanceBefore = wallet.balance;
-      const balanceAfter = balanceBefore + deposit.amount;
-
-      // 2. Update wallet balance
-      await tx.wallet.update({
+      // Increment against the current database balance so another wallet update
+      // cannot be overwritten by the balance loaded with the request.
+      const updatedWallet = await tx.wallet.update({
         where: { id: wallet.id },
-        data: { balance: balanceAfter },
+        data: { balance: { increment: deposit.amount } },
       });
+      const balanceAfter = updatedWallet.balance;
+      const balanceBefore = balanceAfter - deposit.amount;
 
       // 3. Create double-entry transaction record
       await tx.transaction.create({
