@@ -8,7 +8,7 @@
     "dev:poll": "WATCHPACK_POLLING=true next dev",
     "dev:turbo": "next dev --turbopack",
     "postinstall": "prisma generate",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && next build --webpack",
     "start": "next start",
     "lint": "tsc --noEmit",
     "db:push": "prisma db push",

@@ -61,12 +61,12 @@ export default function AdminSettingsPage() {
   return (
     <div className="space-y-6 max-w-4xl">
       {/* Header */}
-      <div className="border-b border-[#193e87]/60 pb-4">
+      <div className="border-b border-[#345441]/60 pb-4">
         <h1 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white flex items-center gap-2.5">
-          <Settings className="h-6 w-6 text-[#fc7219]" />
+          <Settings className="h-6 w-6 text-[#c4e77d]" />
           <span>{locale === "bn" ? "প্ল্যাটফর্ম ও বিকাশ সেটিংস" : "Platform & bKash Configuration"}</span>
         </h1>
-        <p className="text-xs text-[#94caf9]">
+        <p className="text-xs text-[#aabdab]">
           {locale === "bn"
             ? "ডিপোজিট পেইজে গ্রাহকদের প্রদর্শিত বিকাশ নম্বর এবং নির্দেশনা নিয়ন্ত্রণ করুন"
             : "Update active recipient bKash numbers and deposit payment instructions displayed to customers"}
@@ -82,8 +82,8 @@ export default function AdminSettingsPage() {
 
       {/* Settings Form */}
       <form onSubmit={handleSave} className="mst-card rounded-2xl p-6 shadow-xl space-y-5">
-        <div className="flex items-center gap-2 text-sm font-black text-white uppercase border-b border-[#193e87]/60 pb-3">
-          <Smartphone className="h-4 w-4 text-[#fc7219]" />
+        <div className="flex items-center gap-2 text-sm font-black text-white uppercase border-b border-[#345441]/60 pb-3">
+          <Smartphone className="h-4 w-4 text-[#c4e77d]" />
           <span>Official bKash Receiving Account</span>
         </div>
 
@@ -97,7 +97,7 @@ export default function AdminSettingsPage() {
             value={bkashNumber}
             onChange={(e) => setBkashNumber(e.target.value)}
             placeholder="017XXXXXXXX"
-            className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-4 py-3 font-mono text-sm text-white focus:border-[#fc7219] focus:outline-none"
+            className="w-full rounded-xl border border-[#345441]/60 bg-[#0c1714] px-4 py-3 font-mono text-sm text-white focus:border-[#c4e77d] focus:outline-none"
           />
           <span className="text-[11px] text-gray-400 block mt-1">
             This number is rendered on the customer deposit modal with one-click copy.
@@ -111,7 +111,7 @@ export default function AdminSettingsPage() {
           <select
             value={bkashType}
             onChange={(e) => setBkashType(e.target.value)}
-            className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-4 py-3 text-xs text-white focus:border-[#fc7219] focus:outline-none"
+            className="w-full rounded-xl border border-[#345441]/60 bg-[#0c1714] px-4 py-3 text-xs text-white focus:border-[#c4e77d] focus:outline-none"
           >
             <option value="Personal (Send Money)">Personal (Send Money)</option>
             <option value="Merchant (Payment)">Merchant (Payment)</option>
@@ -119,7 +119,7 @@ export default function AdminSettingsPage() {
           </select>
         </div>
 
-        <div className="border-t border-[#193e87]/60 pt-4 flex justify-end">
+        <div className="border-t border-[#345441]/60 pt-4 flex justify-end">
           <button
             type="submit"
             disabled={saving}

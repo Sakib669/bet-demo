@@ -3,17 +3,17 @@
 @config "../tailwind.config.ts";
 
 :root {
-  --background: #081329;
-  --header-bg: #193e87;
-  --surface-dark: #0e1f3d;
+  --background: #0c1714;
+  --header-bg: #345441;
+  --surface-dark: #182b21;
   --card-bg: rgba(25, 62, 135, 0.28);
-  --color-navy: #193e87;
-  --color-cobalt: #2d84f9;
-  --color-sky: #94caf9;
-  --color-orange: #fc7219;
-  --color-peach: #fedbbb;
+  --color-navy: #345441;
+  --color-cobalt: #c4e77d;
+  --color-sky: #aabdab;
+  --color-orange: #c4e77d;
+  --color-peach: #e2f4c6;
   --color-text-main: #FFFFFF;
-  --color-text-sub: #94caf9;
+  --color-text-sub: #aabdab;
   --border-subtle: rgba(148, 202, 249, 0.15);
 }
 
@@ -108,7 +108,7 @@ h1, h2, h3, h4, button { font-family: "Space Grotesk", "DM Sans", sans-serif; }
 .header-credit-button:active { transform: scale(.98); }
 .mobile-game-nav { display: none; }
 @media (max-width: 750px) { .site-main-nav { display: none; }.site-header-inner { justify-content: space-between; }.site-header-actions { gap: .6rem; }.account-link { display: none; } }
-@media (max-width: 640px) { .site-header-inner { min-height: 4.2rem; }.brand-name { font-size: .95rem; }.brand-name small { font-size: .47rem; }.brand-symbol { width: 2.2rem; height: 2.2rem; font-size: 1.35rem; }.wallet-chip { padding: .42rem .5rem; font-size: .72rem; }.wallet-chip svg, .language-button, .header-credit-button { display: none; }.mobile-game-nav { position: fixed; z-index: 40; bottom: 0; inset-inline: 0; display: grid; grid-template-columns: repeat(5, 1fr); min-height: 4.2rem; padding-bottom: env(safe-area-inset-bottom); border-top: 1px solid #3b5a42; background: #111f19f2; backdrop-filter: blur(18px); }.mobile-game-nav button { display: grid; place-content: center; justify-items: center; gap: .15rem; color: #9fb5a0; font-size: .62rem; }.mobile-game-nav button[aria-current], .mobile-game-nav .mobile-credit-action { color: #c4e77d; } }
+@media (max-width: 640px) { .site-header-inner { min-height: 4.2rem; }.brand-name { font-size: .95rem; }.brand-name small { font-size: .47rem; }.brand-symbol { width: 2.2rem; height: 2.2rem; font-size: 1.35rem; }.wallet-chip { padding: .42rem .5rem; font-size: .72rem; }.wallet-chip svg, .header-credit-button { display: none; }.language-button, .account-link { display: flex; font-size: .68rem; }.language-button svg { display: none; }.mobile-game-nav { position: fixed; z-index: 40; bottom: 0; inset-inline: 0; display: grid; grid-template-columns: repeat(5, 1fr); min-height: 4.2rem; padding-bottom: env(safe-area-inset-bottom); border-top: 1px solid #3b5a42; background: #111f19f2; backdrop-filter: blur(18px); }.mobile-game-nav button { display: grid; place-content: center; justify-items: center; gap: .15rem; color: #9fb5a0; font-size: .62rem; }.mobile-game-nav button[aria-current], .mobile-game-nav .mobile-credit-action { color: #c4e77d; } }
 
 * {
   box-sizing: border-box;
@@ -142,11 +142,11 @@ body {
   background: #060d1c;
 }
 ::-webkit-scrollbar-thumb {
-  background: #193e87;
+  background: #345441;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2d84f9;
+  background: #c4e77d;
 }
 
 /* Card Surfaces */
@@ -164,7 +164,7 @@ body {
 
 /* Action Orange Button */
 .btn-action-orange {
-  background: linear-gradient(180deg, #fc7219 0%, #e56412 100%);
+  background: linear-gradient(180deg, #c4e77d 0%, #a8ce62 100%);
   color: #FFFFFF;
   font-weight: 800;
   text-transform: uppercase;
@@ -173,7 +173,7 @@ body {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .btn-action-orange:hover {
-  background: linear-gradient(180deg, #fd8639 0%, #fc7219 100%);
+  background: linear-gradient(180deg, #fd8639 0%, #c4e77d 100%);
   box-shadow: 0 6px 25px rgba(252, 114, 25, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.4);
   transform: translateY(-1px);
 }
@@ -184,14 +184,14 @@ body {
 
 /* Secondary Royal/Cobalt Blue Button */
 .btn-royal-blue {
-  background: #193e87;
+  background: #345441;
   color: #FFFFFF;
   font-weight: 700;
   border: 1px solid rgba(148, 202, 249, 0.25);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .btn-royal-blue:hover {
-  background: #2d84f9;
+  background: #c4e77d;
   border-color: rgba(254, 219, 187, 0.5);
   box-shadow: 0 4px 18px rgba(45, 132, 249, 0.5);
 }
@@ -210,7 +210,7 @@ body {
   width: 24px;
   height: 24px;
   clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-  background-color: #fedbbb;
+  background-color: #e2f4c6;
   box-shadow: 0 0 10px rgba(254, 219, 187, 0.85);
 }
 .star-loader-arc {
@@ -218,7 +218,7 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: conic-gradient(from 90deg, rgba(254, 219, 187, 0) 70%, #fc7219 100%);
+  background: conic-gradient(from 90deg, rgba(254, 219, 187, 0) 70%, #c4e77d 100%);
   -webkit-mask: radial-gradient(circle, transparent 62%, black 63%);
   mask: radial-gradient(circle, transparent 62%, black 63%);
   animation: star-rotate 0.5s linear infinite;

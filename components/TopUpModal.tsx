@@ -155,14 +155,14 @@ export function TopUpModal() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 sm:p-4 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
-      <div className="relative w-full max-w-lg my-auto overflow-hidden rounded-2xl border border-[#193e87]/70 bg-[#0e1f3d] p-5 sm:p-6 shadow-2xl">
-        <div className="absolute -top-20 left-1/2 h-36 w-72 -translate-x-1/2 rounded-full bg-[#fc7219]/20 blur-3xl pointer-events-none" />
+      <div className="relative w-full max-w-lg my-auto overflow-hidden rounded-2xl border border-[#345441]/70 bg-[#182b21] p-5 sm:p-6 shadow-2xl">
+        <div className="absolute -top-20 left-1/2 h-36 w-72 -translate-x-1/2 rounded-full bg-[#c4e77d]/20 blur-3xl pointer-events-none" />
 
         {/* Modal Header */}
-        <div className="relative mb-4 flex items-center justify-between border-b border-[#193e87]/50 pb-3">
+        <div className="relative mb-4 flex items-center justify-between border-b border-[#345441]/50 pb-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#193e87] text-[#fedbbb] border border-[#fedbbb]/30 shadow-[0_0_15px_rgba(255,199,0,0.25)]">
-              <Star className="h-5 w-5 fill-[#fedbbb]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#345441] text-[#e2f4c6] border border-[#e2f4c6]/30 shadow-[0_0_15px_rgba(255,199,0,0.25)]">
+              <Star className="h-5 w-5 fill-[#e2f4c6]" />
             </div>
             <div>
               <h3 className="text-base font-black uppercase tracking-tight text-white">
@@ -175,19 +175,19 @@ export function TopUpModal() {
           </div>
           <button
             onClick={() => setIsTopUpOpen(false)}
-            className="rounded-xl p-2 text-gray-400 hover:bg-[#193e87]/40 hover:text-white transition-colors"
+            className="rounded-xl p-2 text-gray-400 hover:bg-[#345441]/40 hover:text-white transition-colors"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
         {/* Sub Tabs */}
-        <div className="relative mb-4 grid grid-cols-3 gap-1 rounded-xl bg-[#081329] p-1 border border-[#193e87]/40 text-center">
+        <div className="relative mb-4 grid grid-cols-3 gap-1 rounded-xl bg-[#0c1714] p-1 border border-[#345441]/40 text-center">
           <button
             onClick={() => setActiveSubTab("deposit")}
             className={`flex items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-black uppercase tracking-wider transition-all ${
               activeSubTab === "deposit"
-                ? "bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
+                ? "bg-[#c4e77d] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
                 : "text-gray-400 hover:text-white"
             }`}
           >
@@ -199,7 +199,7 @@ export function TopUpModal() {
             onClick={() => setActiveSubTab("history")}
             className={`flex items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-black uppercase tracking-wider transition-all ${
               activeSubTab === "history"
-                ? "bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
+                ? "bg-[#c4e77d] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
                 : "text-gray-400 hover:text-white"
             }`}
           >
@@ -211,7 +211,7 @@ export function TopUpModal() {
             onClick={() => setActiveSubTab("daily")}
             className={`flex items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-black uppercase tracking-wider transition-all ${
               activeSubTab === "daily"
-                ? "bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
+                ? "bg-[#c4e77d] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
                 : "text-gray-400 hover:text-white"
             }`}
           >
@@ -224,10 +224,10 @@ export function TopUpModal() {
         {activeSubTab === "deposit" && (
           <form onSubmit={handleDepositSubmit} className="space-y-4">
             {/* Official bKash Recipient Card */}
-            <div className="relative overflow-hidden rounded-xl border-2 border-[#E2136E]/60 bg-[#081329] p-4 shadow-lg">
+            <div className="relative overflow-hidden rounded-xl border-2 border-[#E2136E]/60 bg-[#0c1714] p-4 shadow-lg">
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div>
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#fedbbb] flex items-center gap-1">
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#e2f4c6] flex items-center gap-1">
                     <span className="h-2 w-2 rounded-full bg-[#E2136E] animate-pulse" />
                     {locale === "bn" ? "অফিসিয়াল বিকাশ নম্বর" : "Official bKash Number"}
                   </span>
@@ -270,7 +270,7 @@ export function TopUpModal() {
                   ১. আপনার বিকাশ অ্যাপ থেকে <strong className="text-white">Send Money</strong> করুন।
                 </p>
                 <p className="text-gray-400">
-                  ২. পেমেন্ট সম্পন্ন হলে পাওয়া ১০ ডিজিটের <strong className="text-[#fedbbb]">TrxID</strong> নিচে লিখুন।
+                  ২. পেমেন্ট সম্পন্ন হলে পাওয়া ১০ ডিজিটের <strong className="text-[#e2f4c6]">TrxID</strong> নিচে লিখুন।
                 </p>
               </div>
             </div>
@@ -281,7 +281,7 @@ export function TopUpModal() {
                 <label className="font-bold text-gray-300 uppercase tracking-wider">
                   {locale === "bn" ? "টাকার পরিমাণ (BDT)" : "Deposit Amount (BDT)"}
                 </label>
-                <span className="font-mono text-xs text-[#fedbbb] font-bold">
+                <span className="font-mono text-xs text-[#e2f4c6] font-bold">
                   +{amount} PTS
                 </span>
               </div>
@@ -293,8 +293,8 @@ export function TopUpModal() {
                     onClick={() => setAmount(amt)}
                     className={`rounded-xl py-2 font-mono text-xs font-bold transition-all ${
                       amount === amt
-                        ? "border border-[#fc7219] bg-[#fc7219]/25 text-[#fedbbb] shadow-[0_0_12px_rgba(255,107,0,0.3)]"
-                        : "border border-[#193e87]/40 bg-[#081329] text-gray-400 hover:text-white"
+                        ? "border border-[#c4e77d] bg-[#c4e77d]/25 text-[#e2f4c6] shadow-[0_0_12px_rgba(255,107,0,0.3)]"
+                        : "border border-[#345441]/40 bg-[#0c1714] text-gray-400 hover:text-white"
                     }`}
                   >
                     +{amt}
@@ -315,7 +315,7 @@ export function TopUpModal() {
                   value={senderNumber}
                   onChange={(e) => setSenderNumber(e.target.value)}
                   placeholder="017XXXXXXXX"
-                  className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-3.5 py-2.5 font-mono text-xs text-white placeholder-gray-500 focus:border-[#fc7219] focus:outline-none"
+                  className="w-full rounded-xl border border-[#345441]/60 bg-[#0c1714] px-3.5 py-2.5 font-mono text-xs text-white placeholder-gray-500 focus:border-[#c4e77d] focus:outline-none"
                 />
               </div>
 
@@ -329,7 +329,7 @@ export function TopUpModal() {
                   value={bkashTrxId}
                   onChange={(e) => setBkashTrxId(e.target.value)}
                   placeholder="e.g. BK9X728Q41"
-                  className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-3.5 py-2.5 font-mono text-xs text-white uppercase placeholder-gray-500 focus:border-[#fc7219] focus:outline-none"
+                  className="w-full rounded-xl border border-[#345441]/60 bg-[#0c1714] px-3.5 py-2.5 font-mono text-xs text-white uppercase placeholder-gray-500 focus:border-[#c4e77d] focus:outline-none"
                 />
               </div>
             </div>
@@ -387,7 +387,7 @@ export function TopUpModal() {
                 return (
                   <div
                     key={dep.id}
-                    className="flex items-center justify-between rounded-xl border border-[#193e87]/40 bg-[#081329] p-3 text-xs"
+                    className="flex items-center justify-between rounded-xl border border-[#345441]/40 bg-[#0c1714] p-3 text-xs"
                   >
                     <div>
                       <div className="flex items-center gap-2">
@@ -426,8 +426,8 @@ export function TopUpModal() {
         {/* TAB 3: Daily Allowance */}
         {activeSubTab === "daily" && (
           <div className="space-y-4">
-            <div className="rounded-xl border border-[#193e87]/50 bg-[#081329]/60 p-5 text-center shadow-inner">
-              <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#fc7219] to-[#fedbbb] text-white shadow-[0_0_20px_rgba(255,107,0,0.35)]">
+            <div className="rounded-xl border border-[#345441]/50 bg-[#0c1714]/60 p-5 text-center shadow-inner">
+              <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#c4e77d] to-[#e2f4c6] text-white shadow-[0_0_20px_rgba(255,107,0,0.35)]">
                 <Gift className="h-7 w-7" />
               </div>
               <h4 className="text-sm font-black uppercase tracking-wide text-white">

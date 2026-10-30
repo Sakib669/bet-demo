@@ -268,17 +268,17 @@ export interface WheelSegment {
 }
 
 export const CRAZY_WHEEL_SEGMENTS: WheelSegment[] = [
-  { index: 0, multiplier: 1, color: "#193e87", label: "1X" },
+  { index: 0, multiplier: 1, color: "#345441", label: "1X" },
   { index: 1, multiplier: 2, color: "#0000F2", label: "2X" },
-  { index: 2, multiplier: 1, color: "#193e87", label: "1X" },
+  { index: 2, multiplier: 1, color: "#345441", label: "1X" },
   { index: 3, multiplier: 5, color: "#10b981", label: "5X" },
-  { index: 4, multiplier: 1, color: "#193e87", label: "1X" },
+  { index: 4, multiplier: 1, color: "#345441", label: "1X" },
   { index: 5, multiplier: 2, color: "#0000F2", label: "2X" },
   { index: 6, multiplier: 10, color: "#8b5cf6", label: "10X" },
-  { index: 7, multiplier: 1, color: "#193e87", label: "1X" },
+  { index: 7, multiplier: 1, color: "#345441", label: "1X" },
   { index: 8, multiplier: 2, color: "#0000F2", label: "2X" },
-  { index: 9, multiplier: 20, color: "#fc7219", label: "20X" },
-  { index: 10, multiplier: 1, color: "#193e87", label: "1X" },
+  { index: 9, multiplier: 20, color: "#c4e77d", label: "20X" },
+  { index: 10, multiplier: 1, color: "#345441", label: "1X" },
   { index: 11, multiplier: 50, color: "#e11d48", label: "50X" },
 ];
 

@@ -7,7 +7,7 @@ export type Locale = "en" | "bn";
 export const translations = {
   en: {
     // Navigation
-    appName: "HERMES",
+    appName: "PULSE",
     provablyFairBadge: "PROVABLY FAIR",
     tagline: "Cryptographic Gaming Engine",
     simCredits: "Simulation Credits",
@@ -16,13 +16,13 @@ export const translations = {
     refreshBalance: "Refresh balance",
 
     // Hero
-    engineOnline: "HERMES ENGINE ONLINE • 0% REAL-WORLD RISK",
+    engineOnline: "PULSE GAME ROOM",
     heroH1Line1: "Deterministic verification meets",
-    heroH1Line2: "next-generation simulation.",
+    heroH1Line2: "play at your pace.",
     heroSubtitle:
       "Inspect cryptographic server seeds, test probabilistic models, and execute instant game state transitions with zero financial risk in Bangladesh.",
     launchArena: "Launch Arena",
-    claimCredits: "Claim Free Credits",
+    claimCredits: "Buy Credits",
 
     // Stat Bar
     houseEdge: "House Edge",
@@ -39,7 +39,7 @@ export const translations = {
     arenaSubtitle: "Select a game module to begin verification",
     wingoTitle: "Win Go 30s",
     wingoDesc: "30-second color & number prediction lottery",
-    wingoTag: "CV666 Lottery",
+    wingoTag: "Colour Game",
     dragonTigerTitle: "Dragon Tiger",
     dragonTigerDesc: "Two-card Asian live table showdown",
     dragonTigerTag: "Fast Cards",
@@ -189,7 +189,7 @@ export const translations = {
     coinFlipTag: "তাৎক্ষণিক",
     wingoTitle: "উইন গো ৩০ সে.",
     wingoDesc: "৩০ সেকেন্ডের দ্রুত কালার ও নম্বর প্রেডিকশন লটারি",
-    wingoTag: "CV666 লটারি",
+    wingoTag: "রঙের খেলা",
     dragonTigerTitle: "ড্রাগন টাইগার",
     dragonTigerDesc: "দুই কার্ডের দ্রুত এশিয়ান টেবিল ড্র",
     dragonTigerTag: "ফাস্ট কার্ডস",

@@ -148,7 +148,7 @@ export default function UserDetailPage({
   if (loading || !data) {
     return (
       <div className="py-20 text-center text-xs text-gray-400">
-        <RefreshCw className="h-6 w-6 animate-spin mx-auto mb-2 text-[#fc7219]" />
+        <RefreshCw className="h-6 w-6 animate-spin mx-auto mb-2 text-[#c4e77d]" />
         <span>Loading comprehensive user analytics...</span>
       </div>
     );
@@ -162,7 +162,7 @@ export default function UserDetailPage({
       <div className="flex items-center justify-between">
         <Link
           href="/admin/users"
-          className="inline-flex items-center gap-2 rounded-xl border border-[#193e87]/60 bg-[#0e1f3d] px-3.5 py-2 text-xs font-bold text-gray-300 hover:border-[#fc7219] hover:text-white transition-colors"
+          className="inline-flex items-center gap-2 rounded-xl border border-[#345441]/60 bg-[#182b21] px-3.5 py-2 text-xs font-bold text-gray-300 hover:border-[#c4e77d] hover:text-white transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>{locale === "bn" ? "ইউজার তালিকায় ফিরুন" : "Back to Users"}</span>
@@ -170,19 +170,19 @@ export default function UserDetailPage({
 
         <button
           onClick={fetchUserDetails}
-          className="flex items-center gap-1.5 rounded-xl border border-[#193e87] bg-[#0e1f3d] px-3.5 py-2 text-xs font-bold text-gray-300 hover:text-white"
+          className="flex items-center gap-1.5 rounded-xl border border-[#345441] bg-[#182b21] px-3.5 py-2 text-xs font-bold text-gray-300 hover:text-white"
         >
-          <RefreshCw className="h-3.5 w-3.5 text-[#fc7219]" />
+          <RefreshCw className="h-3.5 w-3.5 text-[#c4e77d]" />
           <span>{locale === "bn" ? "রিফ্রেশ" : "Refresh"}</span>
         </button>
       </div>
 
       {/* User Identity Header Card */}
-      <div className="relative overflow-hidden rounded-2xl border border-[#193e87] bg-gradient-to-r from-[#0e1f3d] via-[#193e87]/40 to-[#0e1f3d] p-6 shadow-2xl">
+      <div className="relative overflow-hidden rounded-2xl border border-[#345441] bg-gradient-to-r from-[#182b21] via-[#345441]/40 to-[#182b21] p-6 shadow-2xl">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#081329] text-[#fedbbb] border border-[#fedbbb]/30 shadow-inner">
-              <User className="h-7 w-7 text-[#fedbbb]" />
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0c1714] text-[#e2f4c6] border border-[#e2f4c6]/30 shadow-inner">
+              <User className="h-7 w-7 text-[#e2f4c6]" />
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -190,7 +190,7 @@ export default function UserDetailPage({
                 <span
                   className={`rounded-md px-2 py-0.5 text-[10px] font-black uppercase font-mono ${
                     user.role === "ADMIN"
-                      ? "bg-[#fedbbb]/20 text-[#fedbbb] border border-[#fedbbb]/40"
+                      ? "bg-[#e2f4c6]/20 text-[#e2f4c6] border border-[#e2f4c6]/40"
                       : "bg-blue-500/20 text-blue-400 border border-blue-500/40"
                   }`}
                 >
@@ -199,12 +199,12 @@ export default function UserDetailPage({
               </div>
               <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-gray-300 font-mono">
                 <span className="flex items-center gap-1">
-                  <Smartphone className="h-3.5 w-3.5 text-[#fc7219]" />
+                  <Smartphone className="h-3.5 w-3.5 text-[#c4e77d]" />
                   <span>{user.mobile}</span>
                 </span>
                 {user.email && (
                   <span className="flex items-center gap-1">
-                    <Mail className="h-3.5 w-3.5 text-[#94caf9]" />
+                    <Mail className="h-3.5 w-3.5 text-[#aabdab]" />
                     <span>{user.email}</span>
                   </span>
                 )}
@@ -221,8 +221,8 @@ export default function UserDetailPage({
           </div>
 
           {/* Current Wallet Balance Capsule */}
-          <div className="rounded-2xl border border-[#fedbbb]/40 bg-[#081329] p-4 text-right">
-            <span className="text-[10px] font-bold uppercase text-[#94caf9] block">
+          <div className="rounded-2xl border border-[#e2f4c6]/40 bg-[#0c1714] p-4 text-right">
+            <span className="text-[10px] font-bold uppercase text-[#aabdab] block">
               {locale === "bn" ? "বর্তমান ওয়ালেট ব্যালেন্স" : "Current Wallet Balance"}
             </span>
             <span className="font-mono text-2xl font-black text-white tabular-nums">
@@ -252,7 +252,7 @@ export default function UserDetailPage({
 
         {/* Total Credited PTS */}
         <div className="mst-card rounded-xl p-3.5">
-          <span className="text-[10px] font-bold uppercase text-[#fedbbb] block">Credits Granted</span>
+          <span className="text-[10px] font-bold uppercase text-[#e2f4c6] block">Credits Granted</span>
           <p className="mt-1 font-mono text-lg font-black text-white tabular-nums">
             {formatCurrency(analytics.totalCreditsReceived)} PTS
           </p>
@@ -279,8 +279,8 @@ export default function UserDetailPage({
 
         {/* Win Rate */}
         <div className="mst-card rounded-xl p-3.5">
-          <span className="text-[10px] font-bold uppercase text-[#fc7219] block">Win Rate %</span>
-          <p className="mt-1 font-mono text-lg font-black text-[#fc7219] tabular-nums">
+          <span className="text-[10px] font-bold uppercase text-[#c4e77d] block">Win Rate %</span>
+          <p className="mt-1 font-mono text-lg font-black text-[#c4e77d] tabular-nums">
             {analytics.winRate}%
           </p>
           <span className="text-[10px] text-gray-500 font-mono">{analytics.lostRounds} lost</span>
@@ -306,7 +306,7 @@ export default function UserDetailPage({
         {/* Left: Game Preferences Breakdown (7 Cols) */}
         <div className="lg:col-span-7 mst-card rounded-2xl p-5 shadow-xl">
           <h2 className="text-sm font-black uppercase text-white mb-3 flex items-center gap-2">
-            <Trophy className="h-4 w-4 text-[#fedbbb]" />
+            <Trophy className="h-4 w-4 text-[#e2f4c6]" />
             <span>{locale === "bn" ? "গেমভিত্তিক কার্যকলাপ ও প্রেফারেন্স" : "Game Preferences & Usage"}</span>
           </h2>
 
@@ -317,15 +317,15 @@ export default function UserDetailPage({
               Object.entries(analytics.gameTypeBreakdown).map(([gameName, stats]) => {
                 const pct = analytics.totalRounds > 0 ? Math.round((stats.count / analytics.totalRounds) * 100) : 0;
                 return (
-                  <div key={gameName} className="rounded-xl border border-[#193e87]/40 bg-[#081329] p-3 text-xs">
+                  <div key={gameName} className="rounded-xl border border-[#345441]/40 bg-[#0c1714] p-3 text-xs">
                     <div className="flex items-center justify-between mb-1">
                       <span className="font-bold text-white uppercase tracking-wider">{gameName}</span>
-                      <span className="font-mono text-[11px] text-[#fedbbb]">
+                      <span className="font-mono text-[11px] text-[#e2f4c6]">
                         {stats.count} rounds ({pct}%)
                       </span>
                     </div>
                     <div className="w-full bg-gray-800 rounded-full h-1.5 mb-2 overflow-hidden">
-                      <div className="bg-[#fc7219] h-full rounded-full" style={{ width: `${pct}%` }} />
+                      <div className="bg-[#c4e77d] h-full rounded-full" style={{ width: `${pct}%` }} />
                     </div>
                     <div className="flex justify-between text-[11px] font-mono text-gray-400">
                       <span>Wagered: {formatCurrency(stats.wagered)} PTS</span>
@@ -342,10 +342,10 @@ export default function UserDetailPage({
         <div className="lg:col-span-5 mst-card rounded-2xl p-5 shadow-xl flex flex-col justify-between">
           <div>
             <h2 className="text-sm font-black uppercase text-white mb-2 flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-[#fc7219]" />
+              <Sparkles className="h-4 w-4 text-[#c4e77d]" />
               <span>{locale === "bn" ? "সরাসরি ক্রেডিট সমন্বয় করুন" : "Direct Balance Adjustment"}</span>
             </h2>
-            <p className="text-xs text-[#94caf9] mb-4">
+            <p className="text-xs text-[#aabdab] mb-4">
               Add or deduct virtual points for this player. Audit trail will be permanently recorded.
             </p>
 
@@ -359,7 +359,7 @@ export default function UserDetailPage({
                   value={adjustAmount}
                   onChange={(e) => setAdjustAmount(Number(e.target.value))}
                   placeholder="e.g. 500 or -200"
-                  className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-3.5 py-2.5 font-mono text-xs text-white focus:border-[#fc7219] focus:outline-none"
+                  className="w-full rounded-xl border border-[#345441]/60 bg-[#0c1714] px-3.5 py-2.5 font-mono text-xs text-white focus:border-[#c4e77d] focus:outline-none"
                 />
               </div>
 
@@ -372,7 +372,7 @@ export default function UserDetailPage({
                   value={adjustReason}
                   onChange={(e) => setAdjustReason(e.target.value)}
                   placeholder="e.g. Manual compensation / Bonus promo"
-                  className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] px-3.5 py-2.5 text-xs text-white focus:border-[#fc7219] focus:outline-none"
+                  className="w-full rounded-xl border border-[#345441]/60 bg-[#0c1714] px-3.5 py-2.5 text-xs text-white focus:border-[#c4e77d] focus:outline-none"
                 />
               </div>
 
@@ -390,9 +390,9 @@ export default function UserDetailPage({
 
       {/* Recent Game Rounds Table (Detailed Logs with CSPRNG Seed) */}
       <div className="mst-card rounded-2xl p-5 shadow-xl">
-        <div className="mb-4 flex items-center justify-between border-b border-[#193e87]/60 pb-3">
+        <div className="mb-4 flex items-center justify-between border-b border-[#345441]/60 pb-3">
           <h2 className="text-sm font-black uppercase text-white flex items-center gap-2">
-            <Activity className="h-4 w-4 text-[#fedbbb]" />
+            <Activity className="h-4 w-4 text-[#e2f4c6]" />
             <span>{locale === "bn" ? "সাম্প্রতিক গেম রাউন্ড ও সিড লগ" : "Recent Game Rounds & Provably Fair Logs"}</span>
           </h2>
           <span className="font-mono text-xs text-gray-400">Last 50 Rounds</span>
@@ -404,7 +404,7 @@ export default function UserDetailPage({
           ) : (
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-[#193e87]/60 text-gray-400 font-bold uppercase tracking-wider">
+                <tr className="border-b border-[#345441]/60 text-gray-400 font-bold uppercase tracking-wider">
                   <th className="pb-2.5">Time</th>
                   <th className="pb-2.5">Game</th>
                   <th className="pb-2.5">Stake</th>
@@ -414,14 +414,14 @@ export default function UserDetailPage({
                   <th className="pb-2.5">CSPRNG Server Seed</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#193e87]/30">
+              <tbody className="divide-y divide-[#345441]/30">
                 {recentGameRounds.map((rnd) => (
                   <tr key={rnd.id} className="text-gray-300">
                     <td className="py-2.5 font-mono text-[11px] text-gray-400">
                       {new Date(rnd.createdAt).toLocaleTimeString()}
                     </td>
                     <td className="py-2.5">
-                      <span className="rounded bg-[#193e87]/50 px-2 py-0.5 font-mono text-[10px] font-bold text-[#fedbbb]">
+                      <span className="rounded bg-[#345441]/50 px-2 py-0.5 font-mono text-[10px] font-bold text-[#e2f4c6]">
                         {rnd.gameType}
                       </span>
                     </td>
@@ -457,7 +457,7 @@ export default function UserDetailPage({
         {/* Deposit Requests History */}
         <div className="mst-card rounded-2xl p-5 shadow-xl">
           <h2 className="text-sm font-black uppercase text-white mb-3 flex items-center gap-2">
-            <CreditCard className="h-4 w-4 text-[#fc7219]" />
+            <CreditCard className="h-4 w-4 text-[#c4e77d]" />
             <span>bKash Deposit Requests</span>
           </h2>
           <div className="space-y-2 max-h-64 overflow-y-auto no-scrollbar">
@@ -465,13 +465,13 @@ export default function UserDetailPage({
               <p className="text-xs text-gray-400 py-4 text-center">No deposit requests from this user.</p>
             ) : (
               depositHistory.map((d) => (
-                <div key={d.id} className="flex items-center justify-between rounded-xl border border-[#193e87]/40 bg-[#081329] p-3 text-xs">
+                <div key={d.id} className="flex items-center justify-between rounded-xl border border-[#345441]/40 bg-[#0c1714] p-3 text-xs">
                   <div>
                     <span className="font-mono font-bold text-white block">+{d.amount} BDT</span>
                     <span className="font-mono text-[10px] text-gray-400">TrxID: {d.bkashTrxId}</span>
                   </div>
                   <div className="text-right">
-                    <span className="rounded bg-black/40 px-2 py-0.5 font-mono text-[10px] font-bold text-[#fedbbb] block mb-0.5">
+                    <span className="rounded bg-black/40 px-2 py-0.5 font-mono text-[10px] font-bold text-[#e2f4c6] block mb-0.5">
                       {d.status}
                     </span>
                     <span className="font-mono text-[10px] text-gray-500">
@@ -487,7 +487,7 @@ export default function UserDetailPage({
         {/* Credit Transfer History */}
         <div className="mst-card rounded-2xl p-5 shadow-xl">
           <h2 className="text-sm font-black uppercase text-white mb-3 flex items-center gap-2">
-            <History className="h-4 w-4 text-[#fedbbb]" />
+            <History className="h-4 w-4 text-[#e2f4c6]" />
             <span>Credit Transfer Audit Log</span>
           </h2>
           <div className="space-y-2 max-h-64 overflow-y-auto no-scrollbar">
@@ -495,9 +495,9 @@ export default function UserDetailPage({
               <p className="text-xs text-gray-400 py-4 text-center">No credit transfers to this user.</p>
             ) : (
               creditHistory.map((c) => (
-                <div key={c.id} className="flex items-center justify-between rounded-xl border border-[#193e87]/40 bg-[#081329] p-3 text-xs">
+                <div key={c.id} className="flex items-center justify-between rounded-xl border border-[#345441]/40 bg-[#0c1714] p-3 text-xs">
                   <div>
-                    <span className="font-mono font-bold text-[#fedbbb] block">+{c.amount} PTS</span>
+                    <span className="font-mono font-bold text-[#e2f4c6] block">+{c.amount} PTS</span>
                     <span className="text-[10px] text-gray-400">{c.reason}</span>
                   </div>
                   <div className="text-right">

@@ -79,30 +79,30 @@ export function CoinFlip() {
 
   return (
     <div className="mst-card relative overflow-hidden rounded-3xl p-6 sm:p-8 backdrop-blur-2xl">
-      <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#193e87]/30 blur-3xl pointer-events-none" />
+      <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#345441]/30 blur-3xl pointer-events-none" />
 
       {/* Header */}
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-5">
         <div className="flex items-center gap-3.5">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#193e87] text-[#fedbbb] border border-white/15 shadow-[0_0_15px_rgba(255,199,0,0.3)]">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#345441] text-[#e2f4c6] border border-white/15 shadow-[0_0_15px_rgba(255,199,0,0.3)]">
             <Coins className="h-5 w-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h2 className="text-lg font-black tracking-tight text-white uppercase">{t("coinFlipTitle")}</h2>
-              <span className="rounded bg-[#fedbbb] px-2 py-0.5 text-[10px] font-mono font-black text-[#081329]">
+              <span className="rounded bg-[#e2f4c6] px-2 py-0.5 text-[10px] font-mono font-black text-[#0c1714]">
                 1.98x {t("multiplier").toUpperCase()}
               </span>
             </div>
-            <p className="text-xs text-[#94caf9] font-medium">{t("coinFlipDesc")}</p>
+            <p className="text-xs text-[#aabdab] font-medium">{t("coinFlipDesc")}</p>
           </div>
         </div>
 
         <button
           onClick={() => setShowFairness(!showFairness)}
-          className="flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-bold text-white hover:border-[#fedbbb] hover:text-[#fedbbb] transition-all active:scale-95"
+          className="flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-bold text-white hover:border-[#e2f4c6] hover:text-[#e2f4c6] transition-all active:scale-95"
         >
-          <ShieldCheck className="h-3.5 w-3.5 text-[#fedbbb]" />
+          <ShieldCheck className="h-3.5 w-3.5 text-[#e2f4c6]" />
           <span>{t("provablyFair")}</span>
         </button>
       </div>
@@ -110,17 +110,17 @@ export function CoinFlip() {
       {/* Fairness Drawer */}
       {showFairness && seedHash && (
         <div className="mb-6 rounded-2xl border border-white/15 bg-[#060d1c] p-4 font-mono text-xs text-gray-300 shadow-inner">
-          <div className="flex items-center justify-between mb-1.5 font-sans font-bold text-[#94caf9] text-[11px]">
+          <div className="flex items-center justify-between mb-1.5 font-sans font-bold text-[#aabdab] text-[11px]">
             <span>{t("sha256Hash")}</span>
             <button
               onClick={copySeed}
-              className="flex items-center gap-1 text-[#fedbbb] hover:underline text-[10px]"
+              className="flex items-center gap-1 text-[#e2f4c6] hover:underline text-[10px]"
             >
               {copiedHash ? <Check className="h-3 w-3" /> : null}
               {copiedHash ? t("copied") : t("copyHash")}
             </button>
           </div>
-          <span className="break-all text-[#fedbbb] text-[11px] select-all leading-relaxed">{seedHash}</span>
+          <span className="break-all text-[#e2f4c6] text-[11px] select-all leading-relaxed">{seedHash}</span>
         </div>
       )}
 
@@ -139,7 +139,7 @@ export function CoinFlip() {
             }`}
           >
             {/* Heads Face */}
-            <div className="coin-face border-[5px] border-[#fedbbb] bg-gradient-to-tr from-amber-600 via-amber-400 to-yellow-200 text-amber-950 shadow-[0_15px_35px_rgba(255,199,0,0.4)]">
+            <div className="coin-face border-[5px] border-[#e2f4c6] bg-gradient-to-tr from-amber-600 via-amber-400 to-yellow-200 text-amber-950 shadow-[0_15px_35px_rgba(255,199,0,0.4)]">
               <div className="flex flex-col items-center justify-center rounded-full border-2 border-amber-200/90 p-6">
                 <span className="text-4xl sm:text-5xl font-black tracking-tighter">H</span>
                 <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest mt-1">HEADS</span>
@@ -147,7 +147,7 @@ export function CoinFlip() {
             </div>
 
             {/* Tails Face */}
-            <div className="coin-face coin-back border-[5px] border-[#fc7219] bg-gradient-to-tr from-[#193e87] via-[#2d84f9] to-[#fc7219] text-white shadow-[0_15px_35px_rgba(255,107,0,0.4)]">
+            <div className="coin-face coin-back border-[5px] border-[#c4e77d] bg-gradient-to-tr from-[#345441] via-[#c4e77d] to-[#c4e77d] text-white shadow-[0_15px_35px_rgba(255,107,0,0.4)]">
               <div className="flex flex-col items-center justify-center rounded-full border-2 border-white/60 p-6">
                 <span className="text-4xl sm:text-5xl font-black tracking-tighter">T</span>
                 <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest mt-1">TAILS</span>
@@ -180,11 +180,11 @@ export function CoinFlip() {
           disabled={isFlipping}
           className={`flex items-center justify-center gap-2.5 rounded-2xl py-4 text-sm font-black tracking-wider transition-all duration-200 ${
             choice === "HEADS"
-              ? "border-2 border-[#fedbbb] bg-[#fedbbb]/20 text-[#fedbbb] shadow-[0_0_25px_rgba(255,199,0,0.3)]"
+              ? "border-2 border-[#e2f4c6] bg-[#e2f4c6]/20 text-[#e2f4c6] shadow-[0_0_25px_rgba(255,199,0,0.3)]"
               : "border border-white/10 bg-[#060d1c] text-gray-400 hover:text-white hover:border-white/20 active:scale-98"
           }`}
         >
-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#fedbbb]/30 text-[11px] text-[#fedbbb] font-black">
+          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#e2f4c6]/30 text-[11px] text-[#e2f4c6] font-black">
             H
           </span>
           {t("heads")} (1.98x)
@@ -195,11 +195,11 @@ export function CoinFlip() {
           disabled={isFlipping}
           className={`flex items-center justify-center gap-2.5 rounded-2xl py-4 text-sm font-black tracking-wider transition-all duration-200 ${
             choice === "TAILS"
-              ? "border-2 border-[#fc7219] bg-[#fc7219]/20 text-[#fc7219] shadow-[0_0_25px_rgba(255,107,0,0.3)]"
+              ? "border-2 border-[#c4e77d] bg-[#c4e77d]/20 text-[#c4e77d] shadow-[0_0_25px_rgba(255,107,0,0.3)]"
               : "border border-white/10 bg-[#060d1c] text-gray-400 hover:text-white hover:border-white/20 active:scale-98"
           }`}
         >
-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#fc7219]/30 text-[11px] text-[#fc7219] font-black">
+          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#c4e77d]/30 text-[11px] text-[#c4e77d] font-black">
             T
           </span>
           {t("tails")} (1.98x)
@@ -209,7 +209,7 @@ export function CoinFlip() {
       {/* Bet Configuration */}
       <div className="space-y-4">
         <div>
-          <div className="flex justify-between text-xs font-semibold text-[#94caf9] mb-2">
+          <div className="flex justify-between text-xs font-semibold text-[#aabdab] mb-2">
             <span>{t("stakeAmount")}</span>
             <span className="tabular-nums font-mono text-white">{t("balance")}: {formatCurrency(balance)} PTS</span>
           </div>
@@ -222,9 +222,9 @@ export function CoinFlip() {
               value={betAmount}
               onChange={(e) => setBetAmount(Math.max(1, Number(e.target.value)))}
               disabled={isFlipping}
-              className="w-full rounded-2xl border border-white/15 bg-[#060d1c] px-4 py-3.5 font-mono text-base font-bold text-white tabular-nums focus:border-[#fedbbb] focus:outline-none focus:ring-1 focus:ring-[#fedbbb]"
+              className="w-full rounded-2xl border border-white/15 bg-[#060d1c] px-4 py-3.5 font-mono text-base font-bold text-white tabular-nums focus:border-[#e2f4c6] focus:outline-none focus:ring-1 focus:ring-[#e2f4c6]"
             />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-[#94caf9] font-mono">
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-[#aabdab] font-mono">
               PTS
             </span>
           </div>
@@ -237,7 +237,7 @@ export function CoinFlip() {
               key={amt}
               onClick={() => setBetAmount(amt)}
               disabled={isFlipping}
-              className="rounded-xl border border-white/15 bg-white/5 py-2 font-mono text-xs font-bold text-white hover:border-[#fedbbb] transition-all active:scale-95"
+              className="rounded-xl border border-white/15 bg-white/5 py-2 font-mono text-xs font-bold text-white hover:border-[#e2f4c6] transition-all active:scale-95"
             >
               {amt}
             </button>
@@ -245,7 +245,7 @@ export function CoinFlip() {
           <button
             onClick={() => adjustBet(2)}
             disabled={isFlipping}
-            className="rounded-xl border border-[#fc7219]/40 bg-[#fc7219]/15 py-2 font-mono text-xs font-bold text-[#fc7219] hover:border-[#fc7219] active:scale-95 transition-all"
+            className="rounded-xl border border-[#c4e77d]/40 bg-[#c4e77d]/15 py-2 font-mono text-xs font-bold text-[#c4e77d] hover:border-[#c4e77d] active:scale-95 transition-all"
           >
             2X
           </button>

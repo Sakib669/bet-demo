@@ -196,16 +196,16 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
   };
 
   return (
-    <div className="mst-card relative overflow-hidden rounded-2xl border border-[#193e87]/70 bg-[#0e1f3d] p-4 sm:p-6 shadow-2xl">
+    <div className="mst-card relative overflow-hidden rounded-2xl border border-[#345441]/70 bg-[#182b21] p-4 sm:p-6 shadow-2xl">
       {/* CV666 Header Banner */}
-      <div className="mb-4 flex flex-wrap items-center justify-between border-b border-[#193e87]/50 pb-3 gap-2">
+      <div className="mb-4 flex flex-wrap items-center justify-between border-b border-[#345441]/50 pb-3 gap-2">
         <div className="flex items-center gap-2">
           <div className="h-3 w-3 rounded-full bg-emerald-400 animate-ping" />
           <span className="text-sm font-black uppercase tracking-wider text-white">
             {locale === "bn" ? "উইন গো ৩০ সে." : "WIN GO 30S"}
           </span>
-          <span className="rounded bg-[#fc7219]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-[#fc7219] border border-[#fc7219]/40">
-            CV666 LOTTERY
+          <span className="rounded bg-[#c4e77d]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-[#c4e77d] border border-[#c4e77d]/40">
+            WIN GO
           </span>
         </div>
 
@@ -215,11 +215,11 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
             <span className="text-[10px] text-gray-400 block font-mono">
               {locale === "bn" ? "পিরিয়ড নং" : "Period"}
             </span>
-            <span className="font-mono text-xs font-bold text-[#fedbbb]">{period}</span>
+            <span className="font-mono text-xs font-bold text-[#e2f4c6]">{period}</span>
           </div>
 
-          <div className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-[#081329] px-3 py-1.5 shadow-inner">
-            <Timer className={`h-4 w-4 ${timeLeft <= 5 ? "text-rose-500 animate-bounce" : "text-[#fc7219]"}`} />
+          <div className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-[#0c1714] px-3 py-1.5 shadow-inner">
+            <Timer className={`h-4 w-4 ${timeLeft <= 5 ? "text-rose-500 animate-bounce" : "text-[#c4e77d]"}`} />
             <span
               className={`font-mono text-lg font-black tabular-nums ${
                 timeLeft <= 5 ? "text-rose-500" : "text-white"
@@ -325,7 +325,7 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
           <span className="font-bold uppercase tracking-wider">
             {locale === "bn" ? "নির্দিষ্ট নম্বর নির্বাচন (৯ গুণ পেআউট)" : "Number Pick (9.0x Multiplier)"}
           </span>
-          <span className="font-mono text-[#fedbbb]">0 to 9</span>
+          <span className="font-mono text-[#e2f4c6]">0 to 9</span>
         </div>
         <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
           {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => {
@@ -363,8 +363,8 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
           onClick={() => setSelectedBet("BIG")}
           className={`rounded-xl py-3 text-center transition-all ${
             selectedBet === "BIG"
-              ? "border border-[#fc7219] bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.6)]"
-              : "border border-[#193e87]/60 bg-[#081329] text-gray-300 hover:text-white"
+              ? "border border-[#c4e77d] bg-[#c4e77d] text-white shadow-[0_0_15px_rgba(255,107,0,0.6)]"
+              : "border border-[#345441]/60 bg-[#0c1714] text-gray-300 hover:text-white"
           }`}
         >
           <span className="block text-sm font-black uppercase">
@@ -378,7 +378,7 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
           className={`rounded-xl py-3 text-center transition-all ${
             selectedBet === "SMALL"
               ? "border border-[#0000F2] bg-[#0000F2] text-white shadow-[0_0_15px_rgba(0,0,242,0.6)]"
-              : "border border-[#193e87]/60 bg-[#081329] text-gray-300 hover:text-white"
+              : "border border-[#345441]/60 bg-[#0c1714] text-gray-300 hover:text-white"
           }`}
         >
           <span className="block text-sm font-black uppercase">
@@ -413,8 +413,8 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
               onClick={() => setBetAmount(amt)}
               className={`rounded-xl py-2 font-mono text-xs font-bold transition-all ${
                 betAmount === amt
-                  ? "border border-[#fc7219] bg-[#fc7219]/25 text-[#fedbbb]"
-                  : "border border-[#193e87]/50 bg-[#081329] text-gray-300 hover:text-white"
+                  ? "border border-[#c4e77d] bg-[#c4e77d]/25 text-[#e2f4c6]"
+                  : "border border-[#345441]/50 bg-[#0c1714] text-gray-300 hover:text-white"
               }`}
             >
               +{amt}
@@ -441,7 +441,7 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
             <span>{locale === "bn" ? "রাউন্ড লকড" : "ROUND LOCKED (DRAWING...)"}</span>
           ) : (
             <>
-              <Sparkles className="h-5 w-5 text-[#fedbbb]" />
+              <Sparkles className="h-5 w-5 text-[#e2f4c6]" />
               <span>
                 {locale === "bn"
                   ? `বাজি নিশ্চিত করুন (${betAmount} PTS)`
@@ -453,10 +453,10 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
       </div>
 
       {/* History Pill Ribbon (CV666 Lottery Style) */}
-      <div className="border-t border-[#193e87]/50 pt-4">
+      <div className="border-t border-[#345441]/50 pt-4">
         <div className="mb-2 flex items-center justify-between text-xs">
           <div className="flex items-center gap-1.5 font-bold uppercase text-gray-300">
-            <History className="h-4 w-4 text-[#fc7219]" />
+            <History className="h-4 w-4 text-[#c4e77d]" />
             <span>{locale === "bn" ? "সাম্প্রতিক ফলাফল হিস্ট্রি" : "Past Rounds History"}</span>
           </div>
           <span className="font-mono text-[10px] text-gray-500">Provably Fair</span>
@@ -466,7 +466,7 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
           {history.slice(0, 4).map((item, idx) => (
             <div
               key={idx}
-              className="flex items-center justify-between rounded-xl border border-[#193e87]/40 bg-[#081329] p-2.5"
+              className="flex items-center justify-between rounded-xl border border-[#345441]/40 bg-[#0c1714] p-2.5"
             >
               <div>
                 <span className="font-mono text-[10px] text-gray-400 block">

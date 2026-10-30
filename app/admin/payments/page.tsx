@@ -124,13 +124,13 @@ export default function AdminPaymentsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#193e87]/60 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#345441]/60 pb-4">
         <div>
           <h1 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white flex items-center gap-2.5">
-            <CreditCard className="h-6 w-6 text-[#fc7219]" />
+            <CreditCard className="h-6 w-6 text-[#c4e77d]" />
             <span>{locale === "bn" ? "বিকাশ পেমেন্ট ভেরিফিকেশন ও অনুমোদন" : "bKash Deposit Verification"}</span>
           </h1>
-          <p className="text-xs text-[#94caf9]">
+          <p className="text-xs text-[#aabdab]">
             {locale === "bn"
               ? "গ্রাহকদের প্রেরিত বিকাশ TrxID যাচাই করে গেমিং ক্রেডিট যুক্ত করুন"
               : "Verify customer bKash TrxIDs and credit game points to user wallets"}
@@ -139,9 +139,9 @@ export default function AdminPaymentsPage() {
 
         <button
           onClick={fetchDeposits}
-          className="flex items-center gap-1.5 rounded-xl border border-[#193e87] bg-[#0e1f3d] px-3.5 py-2 text-xs font-bold text-gray-300 hover:text-white transition-colors"
+          className="flex items-center gap-1.5 rounded-xl border border-[#345441] bg-[#182b21] px-3.5 py-2 text-xs font-bold text-gray-300 hover:text-white transition-colors"
         >
-          <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin text-[#fc7219]" : ""}`} />
+          <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin text-[#c4e77d]" : ""}`} />
           <span>{locale === "bn" ? "রিফ্রেশ" : "Refresh"}</span>
         </button>
       </div>
@@ -156,7 +156,7 @@ export default function AdminPaymentsPage() {
       {/* Filter Tabs & Search Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
         {/* Status Filter Tabs */}
-        <div className="flex items-center gap-1.5 rounded-xl bg-[#0e1f3d] p-1 border border-[#193e87]/60">
+        <div className="flex items-center gap-1.5 rounded-xl bg-[#182b21] p-1 border border-[#345441]/60">
           {[
             { id: "ALL", label: locale === "bn" ? "সকল" : "All" },
             { id: "PENDING", label: locale === "bn" ? "অপেক্ষমান" : "Pending" },
@@ -168,7 +168,7 @@ export default function AdminPaymentsPage() {
               onClick={() => setFilterStatus(tab.id)}
               className={`rounded-lg px-3 py-1.5 text-xs font-black uppercase transition-all ${
                 filterStatus === tab.id
-                  ? "bg-[#fc7219] text-white shadow-[0_0_12px_rgba(255,107,0,0.4)]"
+                  ? "bg-[#c4e77d] text-white shadow-[0_0_12px_rgba(255,107,0,0.4)]"
                   : "text-gray-400 hover:text-white"
               }`}
             >
@@ -185,7 +185,7 @@ export default function AdminPaymentsPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder={locale === "bn" ? "TrxID বা নম্বর খুঁজুন..." : "Search TrxID or mobile..."}
-            className="w-full rounded-xl border border-[#193e87]/60 bg-[#0e1f3d] pl-9 pr-3.5 py-2 text-xs text-white placeholder-gray-500 focus:border-[#fc7219] focus:outline-none"
+            className="w-full rounded-xl border border-[#345441]/60 bg-[#182b21] pl-9 pr-3.5 py-2 text-xs text-white placeholder-gray-500 focus:border-[#c4e77d] focus:outline-none"
           />
         </div>
       </div>
@@ -203,7 +203,7 @@ export default function AdminPaymentsPage() {
         ) : (
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-[#193e87]/60 text-gray-400 font-bold uppercase tracking-wider">
+              <tr className="border-b border-[#345441]/60 text-gray-400 font-bold uppercase tracking-wider">
                 <th className="pb-3">{locale === "bn" ? "তারিখ ও সময়" : "Timestamp"}</th>
                 <th className="pb-3">{locale === "bn" ? "ইউজার তথ্য" : "Customer"}</th>
                 <th className="pb-3">{locale === "bn" ? "পরিমাণ (টাকা)" : "Amount (BDT)"}</th>
@@ -214,7 +214,7 @@ export default function AdminPaymentsPage() {
                 <th className="pb-3 text-right">{locale === "bn" ? "অ্যাকশন" : "Action"}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#193e87]/30">
+            <tbody className="divide-y divide-[#345441]/30">
               {filtered.map((dep) => {
                 const isPending = dep.status === "PENDING";
                 const isApproved = dep.status === "APPROVED";
@@ -229,7 +229,7 @@ export default function AdminPaymentsPage() {
                       <span className="font-bold text-white block">{dep.user.name}</span>
                       <span className="font-mono text-[11px] text-gray-400">{dep.user.mobile}</span>
                     </td>
-                    <td className="py-3.5 font-mono font-black text-[#fedbbb] text-sm tabular-nums">
+                    <td className="py-3.5 font-mono font-black text-[#e2f4c6] text-sm tabular-nums">
                       +{formatCurrency(dep.amount)} BDT
                     </td>
                     <td className="py-3.5 font-mono font-bold text-white">
@@ -295,7 +295,7 @@ export default function AdminPaymentsPage() {
       {/* Reject Modal */}
       {rejectId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm animate-in fade-in">
-          <div className="w-full max-w-md rounded-2xl border border-rose-500/40 bg-[#0e1f3d] p-6 shadow-2xl">
+          <div className="w-full max-w-md rounded-2xl border border-rose-500/40 bg-[#182b21] p-6 shadow-2xl">
             <div className="flex items-center gap-2 text-rose-400 mb-3">
               <AlertCircle className="h-5 w-5" />
               <h3 className="text-base font-black uppercase">
@@ -312,7 +312,7 @@ export default function AdminPaymentsPage() {
               value={rejectNote}
               onChange={(e) => setRejectNote(e.target.value)}
               placeholder="e.g. TrxID not found on bKash merchant statement / amount mismatch"
-              className="w-full rounded-xl border border-[#193e87]/60 bg-[#081329] p-3 text-xs text-white placeholder-gray-500 focus:border-rose-500 focus:outline-none mb-4"
+              className="w-full rounded-xl border border-[#345441]/60 bg-[#0c1714] p-3 text-xs text-white placeholder-gray-500 focus:border-rose-500 focus:outline-none mb-4"
             />
             <div className="flex items-center justify-end gap-2">
               <button

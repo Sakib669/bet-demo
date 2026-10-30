@@ -85,13 +85,13 @@ export default function AdminUsersPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#193e87]/60 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#345441]/60 pb-4">
         <div>
           <h1 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white flex items-center gap-2.5">
-            <Users className="h-6 w-6 text-[#fedbbb]" />
+            <Users className="h-6 w-6 text-[#e2f4c6]" />
             <span>{locale === "bn" ? "ইউজার ও প্লেয়ার ডিরেক্টরি" : "User & Player Registry"}</span>
           </h1>
-          <p className="text-xs text-[#94caf9]">
+          <p className="text-xs text-[#aabdab]">
             {locale === "bn"
               ? "প্লেয়ারদের ব্যালেন্স, অ্যাক্টিভিটি এবং বিস্তারিত অ্যানালিটিক্স পর্যবেক্ষণ করুন"
               : "Inspect user accounts, balances, game activity, and deep behavior analytics"}
@@ -100,9 +100,9 @@ export default function AdminUsersPage() {
 
         <button
           onClick={fetchUsers}
-          className="flex items-center gap-1.5 rounded-xl border border-[#193e87] bg-[#0e1f3d] px-3.5 py-2 text-xs font-bold text-gray-300 hover:text-white transition-colors"
+          className="flex items-center gap-1.5 rounded-xl border border-[#345441] bg-[#182b21] px-3.5 py-2 text-xs font-bold text-gray-300 hover:text-white transition-colors"
         >
-          <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin text-[#fc7219]" : ""}`} />
+          <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin text-[#c4e77d]" : ""}`} />
           <span>{locale === "bn" ? "রিফ্রেশ" : "Refresh"}</span>
         </button>
       </div>
@@ -116,7 +116,7 @@ export default function AdminUsersPage() {
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-1.5 rounded-xl bg-[#0e1f3d] p-1 border border-[#193e87]/60">
+        <div className="flex items-center gap-1.5 rounded-xl bg-[#182b21] p-1 border border-[#345441]/60">
           {[
             { id: "ALL", label: locale === "bn" ? "সকল" : "All Users" },
             { id: "CUSTOMER", label: locale === "bn" ? "প্লেয়ার্স" : "Customers" },
@@ -127,7 +127,7 @@ export default function AdminUsersPage() {
               onClick={() => setRoleFilter(tab.id)}
               className={`rounded-lg px-3 py-1.5 text-xs font-black uppercase transition-all ${
                 roleFilter === tab.id
-                  ? "bg-[#fc7219] text-white shadow-[0_0_12px_rgba(255,107,0,0.4)]"
+                  ? "bg-[#c4e77d] text-white shadow-[0_0_12px_rgba(255,107,0,0.4)]"
                   : "text-gray-400 hover:text-white"
               }`}
             >
@@ -143,7 +143,7 @@ export default function AdminUsersPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder={locale === "bn" ? "নাম বা মোবাইল দিয়ে খুঁজুন..." : "Search name or mobile..."}
-            className="w-full rounded-xl border border-[#193e87]/60 bg-[#0e1f3d] pl-9 pr-3.5 py-2 text-xs text-white placeholder-gray-500 focus:border-[#fc7219] focus:outline-none"
+            className="w-full rounded-xl border border-[#345441]/60 bg-[#182b21] pl-9 pr-3.5 py-2 text-xs text-white placeholder-gray-500 focus:border-[#c4e77d] focus:outline-none"
           />
         </div>
       </div>
@@ -161,7 +161,7 @@ export default function AdminUsersPage() {
         ) : (
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-[#193e87]/60 text-gray-400 font-bold uppercase tracking-wider">
+              <tr className="border-b border-[#345441]/60 text-gray-400 font-bold uppercase tracking-wider">
                 <th className="pb-3">{locale === "bn" ? "ইউজার প্রোফাইল" : "User Profile"}</th>
                 <th className="pb-3">{locale === "bn" ? "মোবাইল নম্বর" : "Mobile"}</th>
                 <th className="pb-3">{locale === "bn" ? "রোল" : "Role"}</th>
@@ -171,7 +171,7 @@ export default function AdminUsersPage() {
                 <th className="pb-3 text-right">{locale === "bn" ? "অ্যাকশন" : "Actions"}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#193e87]/30">
+            <tbody className="divide-y divide-[#345441]/30">
               {users.map((u) => {
                 const isAdmin = u.role === "ADMIN";
                 return (
@@ -185,7 +185,7 @@ export default function AdminUsersPage() {
                       <span
                         className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[10px] font-black uppercase font-mono ${
                           isAdmin
-                            ? "bg-[#fedbbb]/20 text-[#fedbbb] border border-[#fedbbb]/40"
+                            ? "bg-[#e2f4c6]/20 text-[#e2f4c6] border border-[#e2f4c6]/40"
                             : "bg-blue-500/20 text-blue-400 border border-blue-500/40"
                         }`}
                       >
@@ -205,7 +205,7 @@ export default function AdminUsersPage() {
                     <td className="py-3.5 text-right space-x-2">
                       <Link
                         href={`/admin/users/${u.id}`}
-                        className="inline-flex items-center gap-1 rounded-lg bg-[#fc7219]/20 border border-[#fc7219]/50 px-2.5 py-1.5 font-black uppercase text-[#fedbbb] hover:bg-[#fc7219]/30 transition-all active:scale-95 text-[11px]"
+                        className="inline-flex items-center gap-1 rounded-lg bg-[#c4e77d]/20 border border-[#c4e77d]/50 px-2.5 py-1.5 font-black uppercase text-[#e2f4c6] hover:bg-[#c4e77d]/30 transition-all active:scale-95 text-[11px]"
                       >
                         <Eye className="h-3.5 w-3.5" />
                         <span>{locale === "bn" ? "অ্যানালিটিক্স" : "Analyze"}</span>
@@ -214,7 +214,7 @@ export default function AdminUsersPage() {
                       <button
                         onClick={() => handlePromote(u.id, u.role)}
                         title={isAdmin ? "Demote to Customer" : "Promote to Admin"}
-                        className="inline-flex items-center gap-1 rounded-lg border border-white/10 bg-[#081329] px-2 py-1.5 text-gray-400 hover:text-white transition-all text-[11px]"
+                        className="inline-flex items-center gap-1 rounded-lg border border-white/10 bg-[#0c1714] px-2 py-1.5 text-gray-400 hover:text-white transition-all text-[11px]"
                       >
                         <ShieldAlert className="h-3.5 w-3.5" />
                         <span>{isAdmin ? "Demote" : "Make Admin"}</span>

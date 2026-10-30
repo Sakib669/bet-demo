@@ -105,27 +105,27 @@ export function DragonTiger({ onRoundComplete }: DragonTigerProps) {
   };
 
   return (
-    <div className="mst-card relative overflow-hidden rounded-2xl border border-[#193e87]/70 bg-[#0e1f3d] p-4 sm:p-6 shadow-2xl">
+    <div className="mst-card relative overflow-hidden rounded-2xl border border-[#345441]/70 bg-[#182b21] p-4 sm:p-6 shadow-2xl">
       {/* Table Header */}
-      <div className="mb-4 flex items-center justify-between border-b border-[#193e87]/50 pb-3">
+      <div className="mb-4 flex items-center justify-between border-b border-[#345441]/50 pb-3">
         <div className="flex items-center gap-2">
-          <Flame className="h-5 w-5 text-[#fc7219]" />
+          <Flame className="h-5 w-5 text-[#c4e77d]" />
           <span className="text-sm font-black uppercase tracking-wider text-white">
             {locale === "bn" ? "ড্রাগন ভার্সেস টাইগার" : "DRAGON TIGER LIVE"}
           </span>
-          <span className="rounded bg-[#fc7219]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-[#fc7219] border border-[#fc7219]/40">
-            CV666 TABLE
+          <span className="rounded bg-[#c4e77d]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-[#c4e77d] border border-[#c4e77d]/40">
+            DRAGON TIGER
           </span>
         </div>
 
-        <div className="flex items-center gap-1.5 text-xs font-mono text-[#fedbbb]">
+        <div className="flex items-center gap-1.5 text-xs font-mono text-[#e2f4c6]">
           <ShieldCheck className="h-4 w-4" />
           <span>Provably Fair RNG</span>
         </div>
       </div>
 
       {/* Duel Arena Canvas */}
-      <div className="relative mb-5 min-h-[220px] rounded-2xl border border-[#193e87] bg-gradient-to-b from-[#081329] to-[#0a1b38] p-4 sm:p-6 shadow-inner flex flex-col justify-between">
+      <div className="relative mb-5 min-h-[220px] rounded-2xl border border-[#345441] bg-gradient-to-b from-[#0c1714] to-[#0a1b38] p-4 sm:p-6 shadow-inner flex flex-col justify-between">
         <div className="grid grid-cols-2 gap-4 sm:gap-8 items-center justify-center my-auto">
           {/* DRAGON SIDE */}
           <div className="flex flex-col items-center">
@@ -215,7 +215,7 @@ export function DragonTiger({ onRoundComplete }: DragonTigerProps) {
             lastWin.won
               ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-400"
               : lastWin.tieRefund
-              ? "border-[#fedbbb]/50 bg-[#fedbbb]/10 text-[#fedbbb]"
+              ? "border-[#e2f4c6]/50 bg-[#e2f4c6]/10 text-[#e2f4c6]"
               : "border-rose-500/50 bg-rose-500/10 text-rose-400"
           }`}
         >
@@ -257,7 +257,7 @@ export function DragonTiger({ onRoundComplete }: DragonTigerProps) {
           className={`rounded-xl p-3.5 text-center transition-all ${
             betSide === "DRAGON"
               ? "border-2 border-rose-500 bg-rose-600/30 text-white shadow-[0_0_20px_rgba(244,63,94,0.5)]"
-              : "border border-[#193e87]/60 bg-[#081329] text-gray-300 hover:text-white"
+              : "border border-[#345441]/60 bg-[#0c1714] text-gray-300 hover:text-white"
           }`}
         >
           <span className="block text-sm sm:text-base font-black text-rose-400">
@@ -273,13 +273,13 @@ export function DragonTiger({ onRoundComplete }: DragonTigerProps) {
           className={`rounded-xl p-3.5 text-center transition-all ${
             betSide === "TIE"
               ? "border-2 border-emerald-500 bg-emerald-600/30 text-white shadow-[0_0_20px_rgba(16,185,129,0.5)]"
-              : "border border-[#193e87]/60 bg-[#081329] text-gray-300 hover:text-white"
+              : "border border-[#345441]/60 bg-[#0c1714] text-gray-300 hover:text-white"
           }`}
         >
           <span className="block text-sm sm:text-base font-black text-emerald-400">
             {locale === "bn" ? "টাই" : "TIE"}
           </span>
-          <span className="font-mono text-xs font-bold text-[#fedbbb]">9.0X</span>
+          <span className="font-mono text-xs font-bold text-[#e2f4c6]">9.0X</span>
         </button>
 
         {/* TIGER */}
@@ -289,7 +289,7 @@ export function DragonTiger({ onRoundComplete }: DragonTigerProps) {
           className={`rounded-xl p-3.5 text-center transition-all ${
             betSide === "TIGER"
               ? "border-2 border-blue-500 bg-blue-600/30 text-white shadow-[0_0_20px_rgba(59,130,246,0.5)]"
-              : "border border-[#193e87]/60 bg-[#081329] text-gray-300 hover:text-white"
+              : "border border-[#345441]/60 bg-[#0c1714] text-gray-300 hover:text-white"
           }`}
         >
           <span className="block text-sm sm:text-base font-black text-blue-400">
@@ -325,8 +325,8 @@ export function DragonTiger({ onRoundComplete }: DragonTigerProps) {
               onClick={() => setBetAmount(amt)}
               className={`rounded-xl py-2 font-mono text-xs font-bold transition-all ${
                 betAmount === amt
-                  ? "border border-[#fc7219] bg-[#fc7219]/25 text-[#fedbbb]"
-                  : "border border-[#193e87]/50 bg-[#081329] text-gray-300 hover:text-white"
+                  ? "border border-[#c4e77d] bg-[#c4e77d]/25 text-[#e2f4c6]"
+                  : "border border-[#345441]/50 bg-[#0c1714] text-gray-300 hover:text-white"
               }`}
             >
               +{amt}
@@ -353,10 +353,10 @@ export function DragonTiger({ onRoundComplete }: DragonTigerProps) {
       </div>
 
       {/* Asian Bead Plate Road Map */}
-      <div className="border-t border-[#193e87]/50 pt-3">
+      <div className="border-t border-[#345441]/50 pt-3">
         <div className="mb-2 flex items-center justify-between text-xs">
           <span className="font-bold uppercase tracking-wider text-gray-400 flex items-center gap-1.5">
-            <History className="h-3.5 w-3.5 text-[#fc7219]" />
+            <History className="h-3.5 w-3.5 text-[#c4e77d]" />
             {locale === "bn" ? "বিড প্লেট রোডম্যাপ" : "Bead Plate Road"}
           </span>
           <span className="font-mono text-[10px] text-gray-400">D = Dragon, T = Tiger, X = Tie</span>

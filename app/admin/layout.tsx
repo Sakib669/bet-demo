@@ -50,25 +50,25 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   ];
 
   return (
-    <div className="min-h-screen bg-[#060814] text-white flex flex-col md:flex-row">
+    <div className="min-h-screen bg-[#0a1410] text-white flex flex-col md:flex-row">
       {/* Sidebar Navigation */}
-      <aside className="w-full md:w-64 shrink-0 border-b md:border-b-0 md:border-r border-[#193e87]/60 bg-[#0e1f3d] p-4 flex flex-col justify-between">
+      <aside className="w-full md:w-64 shrink-0 border-b md:border-b-0 md:border-r border-[#345441]/60 bg-[#182b21] p-4 flex flex-col justify-between">
         <div>
           {/* Admin Header */}
-          <div className="flex items-center gap-3 border-b border-[#193e87]/60 pb-4 mb-5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-[#fc7219] to-[#fedbbb] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]">
+          <div className="flex items-center gap-3 border-b border-[#345441]/60 pb-4 mb-5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-[#c4e77d] to-[#e2f4c6] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]">
               <Shield className="h-5 w-5" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="text-sm font-black uppercase tracking-tight text-white">
-                  HERMES ADMIN
+                  PULSE ADMIN
                 </span>
-                <span className="rounded bg-[#fedbbb] px-1.5 py-0.2 text-[8px] font-black text-[#081329] uppercase">
+                <span className="rounded bg-[#e2f4c6] px-1.5 py-0.2 text-[8px] font-black text-[#0c1714] uppercase">
                   OPERATOR
                 </span>
               </div>
-              <p className="text-[10px] text-[#94caf9] font-mono">CV666 Secure Panel</p>
+              <p className="text-[10px] text-[#aabdab] font-mono">Operations desk</p>
             </div>
           </div>
 
@@ -83,8 +83,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   href={item.href}
                   className={`flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all ${
                     isActive
-                      ? "bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.35)]"
-                      : "text-gray-300 hover:bg-[#193e87]/40 hover:text-white"
+                      ? "bg-[#c4e77d] text-white shadow-[0_0_15px_rgba(255,107,0,0.35)]"
+                      : "text-gray-300 hover:bg-[#345441]/40 hover:text-white"
                   }`}
                 >
                   <Icon className="h-4 w-4 shrink-0" />
@@ -96,17 +96,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
 
         {/* Sidebar Footer Controls */}
-        <div className="border-t border-[#193e87]/60 pt-4 mt-6 space-y-2">
+        <div className="border-t border-[#345441]/60 pt-4 mt-6 space-y-2">
           {/* Language Toggle */}
           <button
             onClick={toggleLocale}
-            className="w-full flex items-center justify-between rounded-xl border border-white/10 bg-[#081329] px-3.5 py-2 text-xs font-bold text-gray-300 hover:text-white transition-colors"
+            className="w-full flex items-center justify-between rounded-xl border border-white/10 bg-[#0c1714] px-3.5 py-2 text-xs font-bold text-gray-300 hover:text-white transition-colors"
           >
             <div className="flex items-center gap-2">
-              <Languages className="h-3.5 w-3.5 text-[#fedbbb]" />
+              <Languages className="h-3.5 w-3.5 text-[#e2f4c6]" />
               <span>Language</span>
             </div>
-            <span className="font-mono text-[10px] text-[#fedbbb]">{locale === "bn" ? "বাংলা" : "ENG"}</span>
+            <span className="font-mono text-[10px] text-[#e2f4c6]">{locale === "bn" ? "বাংলা" : "ENG"}</span>
           </button>
 
           {/* Logout Action */}

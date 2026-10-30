@@ -87,27 +87,27 @@ export function CrazyWheel({ onRoundComplete }: CrazyWheelProps) {
   };
 
   return (
-    <div className="mst-card relative overflow-hidden rounded-2xl border border-[#193e87]/70 bg-[#0e1f3d] p-4 sm:p-6 shadow-2xl">
+    <div className="mst-card relative overflow-hidden rounded-2xl border border-[#345441]/70 bg-[#182b21] p-4 sm:p-6 shadow-2xl">
       {/* Header */}
-      <div className="mb-4 flex items-center justify-between border-b border-[#193e87]/50 pb-3">
+      <div className="mb-4 flex items-center justify-between border-b border-[#345441]/50 pb-3">
         <div className="flex items-center gap-2">
-          <Disc3 className="h-5 w-5 text-[#fc7219] animate-spin" />
+          <Disc3 className="h-5 w-5 text-[#c4e77d] animate-spin" />
           <span className="text-sm font-black uppercase tracking-wider text-white">
             {locale === "bn" ? "ক্রেজি হুইল ৫০x" : "CRAZY MONEY WHEEL"}
           </span>
-          <span className="rounded bg-[#fc7219]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-[#fc7219] border border-[#fc7219]/40">
+          <span className="rounded bg-[#c4e77d]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-[#c4e77d] border border-[#c4e77d]/40">
             50X MAX
           </span>
         </div>
 
-        <div className="flex items-center gap-1.5 text-xs font-mono text-[#fedbbb]">
+        <div className="flex items-center gap-1.5 text-xs font-mono text-[#e2f4c6]">
           <ShieldCheck className="h-4 w-4" />
           <span>Provably Fair</span>
         </div>
       </div>
 
       {/* Rotating Wheel Arena */}
-      <div className="relative mb-5 flex flex-col items-center justify-center min-h-[300px] overflow-hidden rounded-2xl border border-[#193e87] bg-gradient-to-b from-[#081329] to-[#0d1d3a] p-4 shadow-inner">
+      <div className="relative mb-5 flex flex-col items-center justify-center min-h-[300px] overflow-hidden rounded-2xl border border-[#345441] bg-gradient-to-b from-[#0c1714] to-[#0d1d3a] p-4 shadow-inner">
         {/* Top Ticker Pointer */}
         <div className="absolute top-2 z-20 flex flex-col items-center pointer-events-none">
           <div className="h-0 w-0 border-x-8 border-x-transparent border-t-[18px] border-t-amber-400 drop-shadow-[0_4px_8px_rgba(251,191,36,0.8)]" />
@@ -142,7 +142,7 @@ export function CrazyWheel({ onRoundComplete }: CrazyWheelProps) {
                   <path
                     d={`M 50 50 L ${x1} ${y1} A 46 46 0 0 1 ${x2} ${y2} Z`}
                     fill={seg.color}
-                    stroke="#081329"
+                    stroke="#0c1714"
                     strokeWidth="1.2"
                   />
                   <text
@@ -163,8 +163,8 @@ export function CrazyWheel({ onRoundComplete }: CrazyWheelProps) {
             })}
 
             {/* Wheel Center Hub */}
-            <circle cx="50" cy="50" r="12" fill="#081329" stroke="#fc7219" strokeWidth="2" />
-            <circle cx="50" cy="50" r="6" fill="#fc7219" />
+            <circle cx="50" cy="50" r="12" fill="#0c1714" stroke="#c4e77d" strokeWidth="2" />
+            <circle cx="50" cy="50" r="6" fill="#c4e77d" />
           </svg>
         </div>
       </div>
@@ -197,7 +197,7 @@ export function CrazyWheel({ onRoundComplete }: CrazyWheelProps) {
               )}
             </div>
           </div>
-          <span className="font-mono text-xs font-black uppercase text-[#fedbbb]">
+          <span className="font-mono text-xs font-black uppercase text-[#e2f4c6]">
             {lastWin.mult}X RESULT
           </span>
         </div>
@@ -210,7 +210,7 @@ export function CrazyWheel({ onRoundComplete }: CrazyWheelProps) {
         </span>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
           {[
-            { mult: 1, label: "1X", color: "border-[#193e87]" },
+            { mult: 1, label: "1X", color: "border-[#345441]" },
             { mult: 2, label: "2X", color: "border-blue-500" },
             { mult: 5, label: "5X", color: "border-emerald-500" },
             { mult: 10, label: "10X", color: "border-purple-500" },
@@ -223,8 +223,8 @@ export function CrazyWheel({ onRoundComplete }: CrazyWheelProps) {
               onClick={() => setSelectedMultiplier(item.mult)}
               className={`rounded-xl py-3 font-mono text-sm font-black transition-all ${
                 selectedMultiplier === item.mult
-                  ? "border-2 bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.6)]"
-                  : `border ${item.color} bg-[#081329] text-gray-300 hover:text-white`
+                  ? "border-2 bg-[#c4e77d] text-white shadow-[0_0_15px_rgba(255,107,0,0.6)]"
+                  : `border ${item.color} bg-[#0c1714] text-gray-300 hover:text-white`
               }`}
             >
               {item.label}
@@ -259,8 +259,8 @@ export function CrazyWheel({ onRoundComplete }: CrazyWheelProps) {
               onClick={() => setBetAmount(amt)}
               className={`rounded-xl py-2 font-mono text-xs font-bold transition-all ${
                 betAmount === amt
-                  ? "border border-[#fc7219] bg-[#fc7219]/25 text-[#fedbbb]"
-                  : "border border-[#193e87]/50 bg-[#081329] text-gray-300 hover:text-white"
+                  ? "border border-[#c4e77d] bg-[#c4e77d]/25 text-[#e2f4c6]"
+                  : "border border-[#345441]/50 bg-[#0c1714] text-gray-300 hover:text-white"
               }`}
             >
               +{amt}

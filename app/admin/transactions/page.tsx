@@ -92,13 +92,13 @@ export default function AdminTransactionsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#193e87]/60 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#345441]/60 pb-4">
         <div>
           <h1 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white flex items-center gap-2.5">
-            <Receipt className="h-6 w-6 text-[#fedbbb]" />
+            <Receipt className="h-6 w-6 text-[#e2f4c6]" />
             <span>{locale === "bn" ? "ডুয়াল ট্রানজেকশন অডিট লেজার" : "Dual Transaction Audit Ledgers"}</span>
           </h1>
-          <p className="text-xs text-[#94caf9]">
+          <p className="text-xs text-[#aabdab]">
             {locale === "bn"
               ? "প্রকৃত বিকাশ আয় এবং গেম পয়েন্ট স্থানান্তরের পৃথক ও অপরিবর্তনীয় অডিট রেজিস্টার"
               : "Reconcile verified bKash real-money income and virtual game credit distributions"}
@@ -107,9 +107,9 @@ export default function AdminTransactionsPage() {
 
         <button
           onClick={fetchLedgers}
-          className="flex items-center gap-1.5 rounded-xl border border-[#193e87] bg-[#0e1f3d] px-3.5 py-2 text-xs font-bold text-gray-300 hover:text-white transition-colors"
+          className="flex items-center gap-1.5 rounded-xl border border-[#345441] bg-[#182b21] px-3.5 py-2 text-xs font-bold text-gray-300 hover:text-white transition-colors"
         >
-          <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin text-[#fc7219]" : ""}`} />
+          <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin text-[#c4e77d]" : ""}`} />
           <span>{locale === "bn" ? "রিফ্রেশ" : "Refresh"}</span>
         </button>
       </div>
@@ -128,11 +128,11 @@ export default function AdminTransactionsPage() {
           </span>
         </div>
 
-        <div className="mst-card rounded-2xl p-5 border-[#193e87]/70">
-          <span className="text-xs font-bold uppercase text-[#fedbbb] block mb-1">
+        <div className="mst-card rounded-2xl p-5 border-[#345441]/70">
+          <span className="text-xs font-bold uppercase text-[#e2f4c6] block mb-1">
             Credits Distributed (PTS)
           </span>
-          <span className="font-mono text-2xl font-black text-[#fedbbb] tabular-nums">
+          <span className="font-mono text-2xl font-black text-[#e2f4c6] tabular-nums">
             {formatCurrency(totals.totalCreditsIssuedPTS)} PTS
           </span>
           <span className="text-[10px] text-gray-400 font-mono block mt-1">
@@ -140,7 +140,7 @@ export default function AdminTransactionsPage() {
           </span>
         </div>
 
-        <div className="mst-card rounded-2xl p-5 border-[#193e87]/70">
+        <div className="mst-card rounded-2xl p-5 border-[#345441]/70">
           <span className="text-xs font-bold uppercase text-gray-400 block mb-1">
             Reconciliation Ratio
           </span>
@@ -152,7 +152,7 @@ export default function AdminTransactionsPage() {
           </span>
         </div>
 
-        <div className="mst-card rounded-2xl p-5 border-[#193e87]/70">
+        <div className="mst-card rounded-2xl p-5 border-[#345441]/70">
           <span className="text-xs font-bold uppercase text-gray-400 block mb-1">
             Audit Security
           </span>
@@ -166,13 +166,13 @@ export default function AdminTransactionsPage() {
       </div>
 
       {/* Ledger Selector Tabs */}
-      <div className="flex items-center gap-2 border-b border-[#193e87]/60 pb-3">
+      <div className="flex items-center gap-2 border-b border-[#345441]/60 pb-3">
         <button
           onClick={() => setActiveLedger("income")}
           className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-black uppercase tracking-wider transition-all ${
             activeLedger === "income"
-              ? "bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
-              : "border border-[#193e87]/60 bg-[#0e1f3d] text-gray-300 hover:text-white"
+              ? "bg-[#c4e77d] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
+              : "border border-[#345441]/60 bg-[#182b21] text-gray-300 hover:text-white"
           }`}
         >
           <CreditCard className="h-4 w-4" />
@@ -183,8 +183,8 @@ export default function AdminTransactionsPage() {
           onClick={() => setActiveLedger("credit")}
           className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-black uppercase tracking-wider transition-all ${
             activeLedger === "credit"
-              ? "bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
-              : "border border-[#193e87]/60 bg-[#0e1f3d] text-gray-300 hover:text-white"
+              ? "bg-[#c4e77d] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]"
+              : "border border-[#345441]/60 bg-[#182b21] text-gray-300 hover:text-white"
           }`}
         >
           <Coins className="h-4 w-4" />
@@ -208,7 +208,7 @@ export default function AdminTransactionsPage() {
             ) : (
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-[#193e87]/60 text-gray-400 font-bold uppercase tracking-wider">
+                  <tr className="border-b border-[#345441]/60 text-gray-400 font-bold uppercase tracking-wider">
                     <th className="pb-3">Timestamp</th>
                     <th className="pb-3">Customer User</th>
                     <th className="pb-3">Amount (BDT)</th>
@@ -217,7 +217,7 @@ export default function AdminTransactionsPage() {
                     <th className="pb-3">Reviewed By Admin</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#193e87]/30">
+                <tbody className="divide-y divide-[#345441]/30">
                   {incomeLedger.map((item) => (
                     <tr key={item.id} className="text-gray-300 hover:bg-white/5 transition-colors">
                       <td className="py-3 font-mono text-gray-400">
@@ -257,7 +257,7 @@ export default function AdminTransactionsPage() {
             ) : (
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-[#193e87]/60 text-gray-400 font-bold uppercase tracking-wider">
+                  <tr className="border-b border-[#345441]/60 text-gray-400 font-bold uppercase tracking-wider">
                     <th className="pb-3">Timestamp</th>
                     <th className="pb-3">Recipient Customer</th>
                     <th className="pb-3">Credit Amount</th>
@@ -266,7 +266,7 @@ export default function AdminTransactionsPage() {
                     <th className="pb-3">Operator Admin</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#193e87]/30">
+                <tbody className="divide-y divide-[#345441]/30">
                   {creditLedger.map((item) => (
                     <tr key={item.id} className="text-gray-300 hover:bg-white/5 transition-colors">
                       <td className="py-3 font-mono text-gray-400">
@@ -276,7 +276,7 @@ export default function AdminTransactionsPage() {
                         <span className="font-bold text-white block">{item.user.name}</span>
                         <span className="font-mono text-[11px] text-gray-400">{item.user.mobile}</span>
                       </td>
-                      <td className="py-3 font-mono font-black text-[#fedbbb] text-sm tabular-nums">
+                      <td className="py-3 font-mono font-black text-[#e2f4c6] text-sm tabular-nums">
                         +{formatCurrency(item.amount)} PTS
                       </td>
                       <td className="py-3 text-xs text-gray-300">{item.reason}</td>
