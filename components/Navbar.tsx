@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react";
+import { signOutLocal } from "@/lib/browser-db";
 import { ArrowUpRight, Globe2, Wallet } from "lucide-react";
 import { useWallet } from "@/lib/wallet-context";
 import { useLanguage } from "@/lib/language-context";
@@ -28,7 +28,7 @@ export function Navbar() {
           <button className="language-button" onClick={toggleLocale} aria-label={bn ? "Switch to English" : "বাংলায় দেখুন"}><Globe2 size={16} /><span>{bn ? "BN" : "EN"}</span></button>
           <div className="wallet-chip"><Wallet size={16} /><span>{loading ? "···" : formatCurrency(balance)} <small>PTS</small></span></div>
           <button className="header-credit-button" onClick={() => setIsTopUpOpen(true)}>{bn ? "ক্রেডিট" : "Credits"} <ArrowUpRight size={16} /></button>
-          {isAuthenticated ? <button className="account-link" onClick={() => signOut({ callbackUrl: "/login" })}>{bn ? "লগআউট" : "Sign out"}</button> : <Link className="account-link" href="/login">{bn ? "লগইন" : "Sign in"}</Link>}
+          {isAuthenticated ? <button className="account-link" onClick={() => { signOutLocal(); window.location.href = "/login"; }}>{bn ? "লগআউট" : "Sign out"}</button> : <Link className="account-link" href="/login">{bn ? "লগইন" : "Sign in"}</Link>}
         </div>
       </div>
     </header>

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import { localFetch } from "@/lib/browser-db";
 
 export interface CurrentUser {
   id: string;
@@ -34,7 +35,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
 
   const refreshWallet = useCallback(async () => {
     try {
-      const res = await fetch("/api/wallet");
+      const res = await localFetch("/api/wallet");
       const data = await res.json();
       if (data.success && data.user) {
         setBalance(data.user.wallet?.balance ?? 0);
@@ -68,6 +69,9 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     refreshWallet();
+    window.addEventListener("pulse:db-change", refreshWallet);
+    window.addEventListener("storage", refreshWallet);
+    return () => { window.removeEventListener("pulse:db-change", refreshWallet); window.removeEventListener("storage", refreshWallet); };
   }, [refreshWallet]);
 
   return (

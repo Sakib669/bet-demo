@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { registerLocal } from "@/lib/browser-db";
 import { useLanguage } from "@/lib/language-context";
 import { Smartphone, Lock, User, Mail, ArrowRight, AlertCircle } from "lucide-react";
 
@@ -32,36 +32,14 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          mobile,
-          email: email.trim() || undefined,
-          password,
-        }),
-      });
-
-      const data = await res.json();
+      const data = await registerLocal({ name, mobile, email: email.trim() || undefined, password });
       if (!data.success) {
-        setErrorMsg(data.message);
+        setErrorMsg("message" in data ? data.message : "Registration failed.");
         setLoading(false);
         return;
       }
 
-      // Automatically sign in upon registration
-      const loginRes = await signIn("credentials", {
-        mobile: mobile.trim().replace(/[-\s]/g, ""),
-        password,
-        redirect: false,
-      });
-
-      if (loginRes?.error) {
-        window.location.href = "/login";
-      } else {
-        window.location.href = "/";
-      }
+      window.location.href = "user" in data && data.user.role === "ADMIN" ? "/admin/settings" : "/";
     } catch {
       setErrorMsg(
         locale === "bn"
@@ -85,8 +63,8 @@ export default function RegisterPage() {
           </h1>
           <p className="mt-2 text-sm text-[#aabdab]">
             {locale === "bn"
-              ? "রেজিস্ট্রেশন করলেই সাথে সাথে ১,০০০ ফ্রি ডেমো পয়েন্ট পাবেন"
-              : "Register to get 1,000 free demo credits instantly"}
+              ? "প্রথম অ্যাকাউন্টটি এই ব্রাউজারের অপারেটর হবে।"
+              : "The first account in this browser becomes its operator."}
           </p>
         </div>
 

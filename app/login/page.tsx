@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signInLocal } from "@/lib/browser-db";
 import { useLanguage } from "@/lib/language-context";
 import { Smartphone, Lock, ArrowRight, AlertCircle } from "lucide-react";
 
@@ -21,13 +21,9 @@ export default function LoginPage() {
     const cleanMobile = mobile.trim().replace(/[-\s]/g, "");
 
     try {
-      const res = await signIn("credentials", {
-        mobile: cleanMobile,
-        password,
-        redirect: false,
-      });
+      const res = await signInLocal(cleanMobile, password);
 
-      if (res?.error) {
+      if (!res.success) {
         setErrorMsg(
           locale === "bn"
             ? "মোবাইল নম্বর বা পাসওয়ার্ড ভুল হয়েছে।"
@@ -38,9 +34,7 @@ export default function LoginPage() {
       }
 
       // Check role via wallet/session endpoint and redirect
-      const checkRes = await fetch("/api/wallet");
-      const checkData = await checkRes.json();
-      if (checkData.success && checkData.user?.role === "ADMIN") {
+      if ("user" in res && res.user.role === "ADMIN") {
         window.location.href = "/admin/dashboard";
       } else {
         window.location.href = "/";
