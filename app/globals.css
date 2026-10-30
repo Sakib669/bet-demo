@@ -53,7 +53,7 @@ h1, h2, h3, h4, button { font-family: "Space Grotesk", "DM Sans", sans-serif; }
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 1.5rem; margin-bottom: 2rem; }
 .section-heading h2, .credit-heading h2 { margin-top: .7rem; font-size: clamp(2.3rem, 4vw, 4.2rem); line-height: 1; letter-spacing: -.06em; font-weight: 700; }
 .section-heading > p { max-width: 18rem; color: #9fb3a4; font-size: .9rem; line-height: 1.6; }
-.game-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .8rem; }
+.game-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .8rem; }
 .game-tile { position: relative; min-height: 18rem; display: flex; flex-direction: column; overflow: hidden; text-align: left; border: 1px solid #40604a; border-radius: .75rem; background: #192b23; color: #f1f5ec; transition: transform .24s ease, border-color .24s ease, background .24s ease; }
 .game-tile:hover { transform: translateY(-4px); background: #20362a; border-color: #94c46c; }
 .game-tile:active { transform: translateY(-1px) scale(.99); }
@@ -135,6 +135,25 @@ h1, h2, h3, h4, button { font-family: "Space Grotesk", "DM Sans", sans-serif; }
 .not-found-page > strong { color: #c4e77d; font: 700 clamp(7rem, 19vw, 17rem)/.9 "Space Grotesk", sans-serif; letter-spacing: -.13em; }
 .not-found-page h1 { margin-top: .5rem; font-size: clamp(2rem, 4vw, 4rem); letter-spacing: -.06em; }
 .not-found-page > p:not(.eyebrow) { max-width: 28rem; margin-block: .9rem 2rem; color: #a9bcab; line-height: 1.65; }
+.skill-game { max-width: 49rem; margin-inline: auto; padding: clamp(1rem, 3vw, 2rem); }
+.skill-game-header { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; margin-bottom: 1.8rem; }
+.skill-game-header h3 { margin-top: .5rem; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: -.065em; line-height: 1; }
+.skill-game-header p:not(.eyebrow) { max-width: 25rem; margin-top: .6rem; color: #a8bba9; font-size: .9rem; line-height: 1.55; }
+.skill-game-stats { display: flex; gap: 2rem; padding-block: 1rem; border-top: 1px solid #3b5943; color: #9aafa0; font-size: .8rem; }
+.skill-game-stats span { display: flex; gap: .5rem; }
+.skill-game-stats strong { color: #e7f5d9; font-variant-numeric: tabular-nums; }
+.memory-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: .6rem; }
+.memory-card { aspect-ratio: 1.18; display: grid; place-items: center; border: 1px solid #426047; border-radius: .45rem; background: #294433; color: #a8ca80; font: 700 clamp(1.9rem, 5vw, 3.4rem) "Space Grotesk", sans-serif; transition: transform .2s ease, background .2s ease; }
+.memory-card:hover:not(:disabled) { background: #345641; transform: translateY(-2px); }
+.memory-card.is-revealed { background: #d4ec9c; color: #183121; }
+.memory-card.is-matched { background: #759b5b; color: #ecf7d9; }
+.skill-game-result { margin-top: 1.4rem; color: #d4ec9c; font-weight: 600; }
+.pattern-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .75rem; max-width: 30rem; margin: 1rem auto 0; }
+.pattern-pad { aspect-ratio: 1.4; padding: 1rem; display: flex; justify-content: end; align-items: start; border: 1px solid #64836a; border-radius: .5rem; background: #294634; color: #b9d1b3; text-align: right; transition: background .15s ease, transform .15s ease; }
+.pattern-pad-1 { background: #3a6045; }.pattern-pad-2 { background: #49694b; }.pattern-pad-3 { background: #55754d; }
+.pattern-pad:not(:disabled):hover { transform: scale(1.02); }.pattern-pad:active, .pattern-pad.is-active { background: #d6ec9e; color: #183121; transform: scale(.97); }
+.pattern-pad:disabled { cursor: default; }.pattern-pad span { font: 700 .75rem "Space Grotesk", sans-serif; letter-spacing: .15em; }
+@media (max-width: 640px) { .skill-game-header { align-items: start; flex-direction: column; }.skill-game-stats { gap: 1rem; justify-content: space-between; }.memory-grid { gap: .4rem; }.memory-card { aspect-ratio: 1; } }
 .btn-action-orange { background: #c4e77d !important; color: #13271a !important; box-shadow: none !important; border-radius: .45rem; }
 .btn-action-orange:hover { background: #d8f1a3 !important; }
 @media (max-width: 750px) { .auth-shell { grid-template-columns: 1fr; min-height: auto; gap: 2rem; padding-block: 2.5rem 4rem; }.auth-aside { min-height: 13rem; padding: 1.5rem; }.auth-aside h2 { margin-block: .9rem .5rem; font-size: 2.6rem; }.auth-aside > span { display: none; }.auth-panel { width: 100%; } }
