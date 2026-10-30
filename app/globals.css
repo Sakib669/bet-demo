@@ -88,7 +88,7 @@ h1, h2, h3, h4, button { font-family: "Space Grotesk", "DM Sans", sans-serif; }
 .footer-inner nav { display: flex; gap: 1.5rem; color: #a9bdad; font-size: .82rem; }
 .footer-inner a:hover, .footer-inner button:hover { color: #c4e77d; }
 @media (max-width: 900px) { .home-hero { grid-template-columns: 1fr; padding-block: 4.5rem 3rem; gap: 0; }.home-hero-art { min-height: 25rem; }.art-orbit { width: 25rem; }.art-orbit-two { width: 31rem; }.game-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }.credit-section { gap: 2rem; } }
-@media (max-width: 640px) { .page-shell { width: min(100% - 1.5rem, 84rem); }.home-hero { min-height: auto; padding-block: 4.2rem 2rem; }.home-hero h1 { font-size: clamp(3.7rem, 16vw, 5.8rem); }.home-hero-art { min-height: 22rem; }.art-ticket { width: 14rem; min-height: 18rem; padding: 1.4rem; }.art-ticket strong { font-size: 3rem; }.art-coin { width: 4.7rem; border-width: .45rem; font-size: 2.2rem; right: 2%; }.game-grid { gap: .55rem; }.game-tile { min-height: 15rem; }.game-tile-art { height: 8.7rem; }.game-tile-body strong { font-size: 1.05rem; }.section-heading { align-items: start; flex-direction: column; }.section-heading > p { max-width: none; }.game-section, .arena-section { padding-block: 3rem; }.credit-section { grid-template-columns: 1fr; padding-block: 4rem; }.footer-inner { align-items: start; flex-direction: column; } }
+@media (max-width: 640px) { .page-shell { width: min(100% - 1.5rem, 84rem); }.home-hero { min-height: auto; padding-block: 3.2rem 1rem; }.home-hero h1 { font-size: clamp(3.7rem, 16vw, 5.8rem); }.home-hero-art { min-height: 15rem; }.art-ticket { width: 11.5rem; min-height: 12.5rem; padding: 1rem; }.art-ticket strong { font-size: 2.15rem; }.art-coin { width: 3.5rem; border-width: .35rem; font-size: 1.7rem; right: 9%; top: 9%; }.art-caption { right: 6%; bottom: 0; font-size: .55rem; }.game-grid { gap: .55rem; }.game-tile { min-height: 15rem; }.game-tile-art { height: 8.7rem; }.game-tile-body strong { font-size: 1.05rem; }.section-heading { align-items: start; flex-direction: column; }.section-heading > p { max-width: none; }.game-section, .arena-section { padding-block: 3rem; }.credit-section { grid-template-columns: 1fr; padding-block: 4rem; }.footer-inner { align-items: start; flex-direction: column; } }
 .skip-link { position: fixed; z-index: 100; top: -4rem; left: 1rem; padding: .7rem 1rem; background: #c4e77d; color: #102019; border-radius: .35rem; font-weight: 700; }
 .skip-link:focus { top: 1rem; }
 .site-header { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid #345340; background: #0c1714e8; backdrop-filter: blur(18px); }
@@ -322,3 +322,48 @@ body {
 .flip-tails {
   transform: rotateY(1980deg);
 }
+
+.credit-sheet-overlay { position: fixed; z-index: 50; inset: 0; display: flex; justify-content: flex-end; background: #020806c9; backdrop-filter: blur(5px); }
+.credit-sheet { width: min(100%, 37rem); height: 100%; overflow-y: auto; background: #14241b; color: #eef5e9; box-shadow: -1.5rem 0 4rem #030c08a8; }
+.credit-sheet-header { display: flex; justify-content: space-between; gap: 1rem; padding: 2.2rem 2rem 1.7rem; }
+.credit-sheet-header h2 { margin-top: .45rem; font-size: clamp(2.2rem, 4vw, 3.4rem); line-height: 1; letter-spacing: -.065em; }
+.credit-sheet-header p:not(.eyebrow) { margin-top: .65rem; color: #9fb5a2; font-size: .85rem; }
+.credit-close { align-self: flex-start; padding: .4rem; color: #acbdae; border: 1px solid #44614a; border-radius: .4rem; }
+.credit-close:hover { color: white; border-color: #c4e77d; }
+.credit-tabs { display: grid; grid-template-columns: repeat(3,1fr); border-block: 1px solid #36513b; }
+.credit-tabs button { padding: .95rem .5rem; border-bottom: 2px solid transparent; color: #9fb3a1; font-size: .8rem; font-weight: 700; }
+.credit-tabs button.active { border-color: #c4e77d; color: #dff1c9; }
+.credit-sheet-body { padding: 1.7rem 2rem 3rem; }
+.credit-form { display: grid; gap: 1.5rem; }
+.credit-recipient { padding: 1.2rem; background: #20382a; border: 1px solid #52754d; border-radius: .65rem; }
+.credit-field-label { display: flex; justify-content: space-between; color: #b5c8b2; font-size: .76rem; font-weight: 700; letter-spacing: .03em; }
+.credit-field-label small { color: #849d86; font: 600 .7rem "Space Grotesk", sans-serif; }
+.credit-recipient-line { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-block: .4rem; }
+.credit-recipient-line strong { color: #e8f6d3; font: 700 clamp(1.2rem, 4vw, 1.8rem) "Space Grotesk", sans-serif; font-variant-numeric: tabular-nums; }
+.credit-recipient-line button { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: .35rem; background: #c4e77d; color: #193021; }
+.credit-recipient-line button:disabled { opacity: .35; cursor: not-allowed; }
+.credit-recipient > small { color: #9db49d; font-size: .72rem; }
+.credit-instructions { display: grid; gap: .6rem; list-style: none; padding: 0; margin: 0; }
+.credit-instructions li { display: flex; gap: .8rem; color: #adbead; font-size: .78rem; line-height: 1.5; }
+.credit-instructions span { color: #c4e77d; font: 700 .7rem "Space Grotesk", sans-serif; }
+.credit-pack-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .5rem; margin-top: .6rem; }
+.credit-pack-grid button { display: flex; flex-direction: column; gap: .2rem; align-items: start; padding: .8rem .5rem; border: 1px solid #446249; border-radius: .4rem; text-align: left; background: #1a2e22; }
+.credit-pack-grid button:hover, .credit-pack-grid button.active { border-color: #c4e77d; background: #29432d; }
+.credit-pack-grid strong { font: 700 1.2rem "Space Grotesk", sans-serif; color: #edf5e6; }
+.credit-pack-grid span { font-size: .58rem; color: #9daf9b; }
+.credit-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; }
+.credit-fields label { min-width: 0; }
+.credit-fields input { width: 100%; margin-top: .55rem; padding: .75rem; border: 1px solid #45614a; border-radius: .4rem; background: #0d1a13; color: #f0f7e9; font: 600 .85rem "Space Grotesk", sans-serif; }
+.credit-fields input::placeholder { color: #708873; }
+.credit-fields input:focus { border-color: #c4e77d; outline: none; }
+.credit-inline-note { display: flex; align-items: center; gap: .4rem; color: #e5c590; font-size: .77rem; }.credit-inline-note a { color: #d8edaf; text-decoration: underline; }
+.credit-submit { width: 100%; }.credit-submit:disabled, .credit-bonus button:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+.credit-history { display: grid; gap: .7rem; }.credit-history > p { color: #a8bca9; font-size: .85rem; }
+.credit-history-item { padding: 1rem; border: 1px solid #3d5a42; border-radius: .5rem; background: #1b3023; }
+.credit-history-item > div { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.credit-history-item strong { font: 700 1.1rem "Space Grotesk", sans-serif; }.credit-history-item p { margin-top: .4rem; color: #adc0aa; font-size: .77rem; }.credit-history-item small { color: #809783; font-size: .7rem; }
+.credit-status { padding: .25rem .4rem; border-radius: .2rem; font: 700 .61rem "Space Grotesk", sans-serif; letter-spacing: .07em; }.credit-status-pending { background: #6f553122; color: #e3c585; }.credit-status-approved { background: #507b382b; color: #c6e899; }.credit-status-rejected { background: #88434333; color: #ecaaa8; }
+.credit-empty { display: grid; justify-items: start; gap: .5rem; padding: 3rem 0; color: #aabdab; }.credit-empty strong { color: #eff5ea; }.credit-empty p { max-width: 19rem; font-size: .8rem; }
+.credit-bonus { display: grid; justify-items: start; gap: .8rem; padding-block: 2rem; }.credit-bonus > svg { color: #c4e77d; }.credit-bonus h3 { font-size: 2rem; letter-spacing: -.05em; }.credit-bonus p { max-width: 22rem; color: #a7baa6; line-height: 1.6; font-size: .85rem; }.credit-bonus button { margin-top: 1rem; }
+.credit-feedback { display: flex; align-items: start; gap: .6rem; padding: .8rem; border-radius: .4rem; font-size: .8rem; }.credit-feedback.success { background: #2d56322d; color: #d0eba8; }.credit-feedback.error { background: #783e3e34; color: #f1b4ae; }
+@media (max-width: 640px) { .credit-sheet-header { padding: 1.5rem 1.2rem 1.3rem; }.credit-sheet-body { padding: 1.4rem 1.2rem 6rem; }.credit-fields { grid-template-columns: 1fr; }.credit-sheet { padding-bottom: env(safe-area-inset-bottom); } }
