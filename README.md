@@ -1,6 +1,6 @@
 # MOSTBET // Provably Fair Gaming Simulation Platform
 
-A full-stack, mobile-responsive e-gaming simulation platform built with **Next.js 15 (App Router)**, **Prisma ORM**, **Tailwind CSS**, and **PostgreSQL (Local / pgAdmin 4)**.
+A full-stack, mobile-responsive e-gaming simulation platform built with **Next.js 16 (App Router)**, **Prisma ORM 7**, **Tailwind CSS 4**, and **PostgreSQL (Local / pgAdmin 4)**.
 
 Designed following the reverse-engineered **Mostbet Official Portal** architecture: Deep Navy (`#08478E`), Base Canvas (`#040F26`), Action Orange (`#FF6B00`), and Star Gold (`#FFC700`).
 
@@ -63,6 +63,8 @@ npx prisma db push
 ---
 
 ## 🏃 Running the Application
+
+Use Node.js 22 or newer for local development.
 
 ### 1. Install Dependencies
 ```bash
