@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useLanguage } from "@/lib/language-context";
-import { Star, Smartphone, Lock, ArrowRight, AlertCircle, Shield } from "lucide-react";
+import { Smartphone, Lock, ArrowRight, AlertCircle } from "lucide-react";
 
 export default function LoginPage() {
   const { locale } = useLanguage();
@@ -56,19 +56,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center px-4 py-12">
-      <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-[#345441]/70 bg-[#182b21] p-6 sm:p-8 shadow-2xl">
-        <div className="absolute -top-16 left-1/2 h-36 w-72 -translate-x-1/2 rounded-full bg-[#c4e77d]/20 blur-3xl pointer-events-none" />
+    <div className="auth-shell page-shell">
+      <aside className="auth-aside"><p className="eyebrow">PULSE / ACCESS</p><h2>Back in<br /><em>the room.</em></h2><p>Choose a game, check your balance, and pick up where you left off.</p><span>01 / 02</span></aside>
+      <div className="auth-panel">
 
         {/* Logo / Header */}
-        <div className="mb-6 text-center">
-          <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#c4e77d] to-[#e2f4c6] text-white shadow-[0_0_20px_rgba(255,107,0,0.4)] mb-3">
-            <Star className="h-6 w-6 fill-white" />
-          </div>
-          <h1 className="text-2xl font-black uppercase tracking-tight text-white">
-            {locale === "bn" ? "অ্যাকাউন্টে লগইন" : "Sign In to Account"}
+        <div className="mb-8">
+          <p className="eyebrow">ACCOUNT / SIGN IN</p>
+          <h1 className="auth-title">
+            {locale === "bn" ? "আবার স্বাগতম" : "Welcome back"}
           </h1>
-          <p className="mt-1 text-xs text-[#aabdab]">
+          <p className="mt-2 text-sm text-[#aabdab]">
             {locale === "bn"
               ? "আপনার মোবাইল নম্বর এবং পাসওয়ার্ড দিয়ে লগইন করুন"
               : "Enter your mobile number and password to continue"}
@@ -135,7 +133,7 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <div className="mt-6 border-t border-[#345441]/50 pt-4 text-center">
+        <div className="mt-6 border-t border-[#345441]/50 pt-4">
           <p className="text-xs text-gray-400">
             {locale === "bn" ? "অ্যাকাউন্ট নেই?" : "Don't have an account?"}{" "}
             <Link
@@ -146,15 +144,6 @@ export default function LoginPage() {
             </Link>
           </p>
 
-          <div className="mt-4 rounded-xl border border-white/10 bg-[#0c1714]/60 p-3 text-[11px] text-gray-400">
-            <span className="font-bold text-gray-300 block mb-1">
-              {locale === "bn" ? "ডেমো টেস্ট অ্যাকাউন্টসমূহ:" : "Demo Test Accounts:"}
-            </span>
-            <div className="font-mono text-[10px] space-y-0.5 text-gray-400">
-              <p>👑 Admin: <span className="text-[#e2f4c6]">01700000000</span> / pass: <span className="text-[#e2f4c6]">admin123</span></p>
-              <p>🎮 Player: <span className="text-[#aabdab]">01711111111</span> / pass: <span className="text-[#aabdab]">player123</span></p>
-            </div>
-          </div>
         </div>
       </div>
     </div>
