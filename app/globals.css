@@ -86,6 +86,29 @@ h1, h2, h3, h4, button { font-family: "Space Grotesk", "DM Sans", sans-serif; }
 .footer-inner a:hover, .footer-inner button:hover { color: #c4e77d; }
 @media (max-width: 900px) { .home-hero { grid-template-columns: 1fr; padding-block: 4.5rem 3rem; gap: 0; }.home-hero-art { min-height: 25rem; }.art-orbit { width: 25rem; }.art-orbit-two { width: 31rem; }.game-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }.credit-section { gap: 2rem; } }
 @media (max-width: 640px) { .page-shell { width: min(100% - 1.5rem, 84rem); }.home-hero { min-height: auto; padding-block: 4.2rem 2rem; }.home-hero h1 { font-size: clamp(3.7rem, 16vw, 5.8rem); }.home-hero-art { min-height: 22rem; }.art-ticket { width: 14rem; min-height: 18rem; padding: 1.4rem; }.art-ticket strong { font-size: 3rem; }.art-coin { width: 4.7rem; border-width: .45rem; font-size: 2.2rem; right: 2%; }.game-grid { gap: .55rem; }.game-tile { min-height: 15rem; }.game-tile-art { height: 8.7rem; }.game-tile-body strong { font-size: 1.05rem; }.section-heading { align-items: start; flex-direction: column; }.section-heading > p { max-width: none; }.game-section, .arena-section { padding-block: 3rem; }.credit-section { grid-template-columns: 1fr; padding-block: 4rem; }.footer-inner { align-items: start; flex-direction: column; } }
+.skip-link { position: fixed; z-index: 100; top: -4rem; left: 1rem; padding: .7rem 1rem; background: #c4e77d; color: #102019; border-radius: .35rem; font-weight: 700; }
+.skip-link:focus { top: 1rem; }
+.site-header { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid #345340; background: #0c1714e8; backdrop-filter: blur(18px); }
+.site-header-inner { min-height: 4.8rem; display: flex; align-items: center; gap: clamp(1rem, 3vw, 3rem); }
+.brand-mark { display: flex; align-items: center; gap: .6rem; flex-shrink: 0; }
+.brand-symbol { width: 2.5rem; height: 2.5rem; display: grid; place-items: center; border-radius: .45rem; background: #c4e77d; color: #183020; font: 700 1.6rem "Space Grotesk", sans-serif; letter-spacing: -.12em; }
+.brand-symbol span { color: #53783b; }
+.brand-name { display: flex; flex-direction: column; font: 700 1.1rem/.9 "Space Grotesk", sans-serif; letter-spacing: -.04em; }
+.brand-name small { margin-top: .35rem; color: #92aa93; font-size: .54rem; letter-spacing: .17em; }
+.site-main-nav { display: flex; align-items: center; gap: 1.6rem; margin-right: auto; }
+.site-main-nav a, .account-link { color: #a7bcab; font-size: .85rem; font-weight: 600; transition: color .2s ease; }
+.site-main-nav a:hover, .site-main-nav a[aria-current], .account-link:hover { color: #e7f5d9; }
+.site-header-actions { display: flex; align-items: center; gap: .85rem; }
+.language-button { display: flex; align-items: center; gap: .35rem; color: #a9bdad; font-size: .75rem; font-weight: 700; }
+.language-button:hover { color: #e7f5d9; }
+.wallet-chip { display: flex; align-items: center; gap: .55rem; padding: .55rem .75rem; border: 1px solid #385741; border-radius: .4rem; color: #e4f4d1; font: 700 .84rem "Space Grotesk", sans-serif; font-variant-numeric: tabular-nums; }
+.wallet-chip small { color: #94aa97; font-size: .65rem; }
+.header-credit-button { display: flex; align-items: center; gap: .4rem; min-height: 2.45rem; padding: .5rem .8rem; border-radius: .4rem; background: #c4e77d; color: #15271a; font-size: .8rem; font-weight: 700; transition: background .2s ease, transform .2s ease; }
+.header-credit-button:hover { background: #d8f3a3; transform: translateY(-1px); }
+.header-credit-button:active { transform: scale(.98); }
+.mobile-game-nav { display: none; }
+@media (max-width: 750px) { .site-main-nav { display: none; }.site-header-inner { justify-content: space-between; }.site-header-actions { gap: .6rem; }.account-link { display: none; } }
+@media (max-width: 640px) { .site-header-inner { min-height: 4.2rem; }.brand-name { font-size: .95rem; }.brand-name small { font-size: .47rem; }.brand-symbol { width: 2.2rem; height: 2.2rem; font-size: 1.35rem; }.wallet-chip { padding: .42rem .5rem; font-size: .72rem; }.wallet-chip svg, .language-button, .header-credit-button { display: none; }.mobile-game-nav { position: fixed; z-index: 40; bottom: 0; inset-inline: 0; display: grid; grid-template-columns: repeat(5, 1fr); min-height: 4.2rem; padding-bottom: env(safe-area-inset-bottom); border-top: 1px solid #3b5a42; background: #111f19f2; backdrop-filter: blur(18px); }.mobile-game-nav button { display: grid; place-content: center; justify-items: center; gap: .15rem; color: #9fb5a0; font-size: .62rem; }.mobile-game-nav button[aria-current], .mobile-game-nav .mobile-credit-action { color: #c4e77d; } }
 
 * {
   box-sizing: border-box;

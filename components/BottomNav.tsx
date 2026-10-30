@@ -2,70 +2,20 @@
 
 import { useWallet } from "@/lib/wallet-context";
 import { useLanguage } from "@/lib/language-context";
-import { Disc3, Flame, Plane, Timer, PlusCircle } from "lucide-react";
+import { CircleDollarSign, Dices, Grid2X2, Plane, Target } from "lucide-react";
 
-interface BottomNavProps {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
-}
+interface BottomNavProps { activeTab: string; setActiveTab: (tab: string) => void; }
 
 export function BottomNav({ activeTab, setActiveTab }: BottomNavProps) {
   const { setIsTopUpOpen } = useWallet();
   const { locale } = useLanguage();
-
-  const navItems = [
-    { id: "wingo", label: locale === "bn" ? "উইন গো" : "Win Go", icon: Timer },
-    { id: "dragon-tiger", label: locale === "bn" ? "ড্রাগন" : "D-Tiger", icon: Flame },
-    { id: "wheel", label: locale === "bn" ? "হুইল" : "Wheel", icon: Disc3 },
-    { id: "aviator", label: locale === "bn" ? "এভিয়েটর" : "Aviator", icon: Plane },
+  const bn = locale === "bn";
+  const items = [
+    { id: "wingo", label: "Win Go", icon: Target },
+    { id: "aviator", label: "Aviator", icon: Plane },
+    { id: "mines", label: "Mines", icon: Grid2X2 },
+    { id: "dice", label: "Dice", icon: Dices },
   ];
 
-  return (
-    <nav className="fixed bottom-0 left-0 z-40 w-full border-t border-[#193e87]/60 bg-[#0e1f3d]/95 backdrop-blur-xl sm:hidden">
-      <div className="grid h-16 grid-cols-5 items-center px-2">
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = activeTab === item.id;
-          return (
-            <button
-              key={item.id}
-              onClick={() => {
-                setActiveTab(item.id);
-                const el = document.getElementById("arena-stage");
-                el?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className={`flex flex-col items-center justify-center gap-1 transition-all ${
-                isActive
-                  ? "text-[#fedbbb]"
-                  : "text-gray-400 hover:text-gray-200"
-              }`}
-            >
-              <div
-                className={`relative flex h-8 w-8 items-center justify-center rounded-xl transition-all ${
-                  isActive ? "bg-[#fc7219]/20 text-[#fc7219] border border-[#fc7219]/50 shadow-[0_0_12px_rgba(255,107,0,0.4)]" : ""
-                }`}
-              >
-                <Icon className="h-4 w-4" />
-                {isActive && (
-                  <span className="absolute -bottom-1 h-1 w-1 rounded-full bg-[#fc7219]" />
-                )}
-              </div>
-              <span className="text-[10px] font-black uppercase tracking-tight">{item.label}</span>
-            </button>
-          );
-        })}
-
-        {/* Top Up trigger on bottom bar */}
-        <button
-          onClick={() => setIsTopUpOpen(true)}
-          className="flex flex-col items-center justify-center gap-1 text-[#fc7219] hover:text-[#fedbbb]"
-        >
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#fc7219] text-white shadow-[0_0_15px_rgba(255,107,0,0.5)]">
-            <PlusCircle className="h-4 w-4" />
-          </div>
-          <span className="text-[10px] font-black uppercase tracking-tight">{locale === "bn" ? "রিফিল" : "Refill"}</span>
-        </button>
-      </div>
-    </nav>
-  );
+  return <nav className="mobile-game-nav" aria-label="Quick game navigation">{items.map(({ id, label, icon: Icon }) => <button key={id} aria-current={activeTab === id ? "page" : undefined} onClick={() => setActiveTab(id)}><Icon size={19} /><span>{label}</span></button>)}<button className="mobile-credit-action" onClick={() => setIsTopUpOpen(true)}><CircleDollarSign size={19} /><span>{bn ? "ক্রেডিট" : "Credits"}</span></button></nav>;
 }
