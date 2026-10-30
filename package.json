@@ -7,23 +7,15 @@
     "dev": "next dev",
     "dev:poll": "WATCHPACK_POLLING=true next dev",
     "dev:turbo": "next dev --turbopack",
-    "postinstall": "prisma generate",
-    "build": "prisma generate && next build --webpack",
+    "build": "next build --webpack",
     "start": "next start",
-    "lint": "tsc --noEmit",
-    "db:push": "prisma db push",
-    "db:generate": "prisma generate"
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "7.10.1",
-    "@prisma/client": "7.10.1",
-    "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
-    "dotenv": "^18.0.9",
     "framer-motion": "^14.7.1",
     "lucide-react": "^1.64.0",
     "next": "16.4.3",
-    "next-auth": "5.0.0-beta.32",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "tailwind-merge": "^3.7.0"
@@ -34,9 +26,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "postcss": "^8.5.32",
-    "prisma": "7.10.1",
     "tailwindcss": "^4.3.3",
-    "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }
 }
