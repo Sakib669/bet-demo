@@ -7,64 +7,37 @@ const prisma = new PrismaClient({
 });
 
 async function main() {
-  const adminPasswordHash = await bcrypt.hash("admin123", 10);
-  const playerPasswordHash = await bcrypt.hash("player123", 10);
-
-  // 1. Seed or update Admin
-  const admin = await prisma.user.upsert({
-    where: { mobile: "01700000000" },
-    update: {
-      role: "ADMIN",
-      passwordHash: adminPasswordHash,
-    },
-    create: {
-      name: "System Admin",
-      mobile: "01700000000",
-      username: "admin",
-      passwordHash: adminPasswordHash,
-      role: "ADMIN",
-      wallet: {
-        create: {
-          balance: 999999.0,
-        },
-      },
-    },
-  });
-
-  // 2. Seed or update Default Customer
-  const customer = await prisma.user.upsert({
-    where: { mobile: "01711111111" },
-    update: {
-      passwordHash: playerPasswordHash,
-    },
-    create: {
-      name: "Demo Player",
-      mobile: "01711111111",
-      username: "player_one",
-      passwordHash: playerPasswordHash,
-      role: "CUSTOMER",
-      wallet: {
-        create: {
-          balance: 1000.0,
-        },
-      },
-    },
-  });
-
-  // Ensure customer has wallet
-  const existingWallet = await prisma.wallet.findUnique({
-    where: { userId: customer.id },
-  });
-  if (!existingWallet) {
-    await prisma.wallet.create({
-      data: {
-        userId: customer.id,
-        balance: 1000.0,
-      },
-    });
+  const adminMobile = process.env.ADMIN_MOBILE?.trim();
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminMobile || !/^01[3-9]\d{8}$/.test(adminMobile) || !adminPassword || adminPassword.length < 12) {
+    throw new Error("Set ADMIN_MOBILE to a valid Bangladesh mobile number and ADMIN_PASSWORD to at least 12 characters before seeding.");
   }
+  const adminPasswordHash = await bcrypt.hash(adminPassword, 12);
 
-  console.log("Database seeded successfully with Admin (01700000000 / admin123) and Customer (01711111111 / player123)");
+  await prisma.user.upsert({
+    where: { mobile: adminMobile },
+    update: {
+      role: "ADMIN",
+      passwordHash: adminPasswordHash,
+    },
+    create: {
+      name: "Operator",
+      mobile: adminMobile,
+      username: adminMobile,
+      passwordHash: adminPasswordHash,
+      role: "ADMIN",
+      wallet: {
+        create: {
+          balance: 0,
+        },
+      },
+    },
+  });
+  if (adminMobile !== "01700000000") {
+    await prisma.user.updateMany({ where: { mobile: "01700000000" }, data: { isActive: false } });
+  }
+  await prisma.user.updateMany({ where: { mobile: "01711111111" }, data: { isActive: false } });
+  console.log("Operator account is ready.");
 }
 
 main()

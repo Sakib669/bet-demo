@@ -34,10 +34,11 @@ type GameId = (typeof games)[number]["id"];
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<GameId>("wingo");
-  const { setIsTopUpOpen, refreshWallet } = useWallet();
+  const { setIsTopUpOpen, refreshWallet, isAuthenticated, loading } = useWallet();
   const { locale } = useLanguage();
   const selected = games.find((game) => game.id === activeTab) ?? games[0];
   const bn = locale === "bn";
+  const creditGame = activeTab !== "memory" && activeTab !== "pattern";
 
   const selectGame = (id: GameId) => {
     setActiveTab(id);
@@ -63,6 +64,8 @@ export default function Home() {
       </section>
 
       <section className="arena-section page-shell" id="arena-stage" aria-labelledby="arena-title"><div className="section-heading"><div><p className="eyebrow">02 / NOW PLAYING</p><h2 id="arena-title">{selected.name}</h2></div><span className="arena-label"><Gamepad2 size={16} /> {selected.type}</span></div><div className="arena-frame">
+        {creditGame && !loading && !isAuthenticated ? <div className="arena-signin"><p className="eyebrow">ACCOUNT REQUIRED</p><h3>{bn ? "খেলতে লগইন করুন" : "Sign in to play"}</h3><p>{bn ? "ক্রেডিট গেম খেলতে অ্যাকাউন্ট দরকার। মেমোরি ও প্যাটার্ন গেম বিনামূল্যে খেলতে পারেন।" : "Credit games use your account wallet. Memory Match and Pattern Recall are free to play without signing in."}</p><Link className="button-primary" href="/login">{bn ? "লগইন করুন" : "Sign in"} <ArrowUpRight size={17} /></Link></div> : null}
+        {(!creditGame || (!loading && isAuthenticated)) && <>
         {activeTab === "wingo" && <WinGo onRoundComplete={refreshWallet} />}
         {activeTab === "aviator" && <Aviator onRoundComplete={refreshWallet} />}
         {activeTab === "mines" && <Mines />}
@@ -73,6 +76,7 @@ export default function Home() {
         {activeTab === "penalty" && <PenaltyShootout onRoundComplete={refreshWallet} />}
         {activeTab === "memory" && <MemoryMatch />}
         {activeTab === "pattern" && <PatternRecall />}
+        </>}
       </div></section>
 
       <section className="page-shell credit-section" aria-labelledby="credit-title"><div className="credit-heading"><p className="eyebrow">03 / YOUR WALLET</p><h2 id="credit-title">{bn ? "ক্রেডিট কীভাবে যোগ হয়" : "How credits are added"}</h2><p>{bn ? "বিকাশে পাঠানো টাকা যাচাইয়ের পরেই ওয়ালেটে পয়েন্ট আসে।" : "A claim alone does not add points. An operator checks the bKash transaction first."}</p><button className="button-primary" onClick={() => setIsTopUpOpen(true)}><CreditCard size={17} /> {bn ? "পেমেন্টের তথ্য দিন" : "Start a credit purchase"}</button></div><ol className="credit-steps"><li><span>01</span><div><strong>{bn ? "প্যাক বেছে নিন" : "Choose an amount"}</strong><p>{bn ? "কত ক্রেডিট লাগবে ঠিক করুন।" : "See the credit amount before you pay."}</p></div></li><li><span>02</span><div><strong>{bn ? "বিকাশে পেমেন্ট করুন" : "Pay with bKash"}</strong><p>{bn ? "নম্বর ও TrxID জমা দিন।" : "Submit the sender number and transaction ID."}</p></div></li><li><span>03</span><div><strong>{bn ? "যাচাইয়ের অপেক্ষা" : "Wait for review"}</strong><p>{bn ? "যাচাই হলে ক্রেডিট যোগ হবে।" : "Credits appear only after approval."}</p></div><Check size={18} /></li></ol></section>

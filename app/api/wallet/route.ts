@@ -5,30 +5,15 @@ import { prisma } from "@/lib/prisma";
 export async function GET() {
   try {
     const session = await auth();
-    let userId = session?.user?.id;
+    const userId = session?.user?.id;
+
+    if (!userId) return NextResponse.json({ success: true, isAuthenticated: false, user: null });
 
     let user: any = null;
 
     if (userId) {
       user = await prisma.user.findUnique({
         where: { id: userId },
-        include: {
-          wallet: {
-            include: {
-              transactions: {
-                orderBy: { createdAt: "desc" },
-                take: 15,
-              },
-            },
-          },
-        },
-      });
-    }
-
-    // Fallback to default demo customer if not logged in
-    if (!user) {
-      user = await prisma.user.findUnique({
-        where: { mobile: "01711111111" },
         include: {
           wallet: {
             include: {
@@ -76,14 +61,10 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { action, amount, notes } = body;
 
-    let userId = session?.user?.id;
-    let user = userId
-      ? await prisma.user.findUnique({
+    const userId = session?.user?.id;
+    if (!userId) return NextResponse.json({ success: false, message: "Sign in to access your wallet." }, { status: 401 });
+    const user = await prisma.user.findUnique({
           where: { id: userId },
-          include: { wallet: true },
-        })
-      : await prisma.user.findUnique({
-          where: { mobile: "01711111111" },
           include: { wallet: true },
         });
 

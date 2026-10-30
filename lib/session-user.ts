@@ -13,9 +13,5 @@ export async function getGameUser() {
     if (user && user.wallet) return user;
   }
 
-  // Fallback to default demo customer
-  return await prisma.user.findUnique({
-    where: { mobile: "01711111111" },
-    include: { wallet: true },
-  });
+  return null;
 }

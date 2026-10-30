@@ -70,6 +70,9 @@ h1, h2, h3, h4, button { font-family: "Space Grotesk", "DM Sans", sans-serif; }
 .arena-section { scroll-margin-top: 5rem; }
 .arena-label { display: flex; align-items: center; gap: .5rem; color: #a9bdad; font-size: .85rem; }
 .arena-frame { padding: clamp(.5rem, 2vw, 1.6rem); border: 1px solid #355341; border-radius: 1rem; background: #14241d; }
+.arena-signin { min-height: 20rem; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: clamp(1.5rem, 5vw, 4rem); }
+.arena-signin h3 { margin-top: .5rem; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: -.06em; }
+.arena-signin > p:not(.eyebrow) { max-width: 27rem; margin-block: .8rem 1.5rem; color: #a9bbab; line-height: 1.6; }
 .credit-section { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; padding-block: 6rem; border-top: 1px solid #34503c; }
 .credit-heading > p:not(.eyebrow) { max-width: 26rem; margin-block: 1.3rem 1.8rem; line-height: 1.7; color: #a9bbac; }
 .credit-steps { list-style: none; margin: 0; padding: 0; border-top: 1px solid #45604b; }

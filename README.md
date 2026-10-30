@@ -1,85 +1,44 @@
-# MOSTBET // Provably Fair Gaming Simulation Platform
+# Pulse game room
 
-A full-stack, mobile-responsive e-gaming simulation platform built with **Next.js 16 (App Router)**, **Prisma ORM 7**, **Tailwind CSS 4**, and **PostgreSQL (Local / pgAdmin 4)**.
+A responsive game room built with **Next.js 16**, **Prisma ORM 7**, **Tailwind CSS 4**, and a local PostgreSQL database. The site includes eight credit games, two free skill games, account and wallet records, and a manual bKash credit purchase queue.
 
-Designed following the reverse-engineered **Mostbet Official Portal** architecture: Deep Navy (`#08478E`), Base Canvas (`#040F26`), Action Orange (`#FF6B00`), and Star Gold (`#FFC700`).
-
----
-
-## 🚀 Key Features
-
-1. **Provably Fair Verification (HMAC-SHA256)**:
-   - Every round generates a cryptographic server seed and hashes it via SHA-256 before the bet is placed.
-   - Verifiable deterministic outcomes for Aviator, Penalty Shoot-Out, Mines, Coin Flip, and Dice.
-2. **5 Instant-Win Arcade Games**:
-   - **Aviator Crash**: Real-time climbing flight curve, auto-cashout, and multiplier history pills.
-   - **Penalty Shoot-Out**: 5-goal progressive ladder (up to 30.72x) with animated goalkeeper saves.
-   - **Mines 5x5 Grid**: Step-by-step gem discovery and dynamic risk cashout.
-   - **Coin Flip**: 3D physics coin toss with 1.98x payout.
-   - **Dice Over / Under**: Real-time slider (2.00 to 98.00) with payouts up to 49.50x (99% RTP).
-3. **Bangladeshi Mobile Banking (MFS) Integration**:
-   - Live bKash (`01798-234567`), Nagad, and Rocket numbers with one-click copy.
-   - Step-by-step cash-in / Send Money instructions and TrxID submission.
-4. **Bilingual Localization**:
-   - Seamless dynamic toggle between Bangla (`বাংলা`) and English (`ENG`).
-5. **Admin Control Desk (`/admin`)**:
-   - Passcode-protected administrative dashboard (`hermes_admin_secret_9988`).
-   - One-click manual approval/rejection for simulation requests.
-   - Direct user balance modifier with audit trail.
-   - Live platform ledger inspecting round outcomes and server seeds.
+Pulse uses a dark pine palette, a restrained lime accent, and a single game catalogue across desktop and mobile.
 
 ---
 
-## 🐘 Local PostgreSQL & pgAdmin 4 Setup
+## What is in the app
 
-The project is configured to use your local PostgreSQL database managed via **pgAdmin 4** (no remote/hosted Prisma Postgres required).
+1. **Credit games:** Win Go, Aviator, Mines, Dragon Tiger, Crazy Wheel, Coin Flip, Dice, and Penalty.
+2. **Free skill games:** Memory Match and Pattern Recall. Their best scores stay in this browser.
+3. **Manual bKash review:** an operator configures the receiving number, checks the transaction ID, sender, and amount against the bKash statement, then approves or rejects the claim. Only approval credits the wallet.
+4. **Operations desk:** payment queue, member records, wallet adjustments, and transaction history.
+5. **Language choice:** Bangla and English.
 
-### 1. Configure Connection in `.env`
-Ensure your local PostgreSQL connection string is set in `.env`:
+---
+
+## Local setup
+
+Use Node.js 22 or newer, pnpm, and a local PostgreSQL database. Create an empty `bet_demo` database with pgAdmin or `createdb`.
+
+1. Install dependencies: `pnpm install`.
+2. Copy `.env.example` to `.env` and set your own values:
+
 ```env
 DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/bet_demo?schema=public"
-ADMIN_SECRET_KEY="hermes_admin_secret_9988"
+AUTH_SECRET="a-long-random-secret"
+ADMIN_MOBILE="your-11-digit-mobile-number"
+ADMIN_PASSWORD="a-unique-password-with-at-least-12-characters"
 ```
 
-### 2. Setup Database in pgAdmin 4
-1. Open **pgAdmin 4** on your machine.
-2. Connect to your local PostgreSQL server (`localhost:5432`).
-3. Right-click **Databases** > **Create** > **Database...**, name it `bet_demo` and click **Save**.
-4. Right-click the newly created `bet_demo` database and select **Query Tool**.
-5. Open or paste the contents of [`prisma/schema.sql`](./prisma/schema.sql).
-6. Click **Execute / Run (F5)**.
-   - This creates all 5 tables (`User`, `Wallet`, `Transaction`, `GameRound`, `SimulationRequest`), creates high-performance indexes, and inserts the default demo player `player_one` with 1,000 PTS balance.
+3. Apply the current schema: `pnpm db:push`.
+4. Create or update the operator account: `pnpm exec prisma db seed`. This also disables the old sample accounts if they exist.
+5. Start the app: `pnpm dev` and open [http://localhost:3000](http://localhost:3000).
+6. Sign in with `ADMIN_MOBILE` and `ADMIN_PASSWORD`, then set your **real** receiving bKash number in `/admin/settings`. The purchase form stays disabled until that number is configured.
 
-### 3. Generate Prisma Client (Local PostgreSQL)
-```bash
-npx prisma generate
-```
+Prisma Client is generated during `pnpm install` and `pnpm build`. `prisma/schema.sql` is a legacy snapshot; use the Prisma schema for current setup.
 
-Or push changes directly from schema:
-```bash
-npx prisma db push
-```
+## Payment review
 
----
+Customers submit the amount, sender mobile, and bKash transaction ID. The operator checks those details against the receiving bKash statement and confirms the match in the payment queue. Approval adds the same number of points as the BDT amount and writes a wallet and credit transfer record. Rejecting a claim does not add points. Claims are never verified automatically.
 
-## 🏃 Running the Application
-
-Use Node.js 22 or newer for local development.
-
-### 1. Install Dependencies
-```bash
-pnpm install
-```
-
-### 2. Run the Development Server
-```bash
-pnpm dev
-```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
-## 🔐 Admin Access
-
-- **URL**: [http://localhost:3000/admin](http://localhost:3000/admin)
-- **Passcode**: `hermes_admin_secret_9988`
+Credits are for this site's games. The app has no cash withdrawal or credit redemption feature.
