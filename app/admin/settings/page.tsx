@@ -13,17 +13,18 @@ import {
 
 export default function AdminSettingsPage() {
   const { locale } = useLanguage();
-  const [bkashNumber, setBkashNumber] = useState("01798-234567");
+  const [bkashNumber, setBkashNumber] = useState("");
   const [bkashType, setBkashType] = useState("Personal (Send Money)");
   const [saving, setSaving] = useState(false);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/admin/settings")
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.settings) {
-          if (data.settings.bkash_number) setBkashNumber(data.settings.bkash_number);
+          if (data.settings.bkash_number && data.settings.bkash_number.replace(/\D/g, "") !== "01798234567") setBkashNumber(data.settings.bkash_number);
           if (data.settings.bkash_type) setBkashType(data.settings.bkash_type);
         }
       })
@@ -34,6 +35,7 @@ export default function AdminSettingsPage() {
     e.preventDefault();
     setSaving(true);
     setSuccessMsg(null);
+    setErrorMsg(null);
 
     try {
       const res = await fetch("/api/admin/settings", {
@@ -47,12 +49,12 @@ export default function AdminSettingsPage() {
 
       const data = await res.json();
       if (data.success) {
-        setSuccessMsg("Settings saved. Customer deposit modal updated in real time.");
+        setSuccessMsg("Receiving account saved. Customers can now submit payment details for review.");
       } else {
-        alert(data.message);
+        setErrorMsg(data.message);
       }
     } catch {
-      alert("Error saving settings");
+      setErrorMsg("Could not save the receiving account. Try again.");
     } finally {
       setSaving(false);
     }
@@ -80,6 +82,8 @@ export default function AdminSettingsPage() {
         </div>
       )}
 
+      {errorMsg && <p className="rounded-lg border border-rose-500/40 bg-rose-500/10 p-3 text-sm text-rose-300" role="alert">{errorMsg}</p>}
+
       {/* Settings Form */}
       <form onSubmit={handleSave} className="mst-card rounded-2xl p-6 shadow-xl space-y-5">
         <div className="flex items-center gap-2 text-sm font-black text-white uppercase border-b border-[#345441]/60 pb-3">
@@ -92,7 +96,9 @@ export default function AdminSettingsPage() {
             bKash Mobile Number
           </label>
           <input
-            type="text"
+            type="tel"
+            inputMode="numeric"
+            pattern="01[0-9]{9}"
             required
             value={bkashNumber}
             onChange={(e) => setBkashNumber(e.target.value)}

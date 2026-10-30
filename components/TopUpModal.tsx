@@ -34,7 +34,7 @@ export function TopUpModal() {
   const [activeSubTab, setActiveSubTab] = useState<"deposit" | "history" | "daily">("deposit");
 
   // Dynamic bKash configuration from database
-  const [bkashNumber, setBkashNumber] = useState<string>("01798-234567");
+  const [bkashNumber, setBkashNumber] = useState<string>("");
   const [bkashType, setBkashType] = useState<string>("Personal (Send Money)");
   const [copied, setCopied] = useState<boolean>(false);
 
@@ -62,11 +62,11 @@ export function TopUpModal() {
         .then((res) => res.json())
         .then((data) => {
           if (data.success && data.data) {
-            setBkashNumber(data.data.number || "01798-234567");
+            setBkashNumber(data.data.number || "");
             setBkashType(data.data.type || "Personal (Send Money)");
-          }
+          } else setBkashNumber("");
         })
-        .catch(() => {});
+        .catch(() => setBkashNumber(""));
     }
   }, [isTopUpOpen]);
 
@@ -91,6 +91,7 @@ export function TopUpModal() {
   const rawNumber = bkashNumber.replace(/[-\s]/g, "");
 
   const handleCopyNumber = () => {
+    if (!rawNumber) return;
     navigator.clipboard.writeText(rawNumber);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -101,6 +102,22 @@ export function TopUpModal() {
     setSubmitting(true);
     setSubmitSuccess(null);
     setSubmitError(null);
+
+    if (!isAuthenticated) {
+      setSubmitError(locale === "bn" ? "পেমেন্টের তথ্য দিতে আগে লগইন করুন।" : "Sign in before submitting payment details.");
+      setSubmitting(false);
+      return;
+    }
+    if (!/^01\d{9}$/.test(senderNumber.trim().replace(/[-\s]/g, "")) || !/^[a-zA-Z0-9]{8,20}$/.test(bkashTrxId.trim())) {
+      setSubmitError(locale === "bn" ? "১১ সংখ্যার মোবাইল ও সঠিক TrxID দিন।" : "Enter an 11-digit bKash number and a valid transaction ID.");
+      setSubmitting(false);
+      return;
+    }
+    if (!rawNumber) {
+      setSubmitError(locale === "bn" ? "বিকাশ নম্বর এখনো সেট করা হয়নি।" : "The bKash receiving number is not configured yet.");
+      setSubmitting(false);
+      return;
+    }
 
     try {
       const res = await fetch("/api/deposit/request", {
@@ -166,15 +183,16 @@ export function TopUpModal() {
             </div>
             <div>
               <h3 className="text-base font-black uppercase tracking-tight text-white">
-                {locale === "bn" ? "বিকাশ ডিপোজিট ও টপ-আপ" : "bKash Deposit & Top-Up"}
+                {locale === "bn" ? "বিকাশে ক্রেডিট কিনুন" : "Buy credits with bKash"}
               </h3>
               <p className="text-xs text-gray-400 font-medium">
-                {locale === "bn" ? "১ টাকা = ১ গেম পয়েন্ট (১:১ রেশিও)" : "1 BDT = 1 Game Credit (1:1 Ratio)"}
+                {locale === "bn" ? "১ টাকা = ১ ক্রেডিট। যাচাইয়ের পর যোগ হবে।" : "1 BDT = 1 credit. Added after manual review."}
               </p>
             </div>
           </div>
           <button
             onClick={() => setIsTopUpOpen(false)}
+            aria-label="Close credit purchase"
             className="rounded-xl p-2 text-gray-400 hover:bg-[#345441]/40 hover:text-white transition-colors"
           >
             <X className="h-4 w-4" />
@@ -229,11 +247,11 @@ export function TopUpModal() {
                 <div>
                   <span className="text-[10px] font-mono font-bold uppercase text-[#e2f4c6] flex items-center gap-1">
                     <span className="h-2 w-2 rounded-full bg-[#E2136E] animate-pulse" />
-                    {locale === "bn" ? "অফিসিয়াল বিকাশ নম্বর" : "Official bKash Number"}
+                    {locale === "bn" ? "ক্রেডিট পেমেন্ট নম্বর" : "Credit payment number"}
                   </span>
                   <div className="flex items-baseline gap-2 mt-0.5">
                     <span className="font-mono text-xl sm:text-2xl font-black text-white tracking-wider tabular-nums">
-                      {bkashNumber}
+                      {bkashNumber || (locale === "bn" ? "এখনো সেট করা হয়নি" : "Not configured yet")}
                     </span>
                   </div>
                   <span className="text-[10px] font-semibold text-gray-400 block mt-0.5">
@@ -244,6 +262,7 @@ export function TopUpModal() {
                 <button
                   type="button"
                   onClick={handleCopyNumber}
+                  disabled={!bkashNumber}
                   className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all ${
                     copied
                       ? "bg-emerald-500 text-white shadow-[0_0_12px_rgba(16,185,129,0.5)]"
@@ -286,7 +305,7 @@ export function TopUpModal() {
                 </span>
               </div>
               <div className="grid grid-cols-4 gap-2 mb-2">
-                {[500, 1000, 2500, 5000].map((amt) => (
+                {[100, 250, 500, 1000].map((amt) => (
                   <button
                     key={amt}
                     type="button"
@@ -310,7 +329,9 @@ export function TopUpModal() {
                   {locale === "bn" ? "আপনার বিকাশ নম্বর" : "Your bKash Number"}
                 </label>
                 <input
-                  type="text"
+                  type="tel"
+                  inputMode="numeric"
+                  pattern="01[0-9]{9}"
                   required
                   value={senderNumber}
                   onChange={(e) => setSenderNumber(e.target.value)}
@@ -325,6 +346,7 @@ export function TopUpModal() {
                 </label>
                 <input
                   type="text"
+                  pattern="[A-Za-z0-9]{8,20}"
                   required
                   value={bkashTrxId}
                   onChange={(e) => setBkashTrxId(e.target.value)}
@@ -348,9 +370,12 @@ export function TopUpModal() {
               </div>
             )}
 
+            {!bkashNumber && <p className="text-xs text-amber-300">{locale === "bn" ? "অপারেটর নম্বর সেট না করা পর্যন্ত পেমেন্ট পাঠাবেন না।" : "Do not send payment until an operator configures the receiving number."}</p>}
+            {!isAuthenticated && <p className="text-xs text-amber-300">{locale === "bn" ? "ক্রেডিট পেতে আগে লগইন করুন।" : "Sign in to link a purchase to your wallet."}</p>}
+
             <button
               type="submit"
-              disabled={submitting}
+              disabled={submitting || !bkashNumber || !isAuthenticated}
               className="btn-action-orange w-full rounded-xl py-3.5 text-xs font-black tracking-wider uppercase text-white shadow-[0_4px_14px_rgba(255,107,0,0.4)] active:scale-98 disabled:opacity-50 flex items-center justify-center gap-2"
             >
               <Send className="h-4 w-4" />
@@ -360,8 +385,8 @@ export function TopUpModal() {
                     ? "পাঠানো হচ্ছে..."
                     : "SUBMITTING..."
                   : locale === "bn"
-                  ? `বিকাশ ডিপোজিট রিকোয়েস্ট (${amount} BDT)`
-                  : `SUBMIT DEPOSIT REQUEST (${amount} BDT)`}
+                  ? `পেমেন্ট যাচাইয়ের অনুরোধ (${amount} টাকা)`
+                  : `Submit for review (${amount} BDT)`}
               </span>
             </button>
           </form>

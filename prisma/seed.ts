@@ -64,25 +64,6 @@ async function main() {
     });
   }
 
-  // 3. Seed SiteSetting for bKash
-  await prisma.siteSetting.upsert({
-    where: { key: "bkash_number" },
-    update: {},
-    create: {
-      key: "bkash_number",
-      value: "01798-234567",
-    },
-  });
-
-  await prisma.siteSetting.upsert({
-    where: { key: "bkash_type" },
-    update: {},
-    create: {
-      key: "bkash_type",
-      value: "Personal (Send Money)",
-    },
-  });
-
   console.log("Database seeded successfully with Admin (01700000000 / admin123) and Customer (01711111111 / player123)");
 }
 

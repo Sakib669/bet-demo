@@ -10,7 +10,8 @@ export async function GET() {
       where: { key: "bkash_type" },
     });
 
-    const bkashNumber = numberSetting?.value || "01798-234567";
+    const configuredNumber = numberSetting?.value || "";
+    const bkashNumber = configuredNumber.replace(/\D/g, "") === "01798234567" ? "" : configuredNumber;
     const cleanNumber = bkashNumber.replace(/[-\s]/g, "");
 
     return NextResponse.json({
@@ -24,17 +25,6 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Fetch bKash settings error:", error);
-    return NextResponse.json(
-      {
-        success: true,
-        data: {
-          number: "01798-234567",
-          rawNumber: "01798234567",
-          type: "Personal (Send Money)",
-          ussd: "*247#",
-        },
-      },
-      { status: 200 }
-    );
+    return NextResponse.json({ success: false, message: "Payment settings are unavailable." }, { status: 503 });
   }
 }

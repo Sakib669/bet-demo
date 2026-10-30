@@ -44,7 +44,14 @@ export async function PUT(req: Request) {
     const body = await req.json();
     const { bkash_number, bkash_type } = body;
 
-    if (bkash_number && typeof bkash_number === "string") {
+    if (typeof bkash_number !== "string" || !/^01\d{9}$/.test(bkash_number.replace(/[-\s]/g, "")) || bkash_number.replace(/[-\s]/g, "") === "01798234567") {
+      return NextResponse.json({ success: false, message: "Enter a real 11-digit bKash receiving number." }, { status: 400 });
+    }
+    if (!["Personal (Send Money)", "Merchant (Payment)", "Agent (Cash In)"].includes(bkash_type)) {
+      return NextResponse.json({ success: false, message: "Choose a valid bKash account type." }, { status: 400 });
+    }
+
+    if (bkash_number) {
       await prisma.siteSetting.upsert({
         where: { key: "bkash_number" },
         update: { value: bkash_number.trim() },
@@ -52,7 +59,7 @@ export async function PUT(req: Request) {
       });
     }
 
-    if (bkash_type && typeof bkash_type === "string") {
+    if (bkash_type) {
       await prisma.siteSetting.upsert({
         where: { key: "bkash_type" },
         update: { value: bkash_type.trim() },

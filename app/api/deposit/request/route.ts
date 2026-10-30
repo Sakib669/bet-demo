@@ -17,21 +17,21 @@ export async function POST(req: Request) {
     const { amount, bkashTrxId, senderNumber } = body;
     const numAmount = Number(amount);
 
-    if (isNaN(numAmount) || numAmount < 10) {
+    if (!Number.isInteger(numAmount) || numAmount < 100 || numAmount > 5000) {
       return NextResponse.json(
-        { success: false, message: "Minimum deposit amount is 10 BDT" },
+        { success: false, message: "Choose an amount from 100 to 5,000 BDT." },
         { status: 400 }
       );
     }
 
-    if (!bkashTrxId || typeof bkashTrxId !== "string" || bkashTrxId.trim().length < 4) {
+    if (typeof bkashTrxId !== "string" || !/^[a-zA-Z0-9]{8,20}$/.test(bkashTrxId.trim())) {
       return NextResponse.json(
         { success: false, message: "Valid bKash Transaction ID (TrxID) is required" },
         { status: 400 }
       );
     }
 
-    if (!senderNumber || typeof senderNumber !== "string") {
+    if (typeof senderNumber !== "string" || !/^01\d{9}$/.test(senderNumber.trim().replace(/[-\s]/g, ""))) {
       return NextResponse.json(
         { success: false, message: "Sender bKash mobile number is required" },
         { status: 400 }
@@ -40,6 +40,11 @@ export async function POST(req: Request) {
 
     const cleanTrxId = bkashTrxId.trim().toUpperCase();
     const cleanSender = senderNumber.trim().replace(/[-\s]/g, "");
+
+    const recipient = await prisma.siteSetting.findUnique({ where: { key: "bkash_number" } });
+    if (!recipient?.value || recipient.value.replace(/\D/g, "") === "01798234567") {
+      return NextResponse.json({ success: false, message: "Credit purchases are not available until the receiving account is configured." }, { status: 503 });
+    }
 
     // Check for duplicate TrxID
     const existing = await prisma.depositRequest.findUnique({
@@ -68,7 +73,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       success: true,
-      message: "Payment request submitted successfully. Admin will verify and credit your wallet shortly.",
+      message: "Payment details submitted. Credits will be added after the operator verifies the transaction.",
       deposit: depositRequest,
     });
   } catch (error) {
