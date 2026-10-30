@@ -35,7 +35,7 @@ ADMIN_PASSWORD="a-unique-password-with-at-least-12-characters"
 5. Start the app: `pnpm dev` and open [http://localhost:3000](http://localhost:3000).
 6. Sign in with `ADMIN_MOBILE` and `ADMIN_PASSWORD`, then set your **real** receiving bKash number in `/admin/settings`. The purchase form stays disabled until that number is configured.
 
-Prisma Client is generated during `pnpm install` and `pnpm build`. `prisma/schema.sql` is a legacy snapshot; use the Prisma schema for current setup.
+Prisma Client is generated during `pnpm install` and `pnpm build`. The current database structure is defined in `prisma/schema.prisma`.
 
 ## Payment review
 
