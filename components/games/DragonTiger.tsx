@@ -38,7 +38,7 @@ export function DragonTiger({ onRoundComplete }: DragonTigerProps) {
   const [lastWin, setLastWin] = useState<{ amount: number; won: boolean; tieRefund?: boolean } | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  // Bead plate road history (CV666 Asian table standard)
+  // Bead plate road history
   const [roadHistory, setRoadHistory] = useState<Array<"DRAGON" | "TIGER" | "TIE">>([
     "DRAGON",
     "TIGER",

@@ -199,7 +199,7 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
 
   return (
     <div className="mst-card relative overflow-hidden rounded-2xl border border-[#345441]/70 bg-[#182b21] p-4 sm:p-6 shadow-2xl">
-      {/* CV666 Header Banner */}
+      {/* Game header */}
       <div className="mb-4 flex flex-wrap items-center justify-between border-b border-[#345441]/50 pb-3 gap-2">
         <div className="flex items-center gap-2">
           <div className="h-3 w-3 rounded-full bg-emerald-400 animate-ping" />
@@ -332,7 +332,7 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
         <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
           {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => {
             const isSelected = selectedBet === `NUM_${num}`;
-            // Determine badge color matching CV666
+            // Determine badge color for this game
             const isRedViolet = num === 0;
             const isGreenViolet = num === 5;
             const isGreen = [1, 3, 7, 9].includes(num);
@@ -454,7 +454,7 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
         </button>
       </div>
 
-      {/* History Pill Ribbon (CV666 Lottery Style) */}
+      {/* History Pill Ribbon */}
       <div className="border-t border-[#345441]/50 pt-4">
         <div className="mb-2 flex items-center justify-between text-xs">
           <div className="flex items-center gap-1.5 font-bold uppercase text-gray-300">

@@ -59,7 +59,7 @@ export function CasinoVerticalGameCard({
           </span>
         </div>
 
-        {/* Center Hover Play Icon Overlay (Mostbet UX) */}
+        {/* Center Hover Play Icon Overlay */}
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-[#182b21]/85 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 p-4">
           {/* Circular Play Button */}
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-tr from-[#c4e77d] to-[#e2f4c6] text-white shadow-[0_0_20px_rgba(255,107,0,0.6)] transition-transform duration-200 group-hover:scale-110">
