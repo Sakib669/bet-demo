@@ -1,5 +1,7 @@
 "use client";
 
+import { localFetch } from "@/lib/browser-db";
+
 import { useState } from "react";
 import { useWallet } from "@/lib/wallet-context";
 import { useLanguage } from "@/lib/language-context";
@@ -7,7 +9,7 @@ import { formatCurrency } from "@/lib/utils";
 import {
   CRAZY_WHEEL_SEGMENTS,
   WheelSegment,
-} from "@/lib/provably-fair";
+} from "@/lib/game-data";
 import {
   Sparkles,
   Trophy,
@@ -45,7 +47,7 @@ export function CrazyWheel({ onRoundComplete }: CrazyWheelProps) {
     setLastWin(null);
 
     try {
-      const res = await fetch("/api/games/wheel", {
+      const res = await localFetch("/api/games/wheel", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -1,5 +1,7 @@
 "use client";
 
+import { localFetch } from "@/lib/browser-db";
+
 import { useState, useEffect, useRef } from "react";
 import { useWallet } from "@/lib/wallet-context";
 import { useLanguage } from "@/lib/language-context";
@@ -67,7 +69,7 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
     setServerSeed(null);
 
     try {
-      const res = await fetch("/api/games/aviator", {
+      const res = await localFetch("/api/games/aviator", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -135,7 +137,7 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
     }
 
     try {
-      const res = await fetch("/api/games/aviator", {
+      const res = await localFetch("/api/games/aviator", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

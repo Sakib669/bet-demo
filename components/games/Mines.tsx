@@ -1,5 +1,7 @@
 "use client";
 
+import { localFetch } from "@/lib/browser-db";
+
 import { useState } from "react";
 import { useWallet } from "@/lib/wallet-context";
 import { useLanguage } from "@/lib/language-context";
@@ -45,7 +47,7 @@ export function Mines() {
     setLastPayout(0);
 
     try {
-      const res = await fetch("/api/games/mines", {
+      const res = await localFetch("/api/games/mines", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -80,7 +82,7 @@ export function Mines() {
     setTileLoading(tileIndex);
 
     try {
-      const res = await fetch("/api/games/mines", {
+      const res = await localFetch("/api/games/mines", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -131,7 +133,7 @@ export function Mines() {
     setCashoutLoading(true);
 
     try {
-      const res = await fetch("/api/games/mines", {
+      const res = await localFetch("/api/games/mines", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

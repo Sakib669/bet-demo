@@ -1,5 +1,7 @@
 "use client";
 
+import { localFetch } from "@/lib/browser-db";
+
 import { useState } from "react";
 import { useWallet } from "@/lib/wallet-context";
 import { useLanguage } from "@/lib/language-context";
@@ -62,7 +64,7 @@ export function PenaltyShootout({ onRoundComplete }: PenaltyShootoutProps) {
     setServerSeed(null);
 
     try {
-      const res = await fetch("/api/games/penalty", {
+      const res = await localFetch("/api/games/penalty", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -98,7 +100,7 @@ export function PenaltyShootout({ onRoundComplete }: PenaltyShootoutProps) {
     setLastShotSpot(spotId);
 
     try {
-      const res = await fetch("/api/games/penalty", {
+      const res = await localFetch("/api/games/penalty", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -149,7 +151,7 @@ export function PenaltyShootout({ onRoundComplete }: PenaltyShootoutProps) {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/games/penalty", {
+      const res = await localFetch("/api/games/penalty", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

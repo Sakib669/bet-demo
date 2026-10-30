@@ -1,5 +1,7 @@
 "use client";
 
+import { localFetch } from "@/lib/browser-db";
+
 import { useState } from "react";
 import { useWallet } from "@/lib/wallet-context";
 import { useLanguage } from "@/lib/language-context";
@@ -36,7 +38,7 @@ export function CoinFlip() {
     setLastWin(null);
 
     try {
-      const res = await fetch("/api/games/coin-flip", {
+      const res = await localFetch("/api/games/coin-flip", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ betAmount, choice }),

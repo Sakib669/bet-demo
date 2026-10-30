@@ -1,5 +1,7 @@
 "use client";
 
+import { localFetch } from "@/lib/browser-db";
+
 import { useState, useEffect, useRef } from "react";
 import { useWallet } from "@/lib/wallet-context";
 import { useLanguage } from "@/lib/language-context";
@@ -74,7 +76,7 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
     const currentRoundId = activeRoundRef.current;
     if (currentRoundId) {
       try {
-        const res = await fetch("/api/games/wingo", {
+        const res = await localFetch("/api/games/wingo", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -155,7 +157,7 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
     setLastWin(null);
 
     try {
-      const res = await fetch("/api/games/wingo", {
+      const res = await localFetch("/api/games/wingo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

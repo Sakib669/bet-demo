@@ -1,5 +1,7 @@
 "use client";
 
+import { localFetch } from "@/lib/browser-db";
+
 import { useState } from "react";
 import { useWallet } from "@/lib/wallet-context";
 import { useLanguage } from "@/lib/language-context";
@@ -41,7 +43,7 @@ export function DiceRoll() {
     setLastWin(null);
 
     try {
-      const res = await fetch("/api/games/dice", {
+      const res = await localFetch("/api/games/dice", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ betAmount, target, condition }),

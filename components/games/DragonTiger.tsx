@@ -1,5 +1,7 @@
 "use client";
 
+import { localFetch } from "@/lib/browser-db";
+
 import { useState } from "react";
 import { useWallet } from "@/lib/wallet-context";
 import { useLanguage } from "@/lib/language-context";
@@ -59,7 +61,7 @@ export function DragonTiger({ onRoundComplete }: DragonTigerProps) {
     setLastWin(null);
 
     try {
-      const res = await fetch("/api/games/dragon-tiger", {
+      const res = await localFetch("/api/games/dragon-tiger", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
