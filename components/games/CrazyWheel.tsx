@@ -104,7 +104,7 @@ export function CrazyWheel({ onRoundComplete }: CrazyWheelProps) {
 
         <div className="flex items-center gap-1.5 text-xs font-mono text-[#e2f4c6]">
           <ShieldCheck className="h-4 w-4" />
-          <span>Provably Fair</span>
+          <span>Browser random</span>
         </div>
       </div>
 

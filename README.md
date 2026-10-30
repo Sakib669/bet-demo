@@ -1,44 +1,20 @@
 # Pulse game room
 
-A responsive game room built with **Next.js 16**, **Prisma ORM 7**, **Tailwind CSS 4**, and a local PostgreSQL database. The site includes eight credit games, two free skill games, account and wallet records, and a manual bKash credit purchase queue.
+A responsive Next.js 16 game room with eight credit games, two free puzzle games, an operator desk, and a manual bKash review preview. All accounts, wallets, rounds, settings, and payment claims are stored in the current browser's `localStorage`. No database server or environment variables are required.
 
-Pulse uses a dark pine palette, a restrained lime accent, and a single game catalogue across desktop and mobile.
+## Run locally
 
----
+Use Node.js 22 or newer and pnpm:
 
-## What is in the app
-
-1. **Credit games:** Win Go, Aviator, Mines, Dragon Tiger, Crazy Wheel, Coin Flip, Dice, and Penalty.
-2. **Free skill games:** Memory Match and Pattern Recall. Their best scores stay in this browser.
-3. **Manual bKash review:** an operator configures the receiving number, checks the transaction ID, sender, and amount against the bKash statement, then approves or rejects the claim. Only approval credits the wallet.
-4. **Operations desk:** payment queue, member records, wallet adjustments, and transaction history.
-5. **Language choice:** Bangla and English.
-
----
-
-## Local setup
-
-Use Node.js 22 or newer, pnpm, and a local PostgreSQL database. Create an empty `bet_demo` database with pgAdmin or `createdb`.
-
-1. Install dependencies: `pnpm install`.
-2. Copy `.env.example` to `.env` and set your own values:
-
-```env
-DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/bet_demo?schema=public"
-AUTH_SECRET="a-long-random-secret"
-ADMIN_MOBILE="your-11-digit-mobile-number"
-ADMIN_PASSWORD="a-unique-password-with-at-least-12-characters"
+```sh
+pnpm install
+pnpm dev
 ```
 
-3. Apply the current schema: `pnpm db:push`.
-4. Create or update the operator account: `pnpm exec prisma db seed`. This also disables the old sample accounts if they exist.
-5. Start the app: `pnpm dev` and open [http://localhost:3000](http://localhost:3000).
-6. Sign in with `ADMIN_MOBILE` and `ADMIN_PASSWORD`, then set your **real** receiving bKash number in `/admin/settings`. The purchase form stays disabled until that number is configured.
+Open `http://localhost:3000`. The first account registered in a browser profile becomes its operator. Register another account in the same profile to create a player. The operator can set a bKash receiving number under **Operations → Settings**. A player can then submit a claim from **Credits**, and the operator can review it under **Payment queue** after checking the bKash statement. Approval adds the same number of points as the claimed BDT amount. The game room also offers 250 free points once every 24 hours for testing.
 
-Prisma Client is generated during `pnpm install` and `pnpm build`. The current database structure is defined in `prisma/schema.prisma`.
+## Limits of browser storage
 
-## Payment review
+This is a single-browser preview. Different devices and browser profiles do not share accounts or payment claims. Clearing site data removes all records, and anyone with browser access can edit balances or approvals using developer tools. Consequently this cannot safely fulfill real customer payments or serve as an authoritative revenue ledger. A shared server database and server-side authorization are required before accepting real money. The interface states this limitation wherever a payment can be submitted or reviewed.
 
-Customers submit the amount, sender mobile, and bKash transaction ID. The operator checks those details against the receiving bKash statement and confirms the match in the payment queue. Approval adds the same number of points as the BDT amount and writes a wallet and credit transfer record. Rejecting a claim does not add points. Claims are never verified automatically.
-
-Credits are for this site's games. The app has no cash withdrawal or credit redemption feature.
+Credit game outcomes are generated in the browser. Their records are useful for trying the interface, but cannot provide independent fairness verification.

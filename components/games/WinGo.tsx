@@ -461,7 +461,7 @@ export function WinGo({ onRoundComplete }: WinGoProps) {
             <History className="h-4 w-4 text-[#c4e77d]" />
             <span>{locale === "bn" ? "সাম্প্রতিক ফলাফল হিস্ট্রি" : "Past Rounds History"}</span>
           </div>
-          <span className="font-mono text-[10px] text-gray-500">Provably Fair</span>
+          <span className="font-mono text-[10px] text-gray-500">Browser random</span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">

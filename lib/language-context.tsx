@@ -8,7 +8,7 @@ export const translations = {
   en: {
     // Navigation
     appName: "PULSE",
-    provablyFairBadge: "PROVABLY FAIR",
+    provablyFairBadge: "BROWSER RANDOM",
     tagline: "Quick games. Clear rules.",
     simCredits: "Game credits",
     refillCredits: "Buy credits",
@@ -29,7 +29,7 @@ export const translations = {
     latency: "Execution Latency",
     latencyDesc: "Results appear after each round",
     auditStandard: "Audit Standard",
-    auditStandardDesc: "HMAC Deterministic Seeds",
+    auditStandardDesc: "Browser-generated results",
     ledgerModel: "Ledger Model",
     ledgerModelDesc: "Double-Entry Balance",
 
@@ -71,9 +71,9 @@ export const translations = {
     flipping: "Resolving Outcome...",
     wonMsg: "Won",
     lossMsg: "Loss — Try Next Flip",
-    provablyFair: "Provably Fair",
-    sha256Hash: "Deterministic SHA-256 Seed Hash",
-    copyHash: "Copy Hash",
+    provablyFair: "Browser random",
+    sha256Hash: "Local round reference",
+    copyHash: "Copy reference",
     copied: "Copied",
 
     // Dice Game
@@ -101,9 +101,9 @@ export const translations = {
     liveActivity: "Live Activity Feed",
     streaming: "STREAMING",
     platformBlueprint: "Platform Blueprint",
-    blueprintDesc: "Some games reveal a server seed after a round so you can inspect the recorded result.",
+    blueprintDesc: "Game rounds and their results are recorded in this browser.",
     rngStandard: "RNG Standard",
-    databaseSync: "Database Sync",
+    databaseSync: "Browser storage",
     stateEngine: "State Engine",
 
     // TopUp Modal
@@ -139,7 +139,7 @@ export const translations = {
     rejectBtn: "Reject",
     directModifier: "Direct Balance Modifier",
     applyAdjustment: "Apply Adjustment",
-    recentLedger: "Recent Game Rounds & Provably Fair Seeds",
+    recentLedger: "Recent Game Rounds & Browser random Seeds",
     noPendingReqs: "No payment claims are waiting for review.",
 
     // Footer
@@ -151,7 +151,7 @@ export const translations = {
   bn: {
     // Navigation
     appName: "পালস",
-    provablyFairBadge: "শতভাগ স্বচ্ছ",
+    provablyFairBadge: "ব্রাউজার র‍্যান্ডম",
     tagline: "ছোট গেম। পরিষ্কার নিয়ম।",
     simCredits: "গেম ক্রেডিট",
     refillCredits: "ক্রেডিট কিনুন",
@@ -172,7 +172,7 @@ export const translations = {
     latency: "রেসপন্স টাইম",
     latencyDesc: "প্রতি রাউন্ডের পর ফলাফল",
     auditStandard: "যাচাইকরণ মান",
-    auditStandardDesc: "HMAC-SHA256 অ্যালগরিদম",
+    auditStandardDesc: "ব্রাউজারে তৈরি ফলাফল",
     ledgerModel: "লেজার মডেল",
     ledgerModelDesc: "ডাবল-এন্ট্রি ব্যালেন্স বুক",
 
@@ -214,9 +214,9 @@ export const translations = {
     flipping: "ফলাফল যাচাই হচ্ছে...",
     wonMsg: "জিতেছেন",
     lossMsg: "পরাজিত — আবার চেষ্টা করুন",
-    provablyFair: "প্রোভ্যাবলি ফেয়ার",
-    sha256Hash: "SHA-256 সার্ভার সিড হ্যাশ",
-    copyHash: "হ্যাশ কপি করুন",
+    provablyFair: "ব্রাউজার র‍্যান্ডম",
+    sha256Hash: "লোকাল রাউন্ড রেফারেন্স",
+    copyHash: "রেফারেন্স কপি করুন",
     copied: "কপি সম্পন্ন",
 
     // Dice Game
@@ -246,7 +246,7 @@ export const translations = {
     platformBlueprint: "প্ল্যাটফর্ম ব্লুপ্রিন্ট",
     blueprintDesc: "কিছু গেম রাউন্ড শেষে সার্ভার সিড দেখায়, যাতে আপনি ফলাফলের তথ্য পরীক্ষা করতে পারেন।",
     rngStandard: "আরএনজি মানদণ্ড",
-    databaseSync: "ডাটাবেস সিঙ্ক",
+    databaseSync: "ব্রাউজার স্টোরেজ",
     stateEngine: "স্টেট ইঞ্জিন",
 
     // TopUp Modal

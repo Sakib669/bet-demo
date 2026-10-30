@@ -395,7 +395,7 @@ export default function UserDetailPage({
         <div className="mb-4 flex items-center justify-between border-b border-[#345441]/60 pb-3">
           <h2 className="text-sm font-black uppercase text-white flex items-center gap-2">
             <Activity className="h-4 w-4 text-[#e2f4c6]" />
-            <span>{locale === "bn" ? "সাম্প্রতিক গেম রাউন্ড ও সিড লগ" : "Recent Game Rounds & Provably Fair Logs"}</span>
+            <span>{locale === "bn" ? "সাম্প্রতিক গেম রাউন্ড ও সিড লগ" : "Recent Game Rounds & Browser random Logs"}</span>
           </h2>
           <span className="font-mono text-xs text-gray-400">Last 50 Rounds</span>
         </div>
@@ -413,7 +413,7 @@ export default function UserDetailPage({
                   <th className="pb-2.5">Multiplier</th>
                   <th className="pb-2.5">Payout</th>
                   <th className="pb-2.5">Status</th>
-                  <th className="pb-2.5">CSPRNG Server Seed</th>
+                  <th className="pb-2.5">Local round reference</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#345441]/30">

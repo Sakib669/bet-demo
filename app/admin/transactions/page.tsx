@@ -103,7 +103,7 @@ export default function AdminTransactionsPage() {
           <p className="text-xs text-[#aabdab]">
             {locale === "bn"
               ? "প্রকৃত বিকাশ আয় এবং গেম পয়েন্ট স্থানান্তরের পৃথক ও অপরিবর্তনীয় অডিট রেজিস্টার"
-              : "Reconcile verified bKash real-money income and virtual game credit distributions"}
+              : "Review locally approved bKash claims and game credit changes"}
           </p>
         </div>
 
@@ -156,13 +156,13 @@ export default function AdminTransactionsPage() {
 
         <div className="mst-card rounded-2xl p-5 border-[#345441]/70">
           <span className="text-xs font-bold uppercase text-gray-400 block mb-1">
-            Audit Security
+            Record location
           </span>
           <span className="font-mono text-sm font-black text-emerald-400 uppercase block mt-1">
-            ACID Double-Entry
+            This browser only
           </span>
           <span className="text-[10px] text-gray-400 font-mono block mt-1">
-            PostgreSQL Immutable
+            Editable browser data
           </span>
         </div>
       </div>

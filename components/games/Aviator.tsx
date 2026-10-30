@@ -459,16 +459,16 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
         </button>
       )}
 
-      {/* Provably Fair Audit Drawer */}
+      {/* Browser random Audit Drawer */}
       <div className="mt-4 rounded-xl border border-[#345441]/40 bg-[#0c1714] p-3 text-xs text-gray-400 flex items-center justify-between">
         <div className="flex items-center gap-1.5">
           <ShieldCheck className="h-4 w-4 text-[#e2f4c6]" />
           <span className="font-bold uppercase tracking-wider text-gray-300">
-            {locale === "bn" ? "প্রুভেবলি ফেয়ার অডিট" : "Provably Fair Verification"}
+            {locale === "bn" ? "ব্রাউজারের রাউন্ড তথ্য" : "Local round record"}
           </span>
         </div>
         <div className="font-mono text-[10px] text-gray-500 max-w-[200px] truncate">
-          {seedHash ? `Hash: ${seedHash.slice(0, 16)}...` : "SHA-256 HMAC Pre-Committed"}
+          {seedHash ? `Round: ${seedHash.slice(0, 16)}...` : "Browser-generated round"}
         </div>
       </div>
     </div>
