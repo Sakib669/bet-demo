@@ -163,6 +163,7 @@ h1, h2, h3, h4, button { font-family: "Space Grotesk", "DM Sans", sans-serif; }
 @media (max-width: 640px) { .skill-game-header { align-items: start; flex-direction: column; }.skill-game-stats { gap: 1rem; justify-content: space-between; }.memory-grid { gap: .4rem; }.memory-card { aspect-ratio: 1; } }
 .btn-action-orange { background: #c4e77d !important; color: #13271a !important; box-shadow: none !important; border-radius: .45rem; }
 .btn-action-orange:hover { background: #d8f1a3 !important; }
+.mst-card { background: #17291f !important; border: 1px solid #385640 !important; box-shadow: none !important; backdrop-filter: none !important; }
 @media (max-width: 750px) { .auth-shell { grid-template-columns: 1fr; min-height: auto; gap: 2rem; padding-block: 2.5rem 4rem; }.auth-aside { min-height: 13rem; padding: 1.5rem; }.auth-aside h2 { margin-block: .9rem .5rem; font-size: 2.6rem; }.auth-aside > span { display: none; }.auth-panel { width: 100%; } }
 @media (max-width: 750px) { .admin-header { align-items: start; flex-direction: column; padding-block: 2rem 1rem; }.admin-header-actions { gap: .4rem; }.admin-nav { gap: 1.2rem; }.admin-content { padding-block: 1.5rem; } }
 @media (max-width: 750px) { .site-main-nav { display: none; }.site-header-inner { justify-content: space-between; }.site-header-actions { gap: .6rem; }.account-link { display: none; } }

@@ -25,8 +25,8 @@ interface WalletContextType {
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
 
 export function WalletProvider({ children }: { children: React.ReactNode }) {
-  const [balance, setBalance] = useState<number>(1000.0);
-  const [username, setUsername] = useState<string>("player_one");
+  const [balance, setBalance] = useState<number>(0);
+  const [username, setUsername] = useState<string>("");
   const [user, setUser] = useState<CurrentUser | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -37,7 +37,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
       const res = await fetch("/api/wallet");
       const data = await res.json();
       if (data.success && data.user) {
-        setBalance(data.user.wallet?.balance ?? 1000.0);
+        setBalance(data.user.wallet?.balance ?? 0);
         setUsername(data.user.name || data.user.mobile || "Player");
         setUser({
           id: data.user.id,
@@ -47,9 +47,16 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
           role: data.user.role,
         });
         setIsAuthenticated(!!data.isAuthenticated);
+      } else {
+        setBalance(0);
+        setUser(null);
+        setIsAuthenticated(false);
       }
     } catch (err) {
       console.error("Failed to fetch wallet:", err);
+      setBalance(0);
+      setUser(null);
+      setIsAuthenticated(false);
     } finally {
       setLoading(false);
     }
