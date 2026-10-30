@@ -17,7 +17,7 @@ export async function POST(
 
     const { id } = await params;
     const body = await req.json();
-    const { action, adminNote } = body;
+    const { action, adminNote, verifiedOnStatement } = body;
 
     if (!["APPROVE", "REJECT"].includes(action)) {
       return NextResponse.json(
@@ -26,11 +26,15 @@ export async function POST(
       );
     }
 
+    if (action === "APPROVE" && verifiedOnStatement !== true) {
+      return NextResponse.json({ success: false, message: "Confirm that this payment appears in the receiving bKash statement before approving." }, { status: 400 });
+    }
+
     const adminId = (session.user as any).id;
 
     // Execute atomic review inside interactive transaction
     const result = await prisma.$transaction(async (tx) => {
-      // Fetch request with lock
+      // Load the claim, then claim its pending status atomically below.
       const deposit = await tx.depositRequest.findUnique({
         where: { id },
         include: {
@@ -48,16 +52,20 @@ export async function POST(
         throw new Error(`Deposit request is already ${deposit.status.toLowerCase()}`);
       }
 
+      const reviewedAt = new Date();
+      const update = await tx.depositRequest.updateMany({
+        where: { id, status: "PENDING" },
+        data: {
+          status: action === "APPROVE" ? "APPROVED" : "REJECTED",
+          adminNote: typeof adminNote === "string" && adminNote.trim() ? adminNote.trim().slice(0, 500) : action === "APPROVE" ? "Payment matched in bKash statement" : "Payment could not be verified",
+          reviewedById: adminId,
+          reviewedAt,
+        },
+      });
+      if (update.count !== 1) throw new Error("This payment has already been reviewed.");
+
       if (action === "REJECT") {
-        const updatedDeposit = await tx.depositRequest.update({
-          where: { id },
-          data: {
-            status: "REJECTED",
-            adminNote: adminNote || "Payment verification failed or TrxID invalid",
-            reviewedById: adminId,
-            reviewedAt: new Date(),
-          },
-        });
+        const updatedDeposit = await tx.depositRequest.findUniqueOrThrow({ where: { id } });
 
         return { deposit: updatedDeposit, action: "REJECTED" };
       }
@@ -97,15 +105,7 @@ export async function POST(
       });
 
       // 4. Update deposit status
-      const updatedDeposit = await tx.depositRequest.update({
-        where: { id },
-        data: {
-          status: "APPROVED",
-          adminNote: adminNote || "Payment confirmed via bKash",
-          reviewedById: adminId,
-          reviewedAt: new Date(),
-        },
-      });
+      const updatedDeposit = await tx.depositRequest.findUniqueOrThrow({ where: { id } });
 
       // 5. Create CreditTransfer audit record
       await tx.creditTransfer.create({

@@ -6,8 +6,6 @@ import { formatCurrency } from "@/lib/utils";
 import { useLanguage } from "@/lib/language-context";
 import {
   ShieldAlert,
-  CheckCircle2,
-  XCircle,
   Coins,
   History,
   Sparkles,
@@ -43,7 +41,6 @@ export default function AdminDashboardPage() {
     totalIncomeBDT: 0,
     totalCreditsIssuedPTS: 0,
   });
-  const [actionMsg, setActionMsg] = useState<string | null>(null);
 
   const fetchDashboardData = useCallback(async () => {
     setLoading(true);
@@ -78,25 +75,6 @@ export default function AdminDashboardPage() {
     fetchDashboardData();
   }, [fetchDashboardData]);
 
-  const handleReview = async (id: string, action: "APPROVE" | "REJECT") => {
-    try {
-      const res = await fetch(`/api/admin/deposits/${id}/review`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setActionMsg(data.message);
-        await fetchDashboardData();
-      } else {
-        alert(data.message);
-      }
-    } catch {
-      alert("Error processing review");
-    }
-  };
-
   return (
     <div className="space-y-6">
       {/* Top Banner */}
@@ -121,13 +99,6 @@ export default function AdminDashboardPage() {
           <span>{locale === "bn" ? "রিফ্রেশ" : "Refresh"}</span>
         </button>
       </div>
-
-      {actionMsg && (
-        <div className="flex items-center gap-2 rounded-xl border border-emerald-500/50 bg-emerald-500/10 p-3.5 text-xs font-bold text-emerald-400">
-          <CheckCircle2 className="h-4 w-4 shrink-0" />
-          <span>{actionMsg}</span>
-        </div>
-      )}
 
       {/* KPI Metric Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -248,21 +219,7 @@ export default function AdminDashboardPage() {
                     <td className="py-3.5 font-mono font-bold text-white">{dep.bkashTrxId}</td>
                     <td className="py-3.5 font-mono text-gray-400">{dep.senderNumber}</td>
                     <td className="py-3.5 text-right space-x-2">
-                      <button
-                        onClick={() => handleReview(dep.id, "APPROVE")}
-                        className="inline-flex items-center gap-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40 px-3 py-1.5 font-black uppercase text-emerald-400 hover:bg-emerald-500/30 transition-all active:scale-95 text-[11px]"
-                      >
-                        <CheckCircle2 className="h-3.5 w-3.5" />
-                        <span>{locale === "bn" ? "অনুমোদন" : "Approve"}</span>
-                      </button>
-
-                      <button
-                        onClick={() => handleReview(dep.id, "REJECT")}
-                        className="inline-flex items-center gap-1 rounded-lg bg-rose-500/20 border border-rose-500/40 px-3 py-1.5 font-black uppercase text-rose-400 hover:bg-rose-500/30 transition-all active:scale-95 text-[11px]"
-                      >
-                        <XCircle className="h-3.5 w-3.5" />
-                        <span>{locale === "bn" ? "বাতিল" : "Reject"}</span>
-                      </button>
+                      <Link href="/admin/payments" className="inline-flex items-center gap-1 rounded-md border border-[#55704f] px-3 py-1.5 font-bold text-[#d5ebbc] hover:border-[#c4e77d]">{locale === "bn" ? "যাচাই করুন" : "Review"} <ArrowRight className="h-3.5 w-3.5" /></Link>
                     </td>
                   </tr>
                 ))}

@@ -42,6 +42,10 @@ export default function AdminPaymentsPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [deposits, setDeposits] = useState<DepositItem[]>([]);
   const [actionMsg, setActionMsg] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [approveId, setApproveId] = useState<string | null>(null);
+  const [verifiedOnStatement, setVerifiedOnStatement] = useState(false);
+  const [reviewing, setReviewing] = useState(false);
 
   // Reject modal state
   const [rejectId, setRejectId] = useState<string | null>(null);
@@ -66,23 +70,28 @@ export default function AdminPaymentsPage() {
     fetchDeposits();
   }, [fetchDeposits]);
 
-  const handleApprove = async (id: string) => {
+  const handleApprove = async () => {
+    if (!approveId || !verifiedOnStatement) return;
+    setReviewing(true);
+    setErrorMsg(null);
     try {
-      const res = await fetch(`/api/admin/deposits/${id}/review`, {
+      const res = await fetch(`/api/admin/deposits/${approveId}/review`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "APPROVE" }),
+        body: JSON.stringify({ action: "APPROVE", verifiedOnStatement: true }),
       });
       const data = await res.json();
       if (data.success) {
         setActionMsg(data.message);
+        setApproveId(null);
+        setVerifiedOnStatement(false);
         await fetchDeposits();
       } else {
-        alert(data.message);
+        setErrorMsg(data.message);
       }
     } catch {
-      alert("Error approving request");
-    }
+      setErrorMsg("Could not approve this payment. Try again.");
+    } finally { setReviewing(false); }
   };
 
   const handleConfirmReject = async () => {
@@ -103,10 +112,10 @@ export default function AdminPaymentsPage() {
         setRejectNote("");
         await fetchDeposits();
       } else {
-        alert(data.message);
+        setErrorMsg(data.message);
       }
     } catch {
-      alert("Error rejecting request");
+      setErrorMsg("Could not reject this payment. Try again.");
     }
   };
 
@@ -152,6 +161,7 @@ export default function AdminPaymentsPage() {
           <span>{actionMsg}</span>
         </div>
       )}
+      {errorMsg && <p className="rounded-lg border border-rose-500/40 bg-rose-500/10 p-3 text-sm text-rose-300" role="alert">{errorMsg}</p>}
 
       {/* Filter Tabs & Search Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
@@ -265,7 +275,7 @@ export default function AdminPaymentsPage() {
                       {isPending ? (
                         <div className="space-x-2">
                           <button
-                            onClick={() => handleApprove(dep.id)}
+                            onClick={() => { setApproveId(dep.id); setVerifiedOnStatement(false); setErrorMsg(null); }}
                             className="inline-flex items-center gap-1 rounded-lg bg-emerald-500/20 border border-emerald-500/50 px-2.5 py-1.5 font-black uppercase text-emerald-400 hover:bg-emerald-500/30 transition-all active:scale-95 text-[11px]"
                           >
                             <CheckCircle2 className="h-3.5 w-3.5" />
@@ -291,6 +301,12 @@ export default function AdminPaymentsPage() {
           </table>
         )}
       </div>
+
+      {approveId && (() => {
+        const payment = deposits.find((item) => item.id === approveId);
+        if (!payment) return null;
+        return <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="approve-title"><div className="w-full max-w-md rounded-xl border border-[#55704f] bg-[#182b21] p-6"><p className="eyebrow">PAYMENT / MANUAL REVIEW</p><h3 id="approve-title" className="mt-2 text-2xl font-bold tracking-tight">Verify before crediting</h3><p className="mt-3 text-sm text-[#aabdab]">Check your receiving bKash statement. Match the transaction ID, sender, and amount before adding points.</p><dl className="mt-5 space-y-2 border-y border-[#345441] py-4 text-sm"><div className="flex justify-between gap-4"><dt>Amount</dt><dd className="font-mono text-white">{formatCurrency(payment.amount)} BDT</dd></div><div className="flex justify-between gap-4"><dt>TrxID</dt><dd className="font-mono text-white">{payment.bkashTrxId}</dd></div><div className="flex justify-between gap-4"><dt>Sender</dt><dd className="font-mono text-white">{payment.senderNumber}</dd></div><div className="flex justify-between gap-4"><dt>Customer</dt><dd className="text-white">{payment.user.name}</dd></div></dl><label className="mt-5 flex items-start gap-3 text-sm text-white"><input type="checkbox" className="mt-1 accent-[#c4e77d]" checked={verifiedOnStatement} onChange={(event) => setVerifiedOnStatement(event.target.checked)} /><span>I found this exact payment in the receiving bKash statement.</span></label>{errorMsg && <p className="mt-3 text-sm text-rose-300" role="alert">{errorMsg}</p>}<div className="mt-6 flex justify-end gap-3"><button className="px-3 py-2 text-sm text-[#aabdab]" onClick={() => setApproveId(null)}>Cancel</button><button className="button-primary" disabled={!verifiedOnStatement || reviewing} onClick={handleApprove}>{reviewing ? "Saving…" : `Approve ${formatCurrency(payment.amount)} PTS`}</button></div></div></div>;
+      })()}
 
       {/* Reject Modal */}
       {rejectId && (
