@@ -73,7 +73,7 @@ function game(db: Database, user: User, slug: string, body: any): any {
     const outcome = { number, color, size }; round.state.outcome = outcome; return { ...settle(db, user, round, multiplier), outcome };
   }
   if (slug === "aviator") {
-    if (body.action === "START") { const crashMultiplier = Math.min(100, Math.max(1, money(.99 / (1 - random(10000) / 10000)))); const round = startRound(db, user, "AVIATOR", amount, { crashMultiplier }); return "id" in round ? { success: true, roundId: round.id, seedHash: round.serverSeed, newBalance: user.balance } : round; }
+    if (body.action === "START") { const crashMultiplier = Math.min(100, Math.max(1, money(.99 / (1 - random(10000) / 10000)))); const round = startRound(db, user, "AVIATOR", amount, { crashMultiplier }); return "id" in round ? { success: true, roundId: round.id, seedHash: round.serverSeed, crashMultiplier, newBalance: user.balance } : round; }
     const round = activeRound(db, user, body.roundId, "AVIATOR"); if (!round) return error("Round not found or already settled.");
     const crashMultiplier = round.state.crashMultiplier; if (body.action === "CRASH") { settle(db, user, round, 0); return { success: true, won: false, crashMultiplier, serverSeed: round.serverSeed }; }
     const claim = Number(body.claimedMultiplier); const won = Number.isFinite(claim) && claim >= 1 && claim < crashMultiplier; return { ...settle(db, user, round, won ? Math.min(claim, 100) : 0), crashMultiplier };

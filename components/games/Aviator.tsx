@@ -39,8 +39,8 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [winPayout, setWinPayout] = useState<number | null>(null);
 
-  // Past rounds multiplier history bar (Mostbet Aviator pill style)
-  const [history, setHistory] = useState<number[]>([1.34, 2.45, 1.12, 5.82, 1.05, 3.19, 14.6]);
+  // Past rounds multiplier history bar
+  const [history, setHistory] = useState<number[]>([]);
 
   const animationFrameRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(0);
@@ -88,6 +88,7 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
 
       setRoundId(data.roundId);
       setSeedHash(data.seedHash);
+      targetCrashRef.current = data.crashMultiplier;
       await refreshWallet();
 
       // Begin smooth visual flight curve
@@ -115,6 +116,11 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
       const mult = parseFloat(rawMult.toFixed(2));
       currentMultRef.current = mult;
       setCurrentMultiplier(mult);
+
+      if (mult >= targetCrashRef.current) {
+        handleCashOut(activeRoundId, mult);
+        return;
+      }
 
       // Check auto-cashout condition
       if (autoCashout && mult >= autoCashoutTarget) {
@@ -180,7 +186,7 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
 
   return (
     <div className="mst-card relative overflow-hidden rounded-2xl border border-[#345441]/60 bg-[#182b21] p-4 sm:p-6 shadow-2xl">
-      {/* Top Multiplier History Bar (Mostbet Aviator Header) */}
+      {/* Top Multiplier History Bar */}
       <div className="mb-4 flex items-center justify-between border-b border-[#345441]/40 pb-3">
         <div className="flex items-center gap-2">
           <Plane className="h-5 w-5 text-[#c4e77d]" />
@@ -429,7 +435,7 @@ export function Aviator({ onRoundComplete }: AviatorProps) {
         </div>
       </div>
 
-      {/* Primary Action Button (Mostbet Action Orange) */}
+      {/* Primary Action Button */}
       {gameState === "FLYING" ? (
         <button
           onClick={() => handleCashOut()}
