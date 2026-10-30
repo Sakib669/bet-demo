@@ -3,127 +3,20 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { ArrowLeft, Globe2, LogOut } from "lucide-react";
 import { useLanguage } from "@/lib/language-context";
-import {
-  LayoutDashboard,
-  CreditCard,
-  Users,
-  Receipt,
-  Settings,
-  LogOut,
-  Shield,
-  Star,
-  Languages,
-  ArrowLeft,
-} from "lucide-react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { locale, toggleLocale } = useLanguage();
-
-  const navLinks = [
-    {
-      href: "/admin/dashboard",
-      label: locale === "bn" ? "ড্যাশবোর্ড" : "Dashboard",
-      icon: LayoutDashboard,
-    },
-    {
-      href: "/admin/payments",
-      label: locale === "bn" ? "পেমেন্ট রিকোয়েস্ট" : "Payment Requests",
-      icon: CreditCard,
-    },
-    {
-      href: "/admin/users",
-      label: locale === "bn" ? "ইউজার ও অ্যানালিটিক্স" : "Users & Analytics",
-      icon: Users,
-    },
-    {
-      href: "/admin/transactions",
-      label: locale === "bn" ? "ট্রানজেকশন লেজার" : "Audit Ledgers",
-      icon: Receipt,
-    },
-    {
-      href: "/admin/settings",
-      label: locale === "bn" ? "সেটিংস" : "Settings",
-      icon: Settings,
-    },
+  const bn = locale === "bn";
+  const links = [
+    { href: "/admin/dashboard", en: "Overview", bn: "ওভারভিউ" },
+    { href: "/admin/payments", en: "Payment queue", bn: "পেমেন্ট" },
+    { href: "/admin/users", en: "Members", bn: "সদস্য" },
+    { href: "/admin/transactions", en: "Ledger", bn: "লেজার" },
+    { href: "/admin/settings", en: "Settings", bn: "সেটিংস" },
   ];
 
-  return (
-    <div className="min-h-screen bg-[#0a1410] text-white flex flex-col md:flex-row">
-      {/* Sidebar Navigation */}
-      <aside className="w-full md:w-64 shrink-0 border-b md:border-b-0 md:border-r border-[#345441]/60 bg-[#182b21] p-4 flex flex-col justify-between">
-        <div>
-          {/* Admin Header */}
-          <div className="flex items-center gap-3 border-b border-[#345441]/60 pb-4 mb-5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-[#c4e77d] to-[#e2f4c6] text-white shadow-[0_0_15px_rgba(255,107,0,0.4)]">
-              <Shield className="h-5 w-5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-sm font-black uppercase tracking-tight text-white">
-                  PULSE ADMIN
-                </span>
-                <span className="rounded bg-[#e2f4c6] px-1.5 py-0.2 text-[8px] font-black text-[#0c1714] uppercase">
-                  OPERATOR
-                </span>
-              </div>
-              <p className="text-[10px] text-[#aabdab] font-mono">Operations desk</p>
-            </div>
-          </div>
-
-          {/* Navigation Items */}
-          <nav className="space-y-1.5">
-            {navLinks.map((item) => {
-              const Icon = item.icon;
-              const isActive = pathname === item.href || (item.href !== "/admin/dashboard" && pathname.startsWith(item.href));
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all ${
-                    isActive
-                      ? "bg-[#c4e77d] text-white shadow-[0_0_15px_rgba(255,107,0,0.35)]"
-                      : "text-gray-300 hover:bg-[#345441]/40 hover:text-white"
-                  }`}
-                >
-                  <Icon className="h-4 w-4 shrink-0" />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
-          </nav>
-        </div>
-
-        {/* Sidebar Footer Controls */}
-        <div className="border-t border-[#345441]/60 pt-4 mt-6 space-y-2">
-          {/* Language Toggle */}
-          <button
-            onClick={toggleLocale}
-            className="w-full flex items-center justify-between rounded-xl border border-white/10 bg-[#0c1714] px-3.5 py-2 text-xs font-bold text-gray-300 hover:text-white transition-colors"
-          >
-            <div className="flex items-center gap-2">
-              <Languages className="h-3.5 w-3.5 text-[#e2f4c6]" />
-              <span>Language</span>
-            </div>
-            <span className="font-mono text-[10px] text-[#e2f4c6]">{locale === "bn" ? "বাংলা" : "ENG"}</span>
-          </button>
-
-          {/* Logout Action */}
-          <button
-            onClick={() => signOut({ callbackUrl: "/login" })}
-            className="w-full flex items-center gap-2 rounded-xl border border-rose-500/30 bg-rose-500/10 px-3.5 py-2 text-xs font-bold text-rose-400 hover:bg-rose-500/20 transition-colors"
-          >
-            <LogOut className="h-3.5 w-3.5" />
-            <span>{locale === "bn" ? "অ্যাডমিন লগআউট" : "Sign Out"}</span>
-          </button>
-        </div>
-      </aside>
-
-      {/* Main Content Stage */}
-      <main className="flex-1 overflow-x-hidden p-4 sm:p-6 lg:p-8">
-        {children}
-      </main>
-    </div>
-  );
+  return <div className="admin-shell"><div className="page-shell admin-header"><div><p className="eyebrow">PULSE / OPERATIONS</p><h1>{bn ? "অপারেশন ডেস্ক" : "Operations desk"}</h1><p>{bn ? "পেমেন্ট যাচাই, ক্রেডিট ও সদস্য ব্যবস্থাপনা" : "Review payments, manage credits, and keep records clear."}</p></div><div className="admin-header-actions"><Link href="/"><ArrowLeft size={16} /> {bn ? "গেম রুম" : "Game room"}</Link><button onClick={toggleLocale}><Globe2 size={16} /> {bn ? "BN" : "EN"}</button><button onClick={() => signOut({ callbackUrl: "/login" })}><LogOut size={16} /> {bn ? "লগআউট" : "Sign out"}</button></div></div><nav className="page-shell admin-nav" aria-label="Admin navigation">{links.map((link) => <Link key={link.href} href={link.href} aria-current={pathname === link.href || (link.href !== "/admin/dashboard" && pathname.startsWith(link.href)) ? "page" : undefined}>{bn ? link.bn : link.en}</Link>)}</nav><div className="page-shell admin-content">{children}</div></div>;
 }

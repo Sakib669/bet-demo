@@ -107,6 +107,19 @@ h1, h2, h3, h4, button { font-family: "Space Grotesk", "DM Sans", sans-serif; }
 .header-credit-button:hover { background: #d8f3a3; transform: translateY(-1px); }
 .header-credit-button:active { transform: scale(.98); }
 .mobile-game-nav { display: none; }
+.admin-shell { min-height: 100dvh; background: #0a1410; padding-bottom: 5rem; }
+.admin-header { display: flex; align-items: end; justify-content: space-between; gap: 2rem; padding-block: 3.5rem 2rem; }
+.admin-header h1 { margin-block: .55rem; font-size: clamp(2.7rem, 5vw, 5rem); letter-spacing: -.065em; line-height: .95; }
+.admin-header p:not(.eyebrow) { color: #a5b7a6; font-size: .9rem; }
+.admin-header-actions { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
+.admin-header-actions a, .admin-header-actions button { display: inline-flex; align-items: center; gap: .4rem; padding: .6rem .75rem; border: 1px solid #3b5943; border-radius: .4rem; color: #c4d4bf; font-size: .75rem; font-weight: 600; }
+.admin-header-actions a:hover, .admin-header-actions button:hover { border-color: #c4e77d; color: #eaf4d7; }
+.admin-nav { display: flex; gap: 1.8rem; overflow-x: auto; border-bottom: 1px solid #395441; }
+.admin-nav a { flex: 0 0 auto; padding: .85rem .1rem; border-bottom: 2px solid transparent; color: #9eb09f; font-size: .85rem; font-weight: 600; white-space: nowrap; }
+.admin-nav a:hover, .admin-nav a[aria-current] { color: #e8f5d5; }
+.admin-nav a[aria-current] { border-color: #c4e77d; }
+.admin-content { padding-block: 2.5rem; }
+@media (max-width: 750px) { .admin-header { align-items: start; flex-direction: column; padding-block: 2rem 1rem; }.admin-header-actions { gap: .4rem; }.admin-nav { gap: 1.2rem; }.admin-content { padding-block: 1.5rem; } }
 @media (max-width: 750px) { .site-main-nav { display: none; }.site-header-inner { justify-content: space-between; }.site-header-actions { gap: .6rem; }.account-link { display: none; } }
 @media (max-width: 640px) { .site-header-inner { min-height: 4.2rem; }.brand-name { font-size: .95rem; }.brand-name small { font-size: .47rem; }.brand-symbol { width: 2.2rem; height: 2.2rem; font-size: 1.35rem; }.wallet-chip { padding: .42rem .5rem; font-size: .72rem; }.wallet-chip svg, .header-credit-button { display: none; }.language-button, .account-link { display: flex; font-size: .68rem; }.language-button svg { display: none; }.mobile-game-nav { position: fixed; z-index: 40; bottom: 0; inset-inline: 0; display: grid; grid-template-columns: repeat(5, 1fr); min-height: 4.2rem; padding-bottom: env(safe-area-inset-bottom); border-top: 1px solid #3b5a42; background: #111f19f2; backdrop-filter: blur(18px); }.mobile-game-nav button { display: grid; place-content: center; justify-items: center; gap: .15rem; color: #9fb5a0; font-size: .62rem; }.mobile-game-nav button[aria-current], .mobile-game-nav .mobile-credit-action { color: #c4e77d; } }
 
