@@ -135,6 +135,13 @@ h1, h2, h3, h4, button { font-family: "Space Grotesk", "DM Sans", sans-serif; }
 .not-found-page > strong { color: #c4e77d; font: 700 clamp(7rem, 19vw, 17rem)/.9 "Space Grotesk", sans-serif; letter-spacing: -.13em; }
 .not-found-page h1 { margin-top: .5rem; font-size: clamp(2rem, 4vw, 4rem); letter-spacing: -.06em; }
 .not-found-page > p:not(.eyebrow) { max-width: 28rem; margin-block: .9rem 2rem; color: #a9bcab; line-height: 1.65; }
+.info-page { max-width: 52rem; padding-block: 5rem 7rem; }
+.info-page h1 { margin-top: .8rem; font-size: clamp(3rem, 7vw, 6rem); line-height: .95; letter-spacing: -.075em; }
+.info-lead { max-width: 37rem; margin-block: 1.2rem 3rem; color: #b1c3b0; font-size: 1.15rem; line-height: 1.6; }
+.info-page section { padding-block: 1.6rem; border-top: 1px solid #385440; }
+.info-page section h2 { font-size: 1.3rem; letter-spacing: -.04em; }
+.info-page section p { max-width: 41rem; margin-top: .65rem; color: #a9bcaa; font-size: .9rem; line-height: 1.75; }
+.info-page > a { margin-top: 1.6rem; }
 .skill-game { max-width: 49rem; margin-inline: auto; padding: clamp(1rem, 3vw, 2rem); }
 .skill-game-header { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; margin-bottom: 1.8rem; }
 .skill-game-header h3 { margin-top: .5rem; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: -.065em; line-height: 1; }

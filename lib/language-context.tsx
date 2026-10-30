@@ -314,7 +314,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocale] = useState<Locale>("bn"); // Default to Bangla for Bangladeshi users!
 
   useEffect(() => {
-    const saved = localStorage.getItem("hermes_locale") as Locale;
+    const saved = (localStorage.getItem("pulse:locale") || localStorage.getItem("hermes_locale")) as Locale;
     if (saved && (saved === "en" || saved === "bn")) {
       setLocale(saved);
     }
@@ -322,7 +322,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const handleSetLocale = (newLocale: Locale) => {
     setLocale(newLocale);
-    localStorage.setItem("hermes_locale", newLocale);
+    localStorage.setItem("pulse:locale", newLocale);
   };
 
   const toggleLocale = () => {
